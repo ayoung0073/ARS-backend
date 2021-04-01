@@ -1,4 +1,4 @@
-package com.may.ars.domain.entity;
+package com.may.ars.model.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
