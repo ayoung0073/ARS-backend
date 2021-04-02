@@ -13,3 +13,6 @@ spring:
 
 kakao:
   client_id: 5354f1c1ec547c553355a726f5d4b288
+
+ars:
+  secret_key: algorithmreviewservicealgorithmreviewservicealgorithmreviewservicealgorithmreviewservicealgorithmreviewservicealgorithmreviewservice
