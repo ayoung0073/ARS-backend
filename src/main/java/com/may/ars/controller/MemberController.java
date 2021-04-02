@@ -1,11 +1,14 @@
 package com.may.ars.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.may.ars.dto.JwtPayload;
 import com.may.ars.dto.KakaoProfile;
 import com.may.ars.dto.MemberDto;
 import com.may.ars.dto.OAuthToken;
 import com.may.ars.enums.SocialType;
 import com.may.ars.model.entity.Member;
+import com.may.ars.service.JwtService;
 import com.may.ars.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,12 +18,15 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Optional;
 
 @Slf4j
@@ -33,6 +39,7 @@ public class MemberController {
     private String kakaoClientId;
 
     private final MemberService memberService;
+    private final JwtService jwtService;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -46,7 +53,7 @@ public class MemberController {
      * @see /user/kakao/callback
      */
     @GetMapping("/kakao/callback")
-    public String kakaoCallback(String code) throws Exception {
+    public String kakaoCallback(String code, Model model) throws Exception {
 
         RestTemplate rt = new RestTemplate();
 
@@ -80,7 +87,6 @@ public class MemberController {
         headers2.add("Authorization", "Bearer " + oAuthToken.getAccess_token());
         headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-
         HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest =
                 new HttpEntity<>(headers2);
 
@@ -92,14 +98,15 @@ public class MemberController {
                 String.class
         );
 
-
         ObjectMapper objectMapper2 = new ObjectMapper();
         KakaoProfile kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
 
         Optional<Member> optional = memberService.findMemberByEmail(kakaoProfile.getKakao_account().getEmail());
 
+        MemberDto memberDto;
+
         if (optional.isEmpty()) { // 회원가입 처리
-            MemberDto memberDto = new MemberDto();
+            memberDto = new MemberDto();
             memberDto.setEmail(kakaoProfile.getKakao_account().getEmail());
             memberDto.setNickname(kakaoProfile.getProperties().getNickname());
             memberDto.setSocialType(SocialType.KAKAO);
@@ -107,10 +114,19 @@ public class MemberController {
             memberService.saveMember(memberDto);
         }
         else { // 로그인 처리
-            MemberDto memberDto = MemberDto.fromEntity(optional.get());
+            memberDto = MemberDto.fromEntity(optional.get());
         }
 
-        return "redirect:/";
+        // 액세스 토큰 발급
 
+        JwtPayload jwtPayload = new JwtPayload(memberDto.getMemberId(), memberDto.getEmail());
+        String token = jwtService.createToken(jwtPayload);
+
+        model.addAttribute("access_token", token);
+
+        log.info("토큰 발급 : " + token);
+
+        return "index";
     }
+
 }

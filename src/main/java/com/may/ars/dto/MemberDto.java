@@ -3,14 +3,12 @@ package com.may.ars.dto;
 import com.may.ars.enums.RoleType;
 import com.may.ars.enums.SocialType;
 import com.may.ars.model.entity.Member;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class MemberDto {
 
     private long memberId;
