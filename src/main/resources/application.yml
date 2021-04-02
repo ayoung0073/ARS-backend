@@ -10,3 +10,6 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+kakao:
+  client_id: 5354f1c1ec547c553355a726f5d4b288

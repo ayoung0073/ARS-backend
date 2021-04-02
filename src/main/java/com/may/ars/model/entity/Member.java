@@ -1,5 +1,7 @@
 package com.may.ars.model.entity;
 
+import com.may.ars.enums.RoleType;
+import com.may.ars.enums.SocialType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +24,11 @@ public class Member extends BaseEntity {
     @Column(unique = true)
     private String email;
 
-    private String socialType;
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    @Enumerated(EnumType.STRING)
+    private SocialType socialType;
 
     private String nickname;
 }
