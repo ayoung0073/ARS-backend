@@ -20,7 +20,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.Optional;
 
 @Slf4j
@@ -56,7 +55,7 @@ public class MemberController {
     public String kakaoCallback(String code, Model model) throws Exception {
 
         RestTemplate rt = new RestTemplate();
-
+        log.info("code : " + code);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
@@ -85,7 +84,7 @@ public class MemberController {
 
         HttpHeaders headers2 = new HttpHeaders();
         headers2.add("Authorization", "Bearer " + oAuthToken.getAccess_token());
-        headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        headers2.add("Content-type","application/x-www-form-urlencoded;charset=utf-8");
 
         HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest =
                 new HttpEntity<>(headers2);
@@ -121,9 +120,10 @@ public class MemberController {
         JwtPayload jwtPayload = new JwtPayload(memberDto.getMemberId(), memberDto.getEmail());
         String token = jwtService.createToken(jwtPayload);
 
-       model.addAttribute("access_token", token);
-
         log.info("토큰 발급 : " + token);
+
+        model.addAttribute("access_token", token);
+        model.addAttribute("nickname", memberDto.getNickname());
 
         return "index";
     }
@@ -152,7 +152,7 @@ public class MemberController {
                 new HttpEntity<>(params, headers);
 
         ResponseEntity<String> response = rt.exchange(
-                "https://oauth2.googleapis.com/token?grant_type=authorization_code",
+                "https://oauth2.googleapis.com/token",
                 HttpMethod.POST,
                 googleTokenRequest,
                 String.class
@@ -163,14 +163,15 @@ public class MemberController {
 
         RestTemplate rt2 = new RestTemplate();
 
+
         HttpHeaders headers2 = new HttpHeaders();
         headers2.add("Authorization", "Bearer " + oAuthToken.getAccess_token());
-        headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+//        headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         HttpEntity<MultiValueMap<String, String>> googleProfileRequest =
                 new HttpEntity<>(headers2);
 
-        // 구 프로필 정보 받기
+        // 구글 프로필 정보 받기
         ResponseEntity<String> response2 = rt2.exchange(
                 "https://www.googleapis.com/oauth2/v3/userinfo",
                 HttpMethod.POST,
@@ -196,7 +197,7 @@ public class MemberController {
 
             memberService.saveMember(memberDto);
         }
-        else { // 로그인 처리인
+        else { // 로그인 처리
             log.info(googleProfile.getEmail() + " : 로그인 처리");
             memberDto = MemberDto.fromEntity(optional.get());
         }
@@ -205,11 +206,12 @@ public class MemberController {
         JwtPayload jwtPayload = new JwtPayload(memberDto.getMemberId(), memberDto.getEmail());
         String token = jwtService.createToken(jwtPayload);
 
-        model.addAttribute("access_token", token);
-
         log.info("토큰 발급 : " + token);
 
-        return "index";
+        model.addAttribute("access_token", token);
+        model.addAttribute("nickname", memberDto.getNickname());
+
+        return "index"; // redirect 안하면 토큰 다시 요청.
     }
 
 }

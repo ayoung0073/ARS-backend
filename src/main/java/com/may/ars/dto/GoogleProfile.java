@@ -20,4 +20,6 @@ public class GoogleProfile {
     private boolean email_verified;
 
     private String locale;
+
+    private String hd;
 }
