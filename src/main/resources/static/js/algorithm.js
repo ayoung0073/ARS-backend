@@ -7,20 +7,21 @@ let index = {
 
     register: function () {
 
-        let tag = [];
+        let tagList = [];
         let tagArr = document.getElementsByClassName("btn-tag");
         for (let i = 0; i < tagArr.length; i++) {
-            tag.push(tagArr[i].value);
+            tagList.push(tagArr[i].value);
         }
 
         let data = {
             title: $("#title").val(),
-            content: $("#content").val(),
+            review: $("#markdown").text(),
             link: $("#link").val(),
-            tag: tag
+            tagList: tagList
         }
 
         console.log(data);
+
         $.ajax({
             type: "POST",
             url: "/api/problem",

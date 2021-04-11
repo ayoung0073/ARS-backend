@@ -1,7 +1,8 @@
-package com.may.ars.model.entity;
+package com.may.ars.model.entity.member;
 
 import com.may.ars.enums.RoleType;
 import com.may.ars.enums.SocialType;
+import com.may.ars.model.entity.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

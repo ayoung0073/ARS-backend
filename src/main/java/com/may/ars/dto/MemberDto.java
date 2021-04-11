@@ -2,7 +2,7 @@ package com.may.ars.dto;
 
 import com.may.ars.enums.RoleType;
 import com.may.ars.enums.SocialType;
-import com.may.ars.model.entity.Member;
+import com.may.ars.model.entity.member.Member;
 import lombok.*;
 
 @NoArgsConstructor

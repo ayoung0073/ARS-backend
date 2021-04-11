@@ -2,8 +2,8 @@ package com.may.ars.service;
 
 import com.may.ars.dto.MemberDto;
 import com.may.ars.enums.RoleType;
-import com.may.ars.model.entity.Member;
-import com.may.ars.model.entity.MemberRepository;
+import com.may.ars.model.entity.member.Member;
+import com.may.ars.model.entity.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
