@@ -1,0 +1,8 @@
+@charset "UTF-8";
+
+.btn-tag {
+    background-color: darkgrey;
+    color: white;
+    border:none;
+    border-radius: 20px;
+}

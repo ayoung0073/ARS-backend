@@ -164,6 +164,7 @@ public class MemberController {
         RestTemplate rt2 = new RestTemplate();
 
 
+        
         HttpHeaders headers2 = new HttpHeaders();
         headers2.add("Authorization", "Bearer " + oAuthToken.getAccess_token());
 //        headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");

@@ -1,0 +1,66 @@
+{{>layout/header}}
+
+<div class="container">
+    <div class="register-form">
+        <form>
+            <div class="form-group">
+                <label for="title">제목(문제)</label>
+                <input type="text" class="form-control" id="title">
+            </div>
+
+            <div class="form-group">
+                <label for="title">문제 링크</label>
+                <textarea class="form-control" rows="1" id="link"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="title">TAG</label>
+                <input type="text" class="form-control" id="tag"/>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $("#tag").keydown(function (key) {
+                        if (key.keyCode == 13) { // 엔터키 이벤
+                            key.preventDefault();
+                            let tagName = $("#tag").val();
+                            let tagBlock = document.getElementById("tag-block");
+                            tagBlock.innerHTML += ` <button class="btn-tag" value="${tagName}">` + tagName + "</button> "
+                            $("#tag").val("");
+                        }
+                    });
+                });
+            </script>
+
+            <div id="tag-block">
+
+            </div>
+            <br/>
+
+            <label for="title">문제 설명</label>
+            <div id="markdown-form">
+                <aside id="markdown" contenteditable></aside>
+                <aside id="output-html"/>
+            </div>
+            <br/><br/>
+
+            <div class="form-group">
+                <label for="title">Review</label>
+                <textarea class="form-control summernote" rows="5" id="content"></textarea>
+            </div>
+        </form>
+        <button id="btn-register" class="btn btn-dark">등록하기</button>
+    </div>
+</div>
+
+<script src="/js/markdown.js"/>
+
+<script>
+    $(".summernote").summernote({
+        placeholder: 'Enter content',
+        tabsize: 2,
+        height: 300
+    });
+</script>
+
+<script src="/js/algorithm.js"></script>
+{{>layout/footer}}
