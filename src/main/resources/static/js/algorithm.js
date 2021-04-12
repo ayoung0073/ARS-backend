@@ -21,10 +21,12 @@ let index = {
         }
 
         console.log(data);
+        console.log(sessionStorage.getItem("access_token"));
 
         $.ajax({
             type: "POST",
             url: "/api/problem",
+            headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
