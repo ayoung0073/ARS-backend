@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -35,4 +36,7 @@ public class Problem extends BaseEntity {
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties({"problem"})
     private List<Review> reviewList;
+
+//    @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+//    private List<Tag> tagList;
 }

@@ -15,8 +15,9 @@ let index = {
 
         let data = {
             title: $("#title").val(),
-            review: $("#markdown").text(),
+            content: $("#markdown").text(),
             link: $("#link").val(),
+            step: $("#step").val(),
             tagList: tagList
         }
 

@@ -1,33 +1,31 @@
 package com.may.ars.model.entity.problem;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.may.ars.model.entity.BaseEntity;
-import com.may.ars.model.entity.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Builder
-public class Review extends BaseEntity {
+public class ProblemTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
-    @Lob
-    private String content;
+    @ManyToOne
+    @JoinColumn(name = "tag_id")
+    private Tag tag;
 
-    private int step;
+    public ProblemTag(Problem problem, Tag tag) {
+        this.problem = problem;
+        this.tag = tag;
+    }
 }
