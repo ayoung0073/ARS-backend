@@ -1,5 +1,6 @@
 package com.may.ars.service;
 
+import com.may.ars.dto.MemberDto;
 import com.may.ars.dto.problem.ProblemRegisterDto;
 import com.may.ars.model.entity.problem.*;
 import lombok.RequiredArgsConstructor;
@@ -45,5 +46,10 @@ public class ProblemService {
             problemTagList.add(new ProblemTag(problem, tag));
         }
         problemTagRepository.saveAll(problemTagList);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Problem> getProblemListByMember(MemberDto member) {
+        return problemRepository.findAllByWriterIdOrderByCreatedDateDesc(member.getMemberId());
     }
 }

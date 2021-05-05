@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,7 +21,7 @@ public class Problem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "problem_id")
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -37,6 +36,7 @@ public class Problem extends BaseEntity {
     @JsonIgnoreProperties({"problem"})
     private List<Review> reviewList;
 
-//    @OneToMany(mappedBy = "tag", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-//    private List<Tag> tagList;
+    @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties({"problem"}) // X -> 무한참조
+    private List<ProblemTag> tagList;
 }

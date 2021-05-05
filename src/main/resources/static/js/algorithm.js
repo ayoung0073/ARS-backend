@@ -26,7 +26,7 @@ let index = {
 
         $.ajax({
             type: "POST",
-            url: "/api/problem",
+            url: "/api/problems",
             headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",

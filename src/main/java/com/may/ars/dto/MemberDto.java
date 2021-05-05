@@ -5,13 +5,15 @@ import com.may.ars.enums.SocialType;
 import com.may.ars.model.entity.member.Member;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
 public class MemberDto {
 
-    private long memberId;
+    private Long memberId;
 
     private String email;
 
@@ -21,9 +23,9 @@ public class MemberDto {
 
     private String nickname;
 
-    private String createdDate;
+    private LocalDateTime createdDate;
 
-    private String modifiedDate;
+    private LocalDateTime modifiedDate;
 
     public static MemberDto fromEntity(Member entity) {
         MemberDto memberDto = new MemberDto();
@@ -32,9 +34,19 @@ public class MemberDto {
         memberDto.setNickname(entity.getNickname());
         memberDto.setRoleType(entity.getRoleType());
         memberDto.setSocialType(entity.getSocialType());
-        memberDto.setCreatedDate(entity.getCreatedDate().toString());
-        memberDto.setModifiedDate(entity.getModifiedDate().toString());
+        memberDto.setCreatedDate(entity.getCreatedDate());
+        memberDto.setModifiedDate(entity.getModifiedDate());
 
         return memberDto;
+    }
+
+    public Member toEntity() {
+        return Member.builder()
+                .id(memberId)
+                .email(email)
+                .nickname(nickname)
+                .roleType(roleType)
+                .socialType(socialType)
+                .build();
     }
 }

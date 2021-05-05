@@ -7,6 +7,16 @@
     border-radius: 20px;
 }
 
+.problem-last-step {
+    float: right;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.problem-a {
+    color: black;
+}
+
 /* 사용 X */
 .select-box {
     display: block;
