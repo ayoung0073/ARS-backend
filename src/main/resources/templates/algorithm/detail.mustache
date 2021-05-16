@@ -1,0 +1,50 @@
+{{>layout/header}}
+<!--<script>-->
+<!--    if (sessionStorage.getItem("access_token")) {-->
+<!--        $.ajax({-->
+<!--            type: "GET",-->
+<!--            url: "/api/problems/" + getParameterByName('id'),-->
+<!--            headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},-->
+<!--            contentType: "application/json; charset=utf-8",-->
+<!--            dataType: "json"-->
+<!--        }).done(function (result) {-->
+<!--            console.log(result);-->
+<!--            let problemList = result.data;-->
+<!--            alert("문제 GET 성공");-->
+<!--        }).fail(function (error) {-->
+<!--            alert(JSON.stringify(error));-->
+<!--        });-->
+<!--    }-->
+<!--    else {-->
+<!--        location.href = "/user/login";-->
+<!--    }-->
+<!--</script>-->
+<div class="container">
+    <button class="btn-secondary btn" onclick="history.back()">뒤로가기</button>
+
+    <br><br>
+    <div class="form-group">
+        <h4>{{problem.title}}</h4>
+    </div>
+    <br>
+    <hr>
+
+    <br>
+    <div class="card-header">복습 리스트</div>
+    <ul id="reply-box" class="list-group">
+        {{#problem.reviewList}}
+            <div>
+                <aside id="markdown-output">{{content}}</aside>
+            </div>
+        {{/problem.reviewList}}
+    </ul>
+</div>
+<script src="/js/markdown.js"/>
+<script>
+    outputEl2 = document.getElementById('markdown-output')
+    outputEl2["innerHTML"] = parseMd(outputEl2.innerText);
+</script>
+<script src="/js/algorithm.js"/>
+
+
+{{>layout/footer}}

@@ -54,12 +54,31 @@ function parseMd(md){
     return md;
 
 }
+outputEl2 = document.getElementById('markdown-output')
+if (outputEl2 != null) {
+    outputEl2["innerHTML"] = parseMd(outputEl2.innerText);
+}
 
 mdEl = document.getElementById('markdown'),
-    outputEl = document.getElementById('output-html'),
-    parse = function(){
-        outputEl["innerHTML"] = parseMd(mdEl.innerText);
-    };
+outputEl = document.getElementById('output-html')
+parse = function(){
+    mdEl.value = mdEl.innerText.replace(/(\n|\r\n)/g, '\n');
+    console.log(mdEl.innerText);
 
-parse();
-mdEl.addEventListener('keyup', parse, false);
+    let parse = parseMd(mdEl.value);
+    console.log(parse)
+    mdEl.value = parse
+    outputEl["innerHTML"] = parse;
+};
+
+if (mdEl != null) {
+    parse();
+    mdEl.addEventListener('keyup', parse, false);
+    mdEl.addEventListener('keydown', function (e) {
+        if (e.keyCode == 9) { // tab 키
+            e.preventDefault();
+        }
+    });
+}
+
+

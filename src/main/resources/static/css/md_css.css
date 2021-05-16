@@ -43,6 +43,15 @@ aside:focus {
     outline: none;
 }
 
+div#markdown{
+    background: #f1f1f1;
+    white-space: pre-wrap;
+    width: 80%;
+    height: 50%;
+    bottom: 0;
+    overflow-y: scroll;
+}
+
 section {
     /*float: right;*/
     height: 50%;

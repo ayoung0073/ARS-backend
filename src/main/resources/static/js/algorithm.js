@@ -15,7 +15,7 @@ let index = {
 
         let data = {
             title: $("#title").val(),
-            content: $("#markdown").text(),
+            content: $("#markdown").val(),
             link: $("#link").val(),
             step: $("#step").val(),
             tagList: tagList
@@ -38,8 +38,18 @@ let index = {
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
-    }
+    },
+
+
 
 }
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 
 index.init()

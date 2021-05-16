@@ -33,7 +33,7 @@
             <script>
                 $(document).ready(function () {
                     $("#tag").keydown(function (key) {
-                        if (key.keyCode == 13) { // 엔터키 이벤
+                        if (key.keyCode == 13) { // 엔터키 이벤트
                             key.preventDefault();
                             let tagName = $("#tag").val();
                             let tagBlock = document.getElementById("tag-block");
@@ -51,7 +51,7 @@
 
             <label for="title">Review</label>
             <div id="markdown-form">
-                <aside id="markdown" contenteditable></aside>
+                <aside id="markdown" contenteditable="true"></aside>
                 <aside id="output-html"/>
             </div>
             <br/>
