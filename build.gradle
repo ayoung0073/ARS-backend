@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.may'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '1.8'
 
 configurations {
     compileOnly {
@@ -34,6 +34,12 @@ dependencies {
     implementation group: 'org.jsoup', name: 'jsoup', version: '1.13.1'
 
     implementation group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.4.0'
+
+    // TDD
+//    compile 'org.springframework:spring-context:5.0.0.RELEASE'
+//    testCompile 'org.springframework:spring-test:5.0.0.RELEASE'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
+
 }
 
 test {
