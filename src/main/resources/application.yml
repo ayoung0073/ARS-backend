@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres:5432/ars?serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=UTF-8
+    username: ayoung
+    password: 33366666622
+
+#    spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+#    spring.jpa.show-sql=false
+#    spring.jpa.hibernate.ddl-auto=create
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+
+kakao:
+  client_id: 5354f1c1ec547c553355a726f5d4b288
+
+google:
+  client_id: 728473065211-rp39ml47kp5rr0ev6j0b75sjbrpm0maa.apps.googleusercontent.com
+  secret_key: lDbJYoSszdtky39nDQn6OW7g
+
+ars:
+  secret_key: algorithmreviewservicealgorithmreviewservicealgorithmreviewservicealgorithmreviewservicealgorithmreviewservicealgorithmreviewservice
+
