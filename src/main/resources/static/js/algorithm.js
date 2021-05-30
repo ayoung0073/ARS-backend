@@ -6,16 +6,16 @@ let index = {
     },
 
     register: function () {
-
         let tagList = [];
         let tagArr = document.getElementsByClassName("btn-tag");
+        console.log(document.getElementsByClassName("tui-editor-contents")[0]);
         for (let i = 0; i < tagArr.length; i++) {
             tagList.push(tagArr[i].value);
         }
 
         let data = {
             title: $("#title").val(),
-            content: $("#markdown").val(),
+            content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
             link: $("#link").val(),
             step: $("#step").val(),
             tagList: tagList
@@ -40,16 +40,6 @@ let index = {
         });
     },
 
-
-
 }
-
-function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
-}
-
 
 index.init()
