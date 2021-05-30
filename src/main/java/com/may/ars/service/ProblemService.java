@@ -1,6 +1,6 @@
 package com.may.ars.service;
 
-import com.may.ars.dto.MemberDto;
+import com.may.ars.dto.member.MemberDto;
 import com.may.ars.dto.problem.ProblemRegisterDto;
 import com.may.ars.model.entity.problem.*;
 import lombok.RequiredArgsConstructor;

@@ -3,13 +3,14 @@ package com.may.ars.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.may.ars.config.properties.GoogleProperties;
+import com.may.ars.config.properties.KakaoProperties;
 import com.may.ars.dto.JwtPayload;
-import com.may.ars.dto.MemberDto;
+import com.may.ars.dto.member.MemberDto;
 import com.may.ars.dto.member.LoginSuccessDto;
 import com.may.ars.enums.SocialType;
 import com.may.ars.model.entity.member.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -30,45 +31,19 @@ public class OauthService {
     private final MemberService memberService;
     private final JwtService jwtService;
 
-
-    @Value("${kakao.client_id}")
-    private String kakaoClientId;
-
-    @Value("${kakao.redirect_uri}")
-    private String kakaoRedirectUri;
-
-    @Value("${kakao.token_request_url}")
-    private String kakaoTokenUrl;
-
-    @Value("${kakao.profile_request_url}")
-    private String kakaoProfileUrl;
-
-    @Value("${google.redirect_uri}")
-    private String googleRedirectUri;
-
-    @Value("${google.client_id}")
-    private String googleClientId;
-
-    @Value("${google.secret_key}")
-    private String googleSecretKey;
-
-    @Value("${google.token_request_url}")
-    private String googleTokenUrl;
-
-    @Value("${google.profile_request_url}")
-    private String googleProfileUrl;
-
+    private final GoogleProperties googleProperties;
+    private final KakaoProperties kakaoProperties;
 
     public LoginSuccessDto kakaoLogin(String code) throws JsonProcessingException {
-        String accessToken = getAccessToken(code, kakaoTokenUrl, 0);
+        String accessToken = getAccessToken(code, kakaoProperties.getTokenRequestUrl(), 0);
         System.out.println(accessToken);
-        JsonNode profile = getProfile(accessToken, kakaoProfileUrl);
+        JsonNode profile = getProfile(accessToken, kakaoProperties.getProfileRequestUrl());
         MemberDto memberDto;
         JwtPayload jwtPayload;
         String email = profile.get("kakao_account").get("email").toString();
         Optional<Member> optional = memberService.findMemberByEmail(email);
 
-        if (optional.isEmpty()) { // 회원가입 처리
+        if (optional.isEmpty()) { // 회원가입
             memberDto = new MemberDto();
             memberDto.setEmail(email);
             memberDto.setNickname(profile.get("properties").get("nickname").toString());
@@ -77,7 +52,7 @@ public class OauthService {
             Long memberId = memberService.saveMember(memberDto);
             jwtPayload = new JwtPayload(memberId, email);
         }
-        else { // 로그인 처리
+        else { // 로그인
             memberDto = MemberDto.fromEntity(optional.get());
             jwtPayload = new JwtPayload(memberDto.getMemberId(), email);
         }
@@ -91,9 +66,9 @@ public class OauthService {
     }
 
     public LoginSuccessDto googleLogin(String code) throws JsonProcessingException {
-        String accessToken = getAccessToken(code, googleTokenUrl, 1);
+        String accessToken = getAccessToken(code, googleProperties.getTokenRequestUrl(), 1);
         System.out.println(accessToken);
-        JsonNode profile = getProfile(accessToken, googleProfileUrl);
+        JsonNode profile = getProfile(accessToken, googleProperties.getProfileRequestUrl());
 
         MemberDto memberDto;
         JwtPayload jwtPayload;
@@ -101,7 +76,7 @@ public class OauthService {
         String email = profile.get("email").toString();
         Optional<Member> optional = memberService.findMemberByEmail(email);
 
-        if (optional.isEmpty()) { // 회원가입 처리
+        if (optional.isEmpty()) { // 회원가입
             memberDto = new MemberDto();
             memberDto.setEmail(email);
             memberDto.setNickname(profile.get("name").toString());
@@ -110,7 +85,7 @@ public class OauthService {
             Long memberId = memberService.saveMember(memberDto);
             jwtPayload = new JwtPayload(memberId, email);
         }
-        else { // 로그인 처리
+        else { // 로그인
             memberDto = MemberDto.fromEntity(optional.get());
             jwtPayload = new JwtPayload(memberDto.getMemberId(), email);
         }
@@ -133,17 +108,16 @@ public class OauthService {
         params.add("grant_type", GRANT_TYPE);
         params.add("code", code);
         if (socialType == 0) {
-            params.add("client_id", kakaoClientId);
-            params.add("redirect_uri", kakaoRedirectUri);
+            params.add("client_id", kakaoProperties.getClientId());
+            params.add("redirect_uri", kakaoProperties.getRedirectUri());
         } else {
-            params.add("client_id", googleClientId);
-            params.add("client_secret", googleSecretKey);
-            params.add("redirect_uri", googleRedirectUri);
+            params.add("client_id", googleProperties.getClientId());
+            params.add("client_secret", googleProperties.getSecretKey());
+            params.add("redirect_uri", googleProperties.getRedirectUri());
         }
         HttpEntity<MultiValueMap<String, String>> tokenRequest =
                 new HttpEntity<>(params, headers);
 
-        // 카카오 프로필 정보에 접근할 토큰 받기
         ResponseEntity<String> response = restTemplate.exchange(
                 tokenRequestUrl,
                 HttpMethod.POST,
