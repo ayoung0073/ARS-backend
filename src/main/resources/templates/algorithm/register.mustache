@@ -1,75 +1,61 @@
 {{>layout/header}}
 
-<div class="container">
-    <div class="register-form">
-        <form>
-            <div class="form-group">
-                <label for="title">제목(문제)</label>
-                <input type="text" class="form-control" id="title">
-            </div>
-
-            <div class="form-group">
-                <label for="title">문제 링크</label>
-                <textarea class="form-control" rows="1" id="link"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="title">복습 중요도</label>
-                <br/>
-                <select id="step" class="form-control select-box">
-                    <option value="1" selected>1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-            </div>
-
-
-            <div class="form-group">
-                <label for="title">TAG</label>
-                <input type="text" class="form-control" id="tag"/>
-            </div>
-            <script>
-                $(document).ready(function () {
-                    $("#tag").keydown(function (key) {
-                        if (key.keyCode == 13) { // 엔터키 이벤트
-                            key.preventDefault();
-                            let tagName = $("#tag").val();
-                            let tagBlock = document.getElementById("tag-block");
-                            tagBlock.innerHTML += ` <button class="btn-tag" value="${tagName}">` + tagName + "</button> "
-                            $("#tag").val("");
-                        }
-                    });
-                });
-            </script>
-
-            <div id="tag-block">
-
-            </div>
-            <br/>
-
-            <label for="title">Review</label>
-            <div id="markdown-form">
-                <aside id="markdown" contenteditable="true"></aside>
-                <aside id="output-html"/>
-            </div>
-            <br/>
-        </form>
-        <br/>
-        <button id="btn-register" class="btn btn-dark">등록하기</button>
-    </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css">
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
+<div style="margin: 10px">
+<textarea placeholder="제목을 입력하세요" id="title" style="height: 66px;"></textarea>
+<div class="bold-line-left"></div>
+<div class="sc-jeCdPy jOSCEK">
+    <input placeholder="태그를 입력하세요" id="tag" tabindex="2" value="" class="sc-jtRlXQ cspOdp">
+    <div id="tag-block"></div>
+    <script>
+        $(document).ready(function () {
+            $("#tag").keydown(function (key) {
+                if (key.keyCode == 13) { // 엔터키 이벤트
+                    key.preventDefault();
+                    let tagName = $("#tag").val();
+                    let tagBlock = document.getElementById("tag-block");
+                    tagBlock.innerHTML += ` <button class="btn-tag" value="${tagName}">` + tagName + "</button> "
+                    $("#tag").val("");
+                }
+            });
+        });
+    </script>
 </div>
-
-<script src="/js/markdown.js"/>
+<div class="light-line-left"></div>
+<textarea placeholder="문제 링크를 입력하세요" id="link"></textarea>
+<select id="step" class="form-control select-box">
+    <option value="1" selected>복습 중요도</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+</select>
+<div id="editor" style="box-sizing: border-box; margin-top: 5px; height: 500px;"></div>
+<br/>
+<button id="btn-register" class="btn btn-dark">등록하기</button>
+<br/>
+</div>
+<script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
 
 <script>
-    $(".summernote").summernote({
-        placeholder: 'Enter content',
-        tabsize: 2,
-        height: 300
+    /* eslint-disable no-unused-vars */
+    const content = [].join('\n');
+
+    const editor = new toastui.Editor({
+        el: document.querySelector('#editor'),
+        previewStyle: 'vertical',
+        initialEditType: "markdown",
+        height: '500px',
+        initialValue: content
+    });
+
+    $("#btn-register").on("click", () => {
+           console.log(document.getElementsByClassName("tui-editor-contents")[0].innerHTML);
     });
 </script>
 
-<script src="/js/algorithm.js"></script>
+<script type="text/javascript" src="/js/algorithm.js"></script>
+<script type="text/javascript" src="/js/markdown.js"/>
 {{>layout/footer}}

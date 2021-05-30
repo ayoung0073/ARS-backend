@@ -1,12 +1,5 @@
 @charset "UTF-8";
 
-.btn-tag {
-    background-color: darkgrey;
-    color: white;
-    border:none;
-    border-radius: 20px;
-}
-
 .problem-last-step {
     float: right;
     font-weight: bold;
@@ -15,6 +8,114 @@
 
 .problem-a {
     color: black;
+}
+#title {
+    display: block;
+    padding: 0px;
+    font-size: 2.75rem;
+    width: 100%;
+    resize: none;
+    line-height: 1.5;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    color: rgb(33, 37, 41);
+}
+#link {
+    display: block;
+    padding: 0px;
+    font-size: 1.125rem;
+    width: 100%;
+    resize: none;
+    line-height: 1.5;
+    outline: none;
+    border: none;
+    /*font-weight: bold;*/
+    color: rgb(33, 37, 41);
+}
+
+.cVIjCQ {
+    display: block;
+    padding: 0px;
+    font-size: 2.75rem;
+    width: 100%;
+    resize: none;
+    line-height: 1.5;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    color: rgb(33, 37, 41);
+}
+.cspOdp {
+    display: inline-flex;
+    outline: none;
+    cursor: text;
+    font-size: 1.125rem;
+    line-height: 2rem;
+    margin-bottom: 0.75rem;
+    min-width: 8rem;
+    border: none;
+}
+
+.bold-line-left {
+    background: rgb(73, 80, 87);
+    height: 6px;
+    width: 4rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 1px;
+}
+.light-line-left {
+    background: lightgray;
+    height: 3px;
+    width: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 1px;
+}
+
+.jOSCEK {
+    color: rgb(52, 58, 64);
+    font-size: 1.125rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+#tag-block {
+    display: block;
+    width: 100%;
+    color: rgb(73, 80, 87);
+    transition: all 0.125s ease-in 0s;
+}
+
+.btn-tag {
+    font-size: 1rem;
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 2rem;
+    border-radius: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background: rgb(241, 243, 245);
+    color: black;
+    margin-right: 0.75rem;
+    transition: all 0.125s ease-in 0s;
+    cursor: pointer;
+    margin-bottom: 0.75rem;
+    animation: 0.125s ease-in-out 0s 1 normal forwards running iMKika;
+}
+
+#problem-title {
+    font-weight: 800;
+    font-size: 3rem;
+}
+
+#review-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 2px;
+    background-color: #d2d2d2;
 }
 
 /* 사용 X */
