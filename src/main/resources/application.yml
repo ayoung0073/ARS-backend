@@ -15,14 +15,19 @@ spring:
       ddl-auto: create
     show-sql: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+social:
+  kakao:
+    client_id: 5354f1c1ec547c553355a726f5d4b288
+    redirect_uri: http://localhost:8080/user/kakao/callback
+    token_request_url: https://kauth.kakao.com/oauth/token
+    profile_request_url: https://kapi.kakao.com/v2/user/me
 
-
-kakao:
-  client_id: 5354f1c1ec547c553355a726f5d4b288
-
-google:
-  client_id: 728473065211-rp39ml47kp5rr0ev6j0b75sjbrpm0maa.apps.googleusercontent.com
-  secret_key: lDbJYoSszdtky39nDQn6OW7g
+  google:
+    client_id: 728473065211-rp39ml47kp5rr0ev6j0b75sjbrpm0maa.apps.googleusercontent.com
+    secret_key: lDbJYoSszdtky39nDQn6OW7g
+    redirect_uri: http://127.0.0.1:8080/user/google/callback
+    token_request_url: https://oauth2.googleapis.com/token
+    profile_request_url: https://www.googleapis.com/oauth2/v3/userinfo
 
 ars:
   secret_key: algorithmreviewservicealgorithmreviewservicealgorithmreviewservicealgorithmreviewservicealgorithmreviewservicealgorithmreviewservice

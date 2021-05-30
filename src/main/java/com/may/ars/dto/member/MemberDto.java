@@ -1,4 +1,4 @@
-package com.may.ars.dto;
+package com.may.ars.dto.member;
 
 import com.may.ars.enums.RoleType;
 import com.may.ars.enums.SocialType;

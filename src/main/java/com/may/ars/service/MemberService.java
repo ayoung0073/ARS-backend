@@ -1,6 +1,6 @@
 package com.may.ars.service;
 
-import com.may.ars.dto.MemberDto;
+import com.may.ars.dto.member.MemberDto;
 import com.may.ars.enums.RoleType;
 import com.may.ars.model.entity.member.Member;
 import com.may.ars.model.entity.member.MemberRepository;
@@ -22,7 +22,7 @@ public class MemberService {
     }
 
     @Transactional
-    public void saveMember(MemberDto memberDto) {
+    public Long saveMember(MemberDto memberDto) {
         Member member = Member.builder()
                 .email(memberDto.getEmail())
                 .roleType(RoleType.USER)
@@ -31,6 +31,7 @@ public class MemberService {
                 .build();
 
         memberRepository.save(member);
+        return member.getId();
     }
 
 }
