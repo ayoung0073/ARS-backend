@@ -23,6 +23,17 @@
     color: rgb(33, 37, 41);
 }
 
+#review-issue {
+    padding: 0px;
+    font-size: 1.4rem;
+    resize: none;
+    line-height: 1.5;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    color: rgb(33, 37, 41);
+}
+
 #link {
     display: block;
     padding: 0px;
@@ -34,6 +45,18 @@
     border: none;
     /*font-weight: bold;*/
     color: rgb(33, 37, 41);
+}
+
+.link-block {
+    width: 240px;
+    margin-left: 5rem;
+    border-left: 2px solid rgb(233, 236, 239);
+    padding: 0.25rem 0.75rem;
+    color: rgb(134, 142, 150);
+    line-height: 1.5;
+    font-size: 0.875rem;
+    max-height: calc(100vh - 128px);
+    overflow: hidden auto;
 }
 
 .cVIjCQ {

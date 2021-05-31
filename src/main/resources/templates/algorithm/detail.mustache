@@ -5,10 +5,9 @@
 
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
 
-<div style="margin-left: 190px; margin-right: 190px">
+<div style="margin-left: 270px; margin-right: 270px">
     <br>
-    <button class="btn-secondary btn" onclick="history.back()">뒤로가기</button>
-    <br><br>
+<!--    <button class="btn-secondary btn" onclick="history.back()">뒤로가기</button>-->
     <div class="form-group">
         <h1 id="title">{{problem.title}}</h1>
         {{problem.writer.nickname}}&nbsp ·&nbsp 작성일 <span class="date">{{createdDate}}</span>
@@ -16,16 +15,14 @@
     <hr>
     <div id="link" tabindex="2" value="" class="sc-jtRlXQ cspOdp"><a href="{{problem.link}}">문제 링크</a></div>
     <hr>
-    <ul id="reply-box" class="list-group">
-            <span align="right" class="date" style="margin-bottom: 10px;">{{review.createdDate}}</span>
-            <div>
-                <div id="editor-hidden" hidden style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{review.content}}</div>
-                <div id="viewer"></div>
-            </div>
-        <hr>
-    </ul>
+    <span id="review-issue">Review#{{index}} · </span><span class="date">{{review.createdDate}}</span>
+        <div style="margin-top: 13px;">
+            <div id="editor-hidden" hidden style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{review.content}}</div>
+            <div id="viewer"></div>
+        </div>
+    <hr>
 
-    <div id="reviewLinkList" class="sc-gHboQg eLpzfs sc-gJWqzi dFQfpd" style="position: fixed; top: 112px; right: 60px">
+    <div id="reviewLinkList" class="sc-gHboQg eLpzfs link-block" style="position: fixed; top: 160px; right: 0px;">
         <script>
             const reviewLinkElem = document.getElementById("reviewLinkList");
             let reviewLinkContent = '';
@@ -33,7 +30,7 @@
             {{#problem.reviewList}}
                 reviewLinkContent += `
                 <div class="review-block" style="margin-left: 12px;">
-                    ${reviewIndex}. <a href="/detail/{{problem.id}}?index=${reviewIndex}" style="color:black;" class="date">{{createdDate}}</a>
+                    ${reviewIndex}. <a href="/detail/{{problem.id}}?index=${reviewIndex}" style="color: rgb(134, 142, 150);"  class="date">{{createdDate}}</a>
 
                 </div>
                 `
