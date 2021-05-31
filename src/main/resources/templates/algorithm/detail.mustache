@@ -5,7 +5,7 @@
 
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
 
-<div style="margin-left: 170px; margin-right: 170px">
+<div style="margin-left: 190px; margin-right: 190px">
     <br>
     <button class="btn-secondary btn" onclick="history.back()">뒤로가기</button>
     <br><br>
@@ -14,16 +14,35 @@
         {{problem.writer.nickname}}&nbsp ·&nbsp 작성일 <span class="date">{{createdDate}}</span>
     </div>
     <hr>
+    <div id="link" tabindex="2" value="" class="sc-jtRlXQ cspOdp"><a href="{{problem.link}}">문제 링크</a></div>
+    <hr>
     <ul id="reply-box" class="list-group">
-        {{#problem.reviewList}}
-            <span align="right" class="date" style="margin-bottom: 10px;">{{createdDate}}</span>
+            <span align="right" class="date" style="margin-bottom: 10px;">{{review.createdDate}}</span>
             <div>
-                <div id="editor-hidden" hidden style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{content}}</div>
+                <div id="editor-hidden" hidden style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{review.content}}</div>
                 <div id="viewer"></div>
             </div>
-        {{/problem.reviewList}}
         <hr>
     </ul>
+
+    <div id="reviewLinkList" class="sc-gHboQg eLpzfs sc-gJWqzi dFQfpd" style="position: fixed; top: 112px; right: 60px">
+        <script>
+            const reviewLinkElem = document.getElementById("reviewLinkList");
+            let reviewLinkContent = '';
+            let reviewIndex = 1;
+            {{#problem.reviewList}}
+                reviewLinkContent += `
+                <div class="review-block" style="margin-left: 12px;">
+                    ${reviewIndex}. <a href="/detail/{{problem.id}}?index=${reviewIndex}" style="color:black;" class="date">{{createdDate}}</a>
+
+                </div>
+                `
+                reviewIndex += 1;
+            {{/problem.reviewList}}
+
+            reviewLinkElem.innerHTML = reviewLinkContent;
+        </script>
+    </div>
 </div>
 <script>
     /* eslint-disable no-unused-vars */

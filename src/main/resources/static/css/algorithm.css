@@ -9,6 +9,7 @@
 .problem-a {
     color: black;
 }
+
 #title {
     display: block;
     padding: 0px;
@@ -21,6 +22,7 @@
     font-weight: bold;
     color: rgb(33, 37, 41);
 }
+
 #link {
     display: block;
     padding: 0px;
@@ -105,6 +107,11 @@
     cursor: pointer;
     margin-bottom: 0.75rem;
     animation: 0.125s ease-in-out 0s 1 normal forwards running iMKika;
+}
+
+.review-block {
+    display: block;
+    transition: all 0.125s ease-in 0s;
 }
 
 #problem-title {
