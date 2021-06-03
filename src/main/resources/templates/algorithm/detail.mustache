@@ -23,7 +23,7 @@
     <hr>
 
     <div id="reviewLinkList" class="sc-gHboQg eLpzfs link-block" style="position: fixed; top: 160px; right: 0px;">
-        <a href="/register" class="btn-secondary btn" style="width: 180px">Add Review</a><br><br>
+        <a href="/problems/{{problem.id}}/reviews" class="btn-secondary btn" style="width: 180px">Add Review</a><br><br>
         <script>
             const reviewLinkElem = document.getElementById("reviewLinkList");
             let reviewLinkContent = '';
@@ -31,7 +31,7 @@
             {{#problem.reviewList}}
                 reviewLinkContent += `
                 <div class="review-block" style="margin-left: 12px;">
-                    ${reviewIndex}. <a href="/detail/{{problem.id}}?index=${reviewIndex}" style="color: rgb(134, 142, 150);"  class="date">{{createdDate}}</a>
+                    ${reviewIndex}. <a href="/problems/{{problem.id}}?index=${reviewIndex}" style="color: rgb(134, 142, 150);"  class="date">{{createdDate}}</a>
 
                 </div>
                 `

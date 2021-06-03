@@ -3,7 +3,9 @@
 .problem-last-step {
     float: right;
     font-weight: bold;
-    font-size: 25px;
+    font-size: 22px;
+    margin-right: 8px;
+    margin-top: 4px;
 }
 
 .problem-a {
@@ -115,22 +117,21 @@
 }
 
 .btn-tag {
-    font-size: 1rem;
+    margin-bottom: 0.875rem;
+    background: rgb(241, 243, 245);
+    border: white;
+    height: 2rem;
+    border-radius: 1rem;
     display: inline-flex;
     -webkit-box-align: center;
     align-items: center;
-    height: 2rem;
-    border-radius: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    background: rgb(241, 243, 245);
-    color: black;
-    margin-right: 0.75rem;
-    transition: all 0.125s ease-in 0s;
-    cursor: pointer;
-    margin-bottom: 0.75rem;
-    animation: 0.125s ease-in-out 0s 1 normal forwards running iMKika;
+    color: rgb(12, 166, 120);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
 }
+
+
 
 .review-block {
     display: block;

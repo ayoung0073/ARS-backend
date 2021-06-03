@@ -9,8 +9,6 @@ let index = {
                 dataType: "json"
             }).done(function (result) {
                 console.log(result);
-                let problemList = result.data;
-                alert("문제 GET 성공");
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             });
