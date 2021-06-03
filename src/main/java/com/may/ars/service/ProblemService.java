@@ -2,6 +2,7 @@ package com.may.ars.service;
 
 import com.may.ars.dto.member.MemberDto;
 import com.may.ars.dto.problem.ProblemRegisterDto;
+import com.may.ars.dto.problem.ReviewRegisterDto;
 import com.may.ars.model.entity.problem.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,15 @@ public class ProblemService {
     @Transactional(readOnly = true)
     public Problem getProblemById(Long problemId) {
         return problemRepository.findById(problemId).get();
+    }
+
+    @Transactional
+    public void registerReview(Long problemId, ReviewRegisterDto registerDto, MemberDto member) {
+        Problem problem = problemRepository.findById(problemId).get();
+        if (!problem.getWriter().getId().equals(member.getMemberId())) {
+            throw new IllegalArgumentException("권한 없다.");
+        }
+        Review review = registerDto.toEntity(problem);
+        reviewRepository.save(review);
     }
 }

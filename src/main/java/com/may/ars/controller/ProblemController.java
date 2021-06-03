@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.time.format.DateTimeFormatter;
-
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -38,10 +36,12 @@ public class ProblemController {
     }
 
     @GetMapping("/{problemId}/reviews")
-    public String registerReviewPage(@PathVariable Long problemId) {
+    public String registerReviewPage(@PathVariable Long problemId, Model model) {
         log.info(problemId + "");
-        return "/algorithm/register";
-
+        Problem problem = problemService.getProblemById(problemId);
+        model.addAttribute("problem", problem);
+        return "/algorithm/reviewRegister";
     }
+
 
 }
