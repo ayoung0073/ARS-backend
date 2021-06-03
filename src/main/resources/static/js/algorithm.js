@@ -15,6 +15,7 @@ let index = {
 
         let data = {
             title: $("#title").val(),
+            // content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
             content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
             link: $("#link").val(),
             step: $("#step").val(),

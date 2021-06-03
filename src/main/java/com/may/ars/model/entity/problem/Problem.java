@@ -34,6 +34,7 @@ public class Problem extends BaseEntity {
 
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties({"problem"})
+    @OrderBy("createdDate desc")
     private List<Review> reviewList;
 
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

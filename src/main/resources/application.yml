@@ -5,16 +5,13 @@ spring:
     username: ayoung
     password: 33366666622
 
-#    spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
-#    spring.jpa.show-sql=false
-#    spring.jpa.hibernate.ddl-auto=create
-
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
 social:
   kakao:
     client_id: 5354f1c1ec547c553355a726f5d4b288
