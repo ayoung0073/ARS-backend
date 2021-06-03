@@ -24,7 +24,7 @@
                         <span class="problem-last-step">`
                 content += '⭐'.repeat(problem.reviewList[problem.reviewList.length - 1].step)
                 content += `</span><br/><div class="card-body">
-                        <h4 class="card-title"><a class="problem-a" href="/detail/${problem.id}?index=1">${problem.title}</a></h4><br/>`;
+                        <h4 class="card-title"><a class="problem-a" href="/problems/${problem.id}?index=1">${problem.title}</a></h4><br/>`;
                 for (let j = 0; j < problem.tagList.length; j++) {
                     content += `<button class="btn-tag" value="${problem.tagList[j].tag.id}">&nbsp;${problem.tagList[j].tag.tagName}&nbsp;</button>&nbsp;`;
                 }
