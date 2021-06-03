@@ -3,6 +3,7 @@ package com.may.ars.controller.api;
 import com.may.ars.dto.member.MemberDto;
 import com.may.ars.dto.ResponseDto;
 import com.may.ars.dto.problem.ProblemRegisterDto;
+import com.may.ars.dto.problem.ReviewRegisterDto;
 import com.may.ars.model.entity.problem.Problem;
 import com.may.ars.service.ProblemService;
 import com.may.ars.utils.AuthCheck;
@@ -18,13 +19,13 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/problems")
 public class ProblemApiController {
 
     private final ProblemService problemService;
 
     @AuthCheck
-    @GetMapping("/problems")
+    @GetMapping("")
     public ResponseEntity<?> getProblemList() {
         MemberDto member = MemberContext.currentMember.get();
         List<Problem> problemList = problemService.getProblemListByMember(member);
@@ -34,7 +35,7 @@ public class ProblemApiController {
     }
 
     @AuthCheck
-    @PostMapping("/problems")
+    @PostMapping("")
     public ResponseEntity<?> saveProblem(@RequestBody ProblemRegisterDto registerDto) {
         MemberDto member = MemberContext.currentMember.get();
 
@@ -47,6 +48,16 @@ public class ProblemApiController {
         log.info(registerDto.toString());
 
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 등록 성공");
+        return ResponseEntity.ok().body(response);
+    }
+
+    @AuthCheck
+    @PostMapping("/{problemId}/reviews")
+    public ResponseEntity<?> saveReview(@PathVariable("problemId") Long problemId, @RequestBody ReviewRegisterDto registerDto) {
+        MemberDto member = MemberContext.currentMember.get();
+
+        problemService.registerReview(problemId, registerDto, member);
+        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "리뷰 등록 성공");
         return ResponseEntity.ok().body(response);
     }
 }
