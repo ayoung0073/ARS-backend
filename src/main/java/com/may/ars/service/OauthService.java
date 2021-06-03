@@ -40,13 +40,13 @@ public class OauthService {
         JsonNode profile = getProfile(accessToken, kakaoProperties.getProfileRequestUrl());
         MemberDto memberDto;
         JwtPayload jwtPayload;
-        String email = profile.get("kakao_account").get("email").toString();
+        String email = profile.get("kakao_account").get("email").textValue();
         Optional<Member> optional = memberService.findMemberByEmail(email);
 
         if (optional.isEmpty()) { // 회원가입
             memberDto = new MemberDto();
             memberDto.setEmail(email);
-            memberDto.setNickname(profile.get("properties").get("nickname").toString());
+            memberDto.setNickname(profile.get("properties").get("nickname").textValue());
             memberDto.setSocialType(SocialType.KAKAO);
 
             Long memberId = memberService.saveMember(memberDto);
@@ -73,13 +73,13 @@ public class OauthService {
         MemberDto memberDto;
         JwtPayload jwtPayload;
 
-        String email = profile.get("email").toString();
+        String email = profile.get("email").textValue();
         Optional<Member> optional = memberService.findMemberByEmail(email);
 
         if (optional.isEmpty()) { // 회원가입
             memberDto = new MemberDto();
             memberDto.setEmail(email);
-            memberDto.setNickname(profile.get("name").toString());
+            memberDto.setNickname(profile.get("name").textValue());
             memberDto.setSocialType(SocialType.GOOGLE);
 
             Long memberId = memberService.saveMember(memberDto);

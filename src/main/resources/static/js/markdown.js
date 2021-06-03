@@ -43,10 +43,10 @@ function parseMd(md){
     //code
     md = md.replace(/[\`]{1}([^\`]+)[\`]{1}/g, '<code>$1</code>');
 
-    //p
-    md = md.replace(/^\s*(\n)?(.+)/gm, function(m){
-        return  /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : '<p>'+m+'</p>';
-    });
+    // //p
+    // md = md.replace(/^\s*(\n)?(.+)/gm, function(m){
+    //     return  /\<(\/)?(h\d|ul|ol|li|blockquote|pre|img)/.test(m) ? m : '<p>'+m+'</p>';
+    // });
 
     //strip p from pre
     md = md.replace(/(\<pre.+\>)\s*\n\<p\>(.+)\<\/p\>/gm, '$1$2');

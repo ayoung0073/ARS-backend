@@ -24,24 +24,22 @@ public class ProblemController {
         return "/algorithm/register";
     }
 
-//    @GetMapping("/detail/{problemId}")
-//    public String detailPage(@PathVariable Long problemId, Model model) {
-//        Problem problem = problemService.getProblemById(problemId);
-//        model.addAttribute("problem", problem);
-//        model.addAttribute("review", problem.getReviewList().get(0));
-//        model.addAttribute("createdDate", problem.getReviewList().get(0).getCreatedDate());
-//
-//        return "/algorithm/detail";
-//    }
-
     @GetMapping("/detail/{problemId}")
     public String detailPage(@PathVariable Long problemId, @RequestParam("index") int index, Model model) {
         Problem problem = problemService.getProblemById(problemId);
         model.addAttribute("problem", problem);
+        model.addAttribute("index", index);
         model.addAttribute("review", problem.getReviewList().get(index - 1));
         model.addAttribute("createdDate", problem.getReviewList().get(0).getCreatedDate());
 
         return "/algorithm/detail";
+    }
+
+    @GetMapping("/{problemId}/review")
+    public String registerReviewPage(@PathVariable Long problemId) {
+        log.info(problemId + "");
+        return "/algorithm/register";
+
     }
 
 }

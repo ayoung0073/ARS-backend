@@ -52,4 +52,9 @@ public class ProblemService {
     public List<Problem> getProblemListByMember(MemberDto member) {
         return problemRepository.findAllByWriterIdOrderByCreatedDateDesc(member.getMemberId());
     }
+
+    @Transactional(readOnly = true)
+    public Problem getProblemById(Long problemId) {
+        return problemRepository.findById(problemId).get();
+    }
 }

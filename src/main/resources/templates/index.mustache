@@ -4,30 +4,31 @@
 <script>
     let problemList = [];
     if (sessionStorage.getItem("access_token")) {
-    $.ajax({
-        type: "GET",
-        url: "/api/problems",
-        headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
-        contentType: "application/json; charset=utf-8",
-        dataType: "json"
-    }).done(function (result) {
-        problemList = result.data;
-        console.log(problemList);
-        let problem;
-        for (let i = 0; i < problemList.length; i++) {
-            problem = problemList[i];
-            const element = document.getElementById("problemList"); // (O); $("#problemList") (X)
-            let content = '';
-            content += `
-                <div class="card m-2">
-                    <div class="card-body">
-                        <h4 class="card-title"><a class="problem-a" href="/problems/"+${problem.id}>${problem.title}</a></h4><br/>`;
-            for (let j = 0; j < problem.tagList.length; j++) {
-                content += `<button class="btn-tag" value="${problem.tagList[j].tag.id}">&nbsp;${problem.tagList[j].tag.tagName}&nbsp;</button>&nbsp;`;
-            }
-            content += `<span class="problem-last-step">`
-                    + '⭐'.repeat(problem.reviewList[problem.reviewList.length - 1].step) +
-                    `</span>
+        $.ajax({
+            type: "GET",
+            url: "/api/problems",
+            headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (result) {
+            problemList = result.data;
+            console.log(problemList);
+            let problem;
+            for (let i = 0; i < problemList.length; i++) {
+
+                problem = problemList[i];
+                const element = document.getElementById("problemList"); // (O); $("#problemList") (X)
+                let content = '';
+                content += `
+                    <div class="card m-2">
+                        <span class="problem-last-step">`
+                content += '⭐'.repeat(problem.reviewList[problem.reviewList.length - 1].step)
+                content += `</span><br/><div class="card-body">
+                        <h4 class="card-title"><a class="problem-a" href="/detail/${problem.id}?index=1">${problem.title}</a></h4><br/>`;
+                for (let j = 0; j < problem.tagList.length; j++) {
+                    content += `<button class="btn-tag" value="${problem.tagList[j].tag.id}">&nbsp;${problem.tagList[j].tag.tagName}&nbsp;</button>&nbsp;`;
+                }
+                content += `
                     </div>
                 </div>`;
             element.innerHTML += content;

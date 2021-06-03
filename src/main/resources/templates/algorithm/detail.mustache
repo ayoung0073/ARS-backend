@@ -23,7 +23,8 @@
     <hr>
 
     <div id="reviewLinkList" class="sc-gHboQg eLpzfs link-block" style="position: fixed; top: 160px; right: 0px;">
-        <script>
+        <a href="/register" class="btn-secondary btn" style="width: 180px">Add Review</a><br><br>
+        <script>x
             const reviewLinkElem = document.getElementById("reviewLinkList");
             let reviewLinkContent = '';
             let reviewIndex = 1;
@@ -37,7 +38,7 @@
                 reviewIndex += 1;
             {{/problem.reviewList}}
 
-            reviewLinkElem.innerHTML = reviewLinkContent;
+            reviewLinkElem.innerHTML += reviewLinkContent;
         </script>
     </div>
 </div>
