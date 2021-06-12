@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.may.ars.response.ErrorMessage.NOT_EXIST_PROBLEM;
+
 @RequiredArgsConstructor
 @Service
 public class ProblemService {
@@ -56,16 +58,10 @@ public class ProblemService {
 
     @Transactional(readOnly = true)
     public Problem getProblemById(Long problemId) {
-        return problemRepository.findById(problemId).get();
+        return problemRepository.findById(problemId).orElseThrow(
+                () -> {throw new IllegalArgumentException(NOT_EXIST_PROBLEM);}
+        );
     }
 
-    @Transactional
-    public void registerReview(Long problemId, ReviewRegisterDto registerDto, MemberDto member) {
-        Problem problem = problemRepository.findById(problemId).get();
-        if (!problem.getWriter().getId().equals(member.getMemberId())) {
-            throw new IllegalArgumentException("권한 없다.");
-        }
-        Review review = registerDto.toEntity(problem);
-        reviewRepository.save(review);
-    }
+
 }

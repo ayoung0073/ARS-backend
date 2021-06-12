@@ -50,14 +50,4 @@ public class ProblemApiController {
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 등록 성공");
         return ResponseEntity.ok().body(response);
     }
-
-    @AuthCheck
-    @PostMapping("/{problemId}/reviews")
-    public ResponseEntity<?> saveReview(@PathVariable("problemId") Long problemId, @RequestBody ReviewRegisterDto registerDto) {
-        MemberDto member = MemberContext.currentMember.get();
-
-        problemService.registerReview(problemId, registerDto, member);
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "리뷰 등록 성공");
-        return ResponseEntity.ok().body(response);
-    }
 }
