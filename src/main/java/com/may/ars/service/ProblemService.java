@@ -2,6 +2,7 @@ package com.may.ars.service;
 
 import com.may.ars.dto.member.MemberDto;
 import com.may.ars.dto.problem.ProblemRegisterDto;
+import com.may.ars.dto.problem.ReviewRegisterDto;
 import com.may.ars.model.entity.problem.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.may.ars.response.ErrorMessage.NOT_EXIST_PROBLEM;
 
 @RequiredArgsConstructor
 @Service
@@ -55,6 +58,10 @@ public class ProblemService {
 
     @Transactional(readOnly = true)
     public Problem getProblemById(Long problemId) {
-        return problemRepository.findById(problemId).get();
+        return problemRepository.findById(problemId).orElseThrow(
+                () -> {throw new IllegalArgumentException(NOT_EXIST_PROBLEM);}
+        );
     }
+
+
 }
