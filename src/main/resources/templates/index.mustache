@@ -31,15 +31,15 @@
                 content += `
                     </div>
                 </div>`;
-            element.innerHTML += content;
-        }
-    }).fail(function (error) {
-        alert(JSON.stringify(error));
-    });
-}
-{*     else { *}
-{*     location.href = "/user/login"; *}
-{*}*}
+                element.innerHTML += content;
+            }
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    } else {
+        location.href = "/user/login";
+    }
+
 </script>
 <div class="container">
     <div class="card-columns" id="problemList">
