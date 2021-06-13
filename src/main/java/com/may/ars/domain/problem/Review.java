@@ -1,31 +1,32 @@
-package com.may.ars.model.entity.problem;
+package com.may.ars.domain.problem;
 
+import com.may.ars.domain.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class ProblemTag {
+@Builder
+public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "review_id")
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "problem_id")
     private Problem problem;
 
-    @ManyToOne
-    @JoinColumn(name = "tag_id")
-    private Tag tag;
+    @Lob
+    @Type(type = "text")
+    private String content;
 
-    public ProblemTag(Problem problem, Tag tag) {
-        this.problem = problem;
-        this.tag = tag;
-    }
+    private int step;
 }

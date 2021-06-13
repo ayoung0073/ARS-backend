@@ -2,10 +2,10 @@ package com.may.ars.service;
 
 import com.may.ars.dto.member.MemberDto;
 import com.may.ars.dto.problem.ReviewRegisterDto;
-import com.may.ars.model.entity.member.Member;
-import com.may.ars.model.entity.problem.Problem;
-import com.may.ars.model.entity.problem.ProblemRepository;
-import com.may.ars.model.entity.problem.ReviewRepository;
+import com.may.ars.domain.member.Member;
+import com.may.ars.domain.problem.Problem;
+import com.may.ars.domain.problem.ProblemRepository;
+import com.may.ars.domain.problem.ReviewRepository;
 import com.may.ars.response.ErrorMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

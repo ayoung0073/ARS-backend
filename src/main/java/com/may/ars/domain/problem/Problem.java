@@ -1,8 +1,8 @@
-package com.may.ars.model.entity.problem;
+package com.may.ars.domain.problem;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.may.ars.model.entity.BaseEntity;
-import com.may.ars.model.entity.member.Member;
+import com.may.ars.domain.BaseEntity;
+import com.may.ars.domain.member.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

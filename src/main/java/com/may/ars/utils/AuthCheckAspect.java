@@ -2,8 +2,8 @@ package com.may.ars.utils;
 
 import com.may.ars.dto.JwtPayload;
 import com.may.ars.dto.member.MemberDto;
-import com.may.ars.model.entity.member.Member;
-import com.may.ars.model.entity.member.MemberRepository;
+import com.may.ars.domain.member.Member;
+import com.may.ars.domain.member.MemberRepository;
 import com.may.ars.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
