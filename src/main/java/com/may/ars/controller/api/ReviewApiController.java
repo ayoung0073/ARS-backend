@@ -1,7 +1,7 @@
 package com.may.ars.controller.api;
 
+import com.may.ars.domain.member.Member;
 import com.may.ars.dto.ResponseDto;
-import com.may.ars.dto.member.MemberDto;
 import com.may.ars.dto.problem.ReviewRegisterDto;
 import com.may.ars.service.ReviewService;
 import com.may.ars.utils.AuthCheck;
@@ -21,7 +21,7 @@ public class ReviewApiController {
     @AuthCheck
     @PostMapping("/{problemId}/reviews")
     public ResponseEntity<?> saveReview(@PathVariable("problemId") Long problemId, @RequestBody ReviewRegisterDto registerDto) {
-        MemberDto member = MemberContext.currentMember.get();
+        Member member = MemberContext.currentMember.get();
 
         reviewService.registerReview(problemId, registerDto, member);
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "리뷰 등록 성공");

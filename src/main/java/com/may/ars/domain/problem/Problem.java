@@ -3,19 +3,17 @@ package com.may.ars.domain.problem;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.may.ars.domain.BaseEntity;
 import com.may.ars.domain.member.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Builder
+@ToString
 public class Problem extends BaseEntity {
 
     @Id
@@ -23,6 +21,7 @@ public class Problem extends BaseEntity {
     @Column(name = "problem_id")
     private Long id;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member writer;
