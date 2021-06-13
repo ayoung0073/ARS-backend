@@ -1,7 +1,6 @@
 package com.may.ars.utils;
 
 import com.may.ars.dto.JwtPayload;
-import com.may.ars.dto.member.MemberDto;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.member.MemberRepository;
 import com.may.ars.service.JwtService;
@@ -43,7 +42,7 @@ public class AuthCheckAspect {
             throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "인증 실패") {};
         }
 
-        MemberContext.currentMember.set(MemberDto.fromEntity(optionalMember.get()));
+        MemberContext.currentMember.set(optionalMember.get());
         return pjp.proceed();
     }
 }
