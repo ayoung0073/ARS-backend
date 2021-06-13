@@ -1,6 +1,6 @@
 package com.may.ars.service;
 
-import com.may.ars.dto.member.MemberDto;
+import com.may.ars.domain.member.Member;
 import com.may.ars.dto.problem.ReviewRegisterDto;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
@@ -21,11 +21,11 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
 
     @Transactional
-    public void registerReview(Long problemId, ReviewRegisterDto registerDto, MemberDto member) {
+    public void registerReview(Long problemId, ReviewRegisterDto registerDto, Member member) {
         Problem problem = problemRepository.findById(problemId).orElseThrow(
                 () -> {throw new IllegalArgumentException(NOT_EXIST_PROBLEM);}
         );
-        if (!problem.getWriter().getId().equals(member.getMemberId())) {
+        if (!problem.getWriter().getId().equals(member.getId())) {
             throw new IllegalArgumentException(NOT_VALID_USER);
         }
         Review review = registerDto.toEntity(problem);

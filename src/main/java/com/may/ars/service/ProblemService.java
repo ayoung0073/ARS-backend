@@ -1,6 +1,6 @@
 package com.may.ars.service;
 
-import com.may.ars.dto.member.MemberDto;
+import com.may.ars.domain.member.Member;
 import com.may.ars.dto.problem.ProblemRegisterDto;
 import com.may.ars.domain.problem.*;
 import lombok.RequiredArgsConstructor;
@@ -24,12 +24,9 @@ public class ProblemService {
 
     /**
      * 알고리즘 문제 등록
-     *
-     * @param registerDto 등록한 알고리즘 문제 정보
      */
     @Transactional
-    public void registerProblem(ProblemRegisterDto registerDto) {
-        Problem problem = registerDto.toProblemEntity();
+    public void registerProblem(Problem problem, ProblemRegisterDto registerDto) {
         problemRepository.save(problem);
         reviewRepository.save(registerDto.toReviewEntity(problem));
 
@@ -51,8 +48,8 @@ public class ProblemService {
     }
 
     @Transactional(readOnly = true)
-    public List<Problem> getProblemListByMember(MemberDto member) {
-        return problemRepository.findAllByWriterIdOrderByCreatedDateDesc(member.getMemberId());
+    public List<Problem> getProblemListByMember(Member member) {
+        return problemRepository.findAllByWriterIdOrderByCreatedDateDesc(member.getId());
     }
 
     @Transactional(readOnly = true)
