@@ -2,8 +2,7 @@ package com.may.ars.service;
 
 import com.may.ars.dto.member.MemberDto;
 import com.may.ars.dto.problem.ProblemRegisterDto;
-import com.may.ars.dto.problem.ReviewRegisterDto;
-import com.may.ars.model.entity.problem.*;
+import com.may.ars.domain.problem.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

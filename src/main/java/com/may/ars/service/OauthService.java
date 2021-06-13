@@ -9,7 +9,7 @@ import com.may.ars.dto.JwtPayload;
 import com.may.ars.dto.member.MemberDto;
 import com.may.ars.dto.member.LoginSuccessDto;
 import com.may.ars.enums.SocialType;
-import com.may.ars.model.entity.member.Member;
+import com.may.ars.domain.member.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;

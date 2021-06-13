@@ -2,7 +2,7 @@ package com.may.ars.dto.member;
 
 import com.may.ars.enums.RoleType;
 import com.may.ars.enums.SocialType;
-import com.may.ars.model.entity.member.Member;
+import com.may.ars.domain.member.Member;
 import lombok.*;
 
 import java.time.LocalDateTime;
