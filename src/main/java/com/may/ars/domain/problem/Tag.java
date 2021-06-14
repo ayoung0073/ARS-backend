@@ -19,10 +19,8 @@ public class Tag {
     @Column(name = "tag_id")
     private Long id;
 
+    @Column(unique = true)
     private String tagName;
-
-//    @OneToMany(mappedBy = "problem")
-//    private List<Problem> problemList;
 
     public Tag(String tagName) {
         this.tagName = tagName;

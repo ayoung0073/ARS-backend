@@ -1,10 +1,12 @@
 package com.may.ars.controller.api;
 
 import com.may.ars.domain.member.Member;
+import com.may.ars.domain.review.Review;
 import com.may.ars.dto.ResponseDto;
 import com.may.ars.dto.problem.ProblemRegisterDto;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.mapper.ProblemMapper;
+import com.may.ars.mapper.ReviewMapper;
 import com.may.ars.response.SuccessMessage;
 import com.may.ars.service.ProblemService;
 import com.may.ars.utils.AuthCheck;
@@ -40,9 +42,7 @@ public class ProblemApiController {
     @PostMapping("")
     public ResponseEntity<?> saveProblem(@RequestBody ProblemRegisterDto registerDto) {
         Member member = MemberContext.currentMember.get();
-        Problem problem = problemMapper.toEntity(registerDto, member);
-
-        problemService.registerProblem(problem, registerDto);
+        problemService.registerProblem(problemMapper.toEntity(registerDto, member), registerDto);
         log.info(registerDto.toString());
 
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_REGISTER_PROBLEM);
