@@ -5,6 +5,7 @@ import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.review.Review;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Getter
@@ -26,5 +27,7 @@ public class ProblemRegisterDto {
     private String content;
 
     private int step;
+
+    private LocalDate notificationDate;
 
 }

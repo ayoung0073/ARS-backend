@@ -35,6 +35,9 @@ public class Problem extends BaseEntity {
     @Setter
     private String link;
 
+    @Setter
+    private LocalDate notificationDate;
+
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties({"problem"})
     @OrderBy("createdDate desc")

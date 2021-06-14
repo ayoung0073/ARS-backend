@@ -1,10 +1,9 @@
 package com.may.ars.service;
 
 import com.may.ars.domain.member.Member;
-import com.may.ars.dto.problem.ReviewRegisterDto;
+import com.may.ars.dto.review.ReviewRegisterDto;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
-import com.may.ars.domain.review.Review;
 import com.may.ars.domain.review.ReviewRepository;
 import com.may.ars.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +27,11 @@ public class ReviewService {
         Problem problem = problemRepository.findById(problemId).orElseThrow(
                 () -> {throw new IllegalArgumentException(NOT_EXIST_PROBLEM);}
         );
+        problem.setNotificationDate(registerDto.getNotificationDate());
         if (!problem.getWriter().getId().equals(member.getId())) {
             throw new IllegalArgumentException(NOT_VALID_USER);
         }
+        problemRepository.save(problem);
         reviewRepository.save(reviewMapper.toEntity(problem, registerDto));
     }
 }
