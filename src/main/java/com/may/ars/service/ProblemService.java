@@ -1,10 +1,13 @@
 package com.may.ars.service;
 
-import com.may.ars.dto.member.MemberDto;
+import com.may.ars.domain.member.Member;
+import com.may.ars.domain.review.Review;
+import com.may.ars.domain.review.ReviewRepository;
 import com.may.ars.dto.problem.ProblemRegisterDto;
-import com.may.ars.dto.problem.ReviewRegisterDto;
-import com.may.ars.model.entity.problem.*;
+import com.may.ars.domain.problem.*;
+import com.may.ars.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +17,7 @@ import java.util.Optional;
 
 import static com.may.ars.response.ErrorMessage.NOT_EXIST_PROBLEM;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class ProblemService {
@@ -23,16 +27,16 @@ public class ProblemService {
     private final ReviewRepository reviewRepository;
     private final ProblemTagRepository problemTagRepository;
 
+    private final ReviewMapper reviewMapper;
+
     /**
      * 알고리즘 문제 등록
-     *
-     * @param registerDto 등록한 알고리즘 문제 정보
      */
     @Transactional
-    public void registerProblem(ProblemRegisterDto registerDto) {
-        Problem problem = registerDto.toProblemEntity();
+    public void registerProblem(Problem problem, ProblemRegisterDto registerDto) {
         problemRepository.save(problem);
-        reviewRepository.save(registerDto.toReviewEntity(problem));
+        log.info(problem.toString());
+        reviewRepository.save(reviewMapper.toEntity(problem, registerDto));
 
         List<ProblemTag> problemTagList = new ArrayList<>();
 
@@ -52,8 +56,8 @@ public class ProblemService {
     }
 
     @Transactional(readOnly = true)
-    public List<Problem> getProblemListByMember(MemberDto member) {
-        return problemRepository.findAllByWriterIdOrderByCreatedDateDesc(member.getMemberId());
+    public List<Problem> getProblemListByMember(Member member) {
+        return problemRepository.findAllByWriterIdOrderByCreatedDateDesc(member.getId());
     }
 
     @Transactional(readOnly = true)

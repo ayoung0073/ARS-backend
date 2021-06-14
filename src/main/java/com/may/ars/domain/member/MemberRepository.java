@@ -1,4 +1,4 @@
-package com.may.ars.model.entity.member;
+package com.may.ars.domain.member;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

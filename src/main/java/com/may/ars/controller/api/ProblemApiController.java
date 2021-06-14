@@ -1,10 +1,13 @@
 package com.may.ars.controller.api;
 
-import com.may.ars.dto.member.MemberDto;
+import com.may.ars.domain.member.Member;
+import com.may.ars.domain.review.Review;
 import com.may.ars.dto.ResponseDto;
 import com.may.ars.dto.problem.ProblemRegisterDto;
-import com.may.ars.dto.problem.ReviewRegisterDto;
-import com.may.ars.model.entity.problem.Problem;
+import com.may.ars.domain.problem.Problem;
+import com.may.ars.mapper.ProblemMapper;
+import com.may.ars.mapper.ReviewMapper;
+import com.may.ars.response.SuccessMessage;
 import com.may.ars.service.ProblemService;
 import com.may.ars.utils.AuthCheck;
 import com.may.ars.utils.MemberContext;
@@ -22,12 +25,13 @@ import java.util.List;
 @RequestMapping("/api/problems")
 public class ProblemApiController {
 
+    private final ProblemMapper problemMapper;
     private final ProblemService problemService;
 
     @AuthCheck
     @GetMapping("")
     public ResponseEntity<?> getProblemList() {
-        MemberDto member = MemberContext.currentMember.get();
+        Member member = MemberContext.currentMember.get();
         List<Problem> problemList = problemService.getProblemListByMember(member);
 
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기", problemList);
@@ -37,17 +41,11 @@ public class ProblemApiController {
     @AuthCheck
     @PostMapping("")
     public ResponseEntity<?> saveProblem(@RequestBody ProblemRegisterDto registerDto) {
-        MemberDto member = MemberContext.currentMember.get();
-
-        log.info("글 등록");
-        log.info("글 작성자 : " + member.getNickname());
-        log.info("리뷰 : " + registerDto.getContent());
-        log.info("복습 중요도 : " + registerDto.getStep());
-        registerDto.setWriter(member.toEntity());
-        problemService.registerProblem(registerDto);
+        Member member = MemberContext.currentMember.get();
+        problemService.registerProblem(problemMapper.toEntity(registerDto, member), registerDto);
         log.info(registerDto.toString());
 
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 등록 성공");
+        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_REGISTER_PROBLEM);
         return ResponseEntity.ok().body(response);
     }
 }

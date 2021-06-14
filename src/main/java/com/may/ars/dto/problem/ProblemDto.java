@@ -1,8 +1,8 @@
 package com.may.ars.dto.problem;
 
-import com.may.ars.model.entity.member.Member;
-import com.may.ars.model.entity.problem.Problem;
-import com.may.ars.model.entity.problem.Review;
+import com.may.ars.domain.member.Member;
+import com.may.ars.domain.problem.Problem;
+import com.may.ars.domain.review.Review;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

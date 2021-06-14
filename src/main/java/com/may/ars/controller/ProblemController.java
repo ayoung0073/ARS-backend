@@ -1,6 +1,6 @@
 package com.may.ars.controller;
 
-import com.may.ars.model.entity.problem.Problem;
+import com.may.ars.domain.problem.Problem;
 import com.may.ars.service.ProblemService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +27,7 @@ public class ProblemController {
     @GetMapping("/{problemId}")
     public String detailPage(@PathVariable Long problemId, @RequestParam("index") int index, Model model) {
         Problem problem = problemService.getProblemById(problemId);
+        log.info(problem.toString());
         model.addAttribute("problem", problem);
         model.addAttribute("index", index);
         model.addAttribute("review", problem.getReviewList().get(index - 1));

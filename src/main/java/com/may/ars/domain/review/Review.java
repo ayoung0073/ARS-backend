@@ -1,10 +1,8 @@
-package com.may.ars.model.entity.problem;
+package com.may.ars.domain.review;
 
-import com.may.ars.model.entity.BaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.may.ars.domain.BaseEntity;
+import com.may.ars.domain.problem.Problem;
+import lombok.*;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -18,15 +16,18 @@ public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
-    private long id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "problem_id")
+    @Setter
     private Problem problem;
 
+    @Setter
     @Lob
     @Type(type = "text")
     private String content;
 
+    @Setter
     private int step;
 }

@@ -1,21 +1,21 @@
-package com.may.ars.model.entity.problem;
+package com.may.ars.domain.problem;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.may.ars.model.entity.BaseEntity;
-import com.may.ars.model.entity.member.Member;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.may.ars.domain.BaseEntity;
+import com.may.ars.domain.member.Member;
+import com.may.ars.domain.review.Review;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
+@Builder
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Builder
+@ToString
 public class Problem extends BaseEntity {
 
     @Id
@@ -23,13 +23,16 @@ public class Problem extends BaseEntity {
     @Column(name = "problem_id")
     private Long id;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member writer;
 
+    @Setter
     @Column
     private String title;
 
+    @Setter
     private String link;
 
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

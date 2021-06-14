@@ -1,4 +1,4 @@
-package com.may.ars.model.entity.problem;
+package com.may.ars.domain.problem;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -20,10 +19,8 @@ public class Tag {
     @Column(name = "tag_id")
     private Long id;
 
+    @Column(unique = true)
     private String tagName;
-
-//    @OneToMany(mappedBy = "problem")
-//    private List<Problem> problemList;
 
     public Tag(String tagName) {
         this.tagName = tagName;
