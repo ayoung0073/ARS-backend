@@ -2,7 +2,7 @@ package com.may.ars.controller.api;
 
 import com.may.ars.domain.member.Member;
 import com.may.ars.dto.ResponseDto;
-import com.may.ars.dto.problem.ReviewRegisterDto;
+import com.may.ars.dto.review.ReviewRegisterDto;
 import com.may.ars.service.ReviewService;
 import com.may.ars.utils.AuthCheck;
 import com.may.ars.utils.MemberContext;
