@@ -11,6 +11,7 @@ let index = {
     register: function () {
         let tagList = [];
         let tagArr = document.getElementsByClassName("btn-tag");
+        let step = $("#step").val();
         console.log(document.getElementsByClassName("tui-editor-contents")[0]);
         for (let i = 0; i < tagArr.length; i++) {
             tagList.push(tagArr[i].value);
@@ -21,7 +22,8 @@ let index = {
             // content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
             content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
             link: $("#link").val(),
-            step: $("#step").val(),
+            step: step,
+            notificationDate: date_setting(step),
             tagList: tagList
         }
 
@@ -45,17 +47,18 @@ let index = {
     },
 
     reviewRegister: function () {
-
+        let step = $("#step").val();
         let data = {
             content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
-            step: $("#step").val(),
+            step: step,
+            notificationDate: date_setting(step),
         }
 
         console.log(data);
         console.log(sessionStorage.getItem("access_token"));
 
         let problemId = document.getElementById("problem-id").value;
-        console.log(problemId) // 테스트용
+        console.log(problemId)
 
         $.ajax({
             type: "POST",
@@ -72,8 +75,41 @@ let index = {
             alert(JSON.stringify(error));
         });
     },
-
-
     }
+
+function date_setting(step) {
+    console.log(step);
+    let today = new Date();
+    let date = new Date();
+
+    switch (step) {
+        case "1":
+            date.setMonth(today.getMonth() + 3); // 3달 후
+            break;
+        case "2":
+            date.setMonth(today.getMonth() + 2); // 2달 후
+            break;
+        case "3":
+            date.setMonth(today.getMonth() + 1); // 1달 후
+            break;
+        case "4":
+            date.setDate(today.getDate() + 14); // 2주 후
+            break;
+        case "5":
+            date.setDate(today.getDate() + 7); // 1주 후
+            break;
+    }
+
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    month = month >= 10 ? month : '0' + month; // 날짜 포맷 맞추기
+    day = day >= 10 ? day : '0' + day;
+
+    console.log(year + "-" + month + "-" + day);
+    return year + "-" + month + "-" + day;
+}
+
 
 index.init()
