@@ -7,6 +7,7 @@ import com.may.ars.domain.review.Review;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Builder
@@ -27,9 +28,11 @@ public class Problem extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member writer;
 
+    @Setter
     @Column
     private String title;
 
+    @Setter
     private String link;
 
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

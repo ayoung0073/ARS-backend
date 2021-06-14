@@ -27,11 +27,4 @@ public class ProblemRegisterDto {
 
     private int step;
 
-    public Review toReviewEntity(Problem problem) {
-        return Review.builder()
-                .step(step)
-                .problem(problem)
-                .content(content)
-                .build();
-    }
 }
