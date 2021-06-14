@@ -3,7 +3,7 @@ package com.may.ars.mapper;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.review.Review;
 import com.may.ars.dto.problem.ProblemRegisterDto;
-import com.may.ars.dto.problem.ReviewRegisterDto;
+import com.may.ars.dto.review.ReviewRegisterDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

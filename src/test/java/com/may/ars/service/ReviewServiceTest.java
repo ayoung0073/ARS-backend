@@ -1,6 +1,6 @@
 package com.may.ars.service;
 
-import com.may.ars.dto.problem.ReviewRegisterDto;
+import com.may.ars.dto.review.ReviewRegisterDto;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
