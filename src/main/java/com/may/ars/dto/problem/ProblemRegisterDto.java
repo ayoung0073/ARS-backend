@@ -2,7 +2,7 @@ package com.may.ars.dto.problem;
 
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
-import com.may.ars.domain.problem.Review;
+import com.may.ars.domain.review.Review;
 import lombok.*;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.may.ars.domain.problem;
+package com.may.ars.domain.review;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

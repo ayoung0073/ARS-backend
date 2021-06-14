@@ -1,7 +1,7 @@
 package com.may.ars.dto.problem;
 
 import com.may.ars.domain.problem.Problem;
-import com.may.ars.domain.problem.Review;
+import com.may.ars.domain.review.Review;
 import lombok.Builder;
 import lombok.Getter;
 
