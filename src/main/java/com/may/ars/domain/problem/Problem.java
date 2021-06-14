@@ -3,6 +3,7 @@ package com.may.ars.domain.problem;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.may.ars.domain.BaseEntity;
 import com.may.ars.domain.member.Member;
+import com.may.ars.domain.review.Review;
 import lombok.*;
 
 import javax.persistence.*;

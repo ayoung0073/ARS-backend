@@ -5,6 +5,7 @@ import com.may.ars.dto.ResponseDto;
 import com.may.ars.dto.problem.ProblemRegisterDto;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.mapper.ProblemMapper;
+import com.may.ars.response.SuccessMessage;
 import com.may.ars.service.ProblemService;
 import com.may.ars.utils.AuthCheck;
 import com.may.ars.utils.MemberContext;
@@ -39,10 +40,12 @@ public class ProblemApiController {
     @PostMapping("")
     public ResponseEntity<?> saveProblem(@RequestBody ProblemRegisterDto registerDto) {
         Member member = MemberContext.currentMember.get();
-        problemService.registerProblem(problemMapper.toEntity(registerDto, member), registerDto);
+        Problem problem = problemMapper.toEntity(registerDto, member);
+
+        problemService.registerProblem(problem, registerDto);
         log.info(registerDto.toString());
 
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 등록 성공");
+        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_REGISTER_PROBLEM);
         return ResponseEntity.ok().body(response);
     }
 }

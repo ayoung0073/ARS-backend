@@ -1,6 +1,7 @@
 package com.may.ars.service;
 
 import com.may.ars.domain.member.Member;
+import com.may.ars.domain.review.ReviewRepository;
 import com.may.ars.dto.problem.ProblemRegisterDto;
 import com.may.ars.domain.problem.*;
 import lombok.RequiredArgsConstructor;

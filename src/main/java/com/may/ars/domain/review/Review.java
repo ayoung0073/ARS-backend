@@ -1,6 +1,7 @@
-package com.may.ars.domain.problem;
+package com.may.ars.domain.review;
 
 import com.may.ars.domain.BaseEntity;
+import com.may.ars.domain.problem.Problem;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
