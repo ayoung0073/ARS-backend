@@ -25,6 +25,8 @@ public class MemberDto {
 
     private String nickname;
 
+    private Long socialId;
+
     private LocalDateTime createdDate;
 
     private LocalDateTime modifiedDate;
@@ -38,17 +40,8 @@ public class MemberDto {
         memberDto.setSocialType(entity.getSocialType());
         memberDto.setCreatedDate(entity.getCreatedDate());
         memberDto.setModifiedDate(entity.getModifiedDate());
+        memberDto.setSocialId(entity.getSocialId());
 
         return memberDto;
-    }
-
-    public Member toEntity() {
-        return Member.builder()
-                .id(memberId)
-                .email(email)
-                .nickname(nickname)
-                .roleType(roleType)
-                .socialType(socialType)
-                .build();
     }
 }

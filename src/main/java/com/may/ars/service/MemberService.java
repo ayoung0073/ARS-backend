@@ -28,6 +28,7 @@ public class MemberService {
                 .roleType(RoleType.USER)
                 .socialType(memberDto.getSocialType())
                 .nickname(memberDto.getNickname())
+                .socialId(memberDto.getSocialId())
                 .build();
 
         memberRepository.save(member);
