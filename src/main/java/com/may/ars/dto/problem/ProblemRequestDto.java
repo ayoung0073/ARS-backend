@@ -14,13 +14,11 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Builder
 @ToString
-public class ProblemRegisterDto {
+public class ProblemRequestDto {
 
     private String title;
 
     private String link;
-
-    private Member writer;
 
     private ArrayList<String> tagList;
 

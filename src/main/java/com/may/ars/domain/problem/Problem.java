@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Builder
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -23,19 +23,15 @@ public class Problem extends BaseEntity {
     @Column(name = "problem_id")
     private Long id;
 
-    @Setter
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member writer;
 
-    @Setter
     @Column
     private String title;
 
-    @Setter
     private String link;
 
-    @Setter
     private LocalDate notificationDate;
 
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

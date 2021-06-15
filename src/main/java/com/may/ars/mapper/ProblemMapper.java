@@ -2,7 +2,7 @@ package com.may.ars.mapper;
 
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
-import com.may.ars.dto.problem.ProblemRegisterDto;
+import com.may.ars.dto.problem.ProblemRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -16,5 +16,12 @@ public interface ProblemMapper {
     @Mapping(target = "writer", source = "member")
     @Mapping(target = "tagList", ignore = true)
     @Mapping(target = "reviewList", ignore = true)
-    Problem toEntity(ProblemRegisterDto registerDto, Member member);
+    Problem toEntity(ProblemRequestDto requestDto, Member member);
+
+
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "writer", source = "member")
+    @Mapping(target = "tagList", ignore = true)
+    @Mapping(target = "reviewList", ignore = true)
+    Problem toEntity(Long id, ProblemRequestDto requestDto, Member member);
 }

@@ -1,12 +1,10 @@
 package com.may.ars.controller.api;
 
 import com.may.ars.domain.member.Member;
-import com.may.ars.domain.review.Review;
 import com.may.ars.dto.ResponseDto;
-import com.may.ars.dto.problem.ProblemRegisterDto;
+import com.may.ars.dto.problem.ProblemRequestDto;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.mapper.ProblemMapper;
-import com.may.ars.mapper.ReviewMapper;
 import com.may.ars.response.SuccessMessage;
 import com.may.ars.service.ProblemService;
 import com.may.ars.utils.AuthCheck;
@@ -40,12 +38,32 @@ public class ProblemApiController {
 
     @AuthCheck
     @PostMapping("")
-    public ResponseEntity<?> saveProblem(@RequestBody ProblemRegisterDto registerDto) {
+    public ResponseEntity<?> saveProblem(@RequestBody ProblemRequestDto requestDto) {
         Member member = MemberContext.currentMember.get();
-        problemService.registerProblem(problemMapper.toEntity(registerDto, member), registerDto);
-        log.info(registerDto.toString());
+        problemService.registerProblem(problemMapper.toEntity(requestDto, member), requestDto);
 
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_REGISTER_PROBLEM);
         return ResponseEntity.ok().body(response);
     }
+
+    @PutMapping("/{problemId}")
+    public ResponseEntity<?> updateProblem(@PathVariable Long problemId, @RequestBody ProblemRequestDto requestDto) {
+        Member member = MemberContext.currentMember.get();
+        problemService.updateProblem(problemMapper.toEntity(problemId, requestDto, member));
+
+        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_UPDATE_PROBLEM);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @DeleteMapping("/{problemId}")
+    public ResponseEntity<?> detailPage(@PathVariable Long problemId) {
+        Member member = MemberContext.currentMember.get();
+        problemService.deleteProblem(problemId, member);
+
+        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_DELETE_PROBLEM);
+        return ResponseEntity.ok().body(response);
+    }
+
+
+
 }
