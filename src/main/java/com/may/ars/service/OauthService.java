@@ -11,6 +11,7 @@ import com.may.ars.dto.member.LoginSuccessDto;
 import com.may.ars.enums.SocialType;
 import com.may.ars.domain.member.Member;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class OauthService {
@@ -40,6 +42,9 @@ public class OauthService {
         JsonNode profile = getProfile(accessToken, kakaoProperties.getProfileRequestUrl());
         MemberDto memberDto;
         JwtPayload jwtPayload;
+        Long socialId = profile.get("id").asLong();
+        log.info(profile.toString());
+        log.info("사용자 ID : " + socialId);
         String email = profile.get("kakao_account").get("email").textValue();
         Optional<Member> optional = memberService.findMemberByEmail(email);
 
@@ -48,6 +53,7 @@ public class OauthService {
             memberDto.setEmail(email);
             memberDto.setNickname(profile.get("properties").get("nickname").textValue());
             memberDto.setSocialType(SocialType.KAKAO);
+            memberDto.setSocialId(socialId);
 
             Long memberId = memberService.saveMember(memberDto);
             jwtPayload = new JwtPayload(memberId, email);
