@@ -31,5 +31,8 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
+    @Column(unique = true)
+    private Long socialId;
+
     private String nickname;
 }
