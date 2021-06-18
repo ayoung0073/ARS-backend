@@ -3,6 +3,7 @@ package com.may.ars.mapper;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.review.Review;
 import com.may.ars.dto.problem.ProblemRequestDto;
+import com.may.ars.dto.problem.ProblemRegisterDto;
 import com.may.ars.dto.review.ReviewRegisterDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -16,6 +17,7 @@ public interface ReviewMapper {
     @Mapping(target = "problem", source = "problem")
     @Mapping(target = "id", ignore = true)
     Review toEntity(Problem problem, ProblemRequestDto registerDto);
+    Review toEntity(Problem problem, ProblemRegisterDto registerDto);
 
     @Mapping(target = "problem", source = "problem")
     @Mapping(target = "id", ignore = true)

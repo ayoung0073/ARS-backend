@@ -128,8 +128,7 @@ let index = {
     },
 
 
-    }
-
+}
 function date_setting(step) {
     console.log(step);
     let today = new Date();
