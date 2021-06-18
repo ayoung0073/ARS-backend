@@ -9,7 +9,10 @@
     <br>
 <!--    <button class="btn-secondary btn" onclick="history.back()">뒤로가기</button>-->
     <div class="form-group">
-        <h1 id="title">{{problem.title}}</h1>
+        <h1 id="title">{{problem.title}}
+            <button class="btn-danger btn-sm" onclick="index.deleteProblem({{problem.id}});" style="float: right;" >삭제</button>
+            <button style="float: right; margin-right: 5px;" onclick="index.updateProblem({{problem.id}});" class="btn-primary btn-sm">수정</button>
+        </h1>
         {{problem.writer.nickname}}&nbsp ·&nbsp 작성일 <span class="date">{{createdDate}}</span>
     </div>
     <hr>
@@ -66,6 +69,5 @@
     }
 </script>
 
-<script src="/js/algorithm.js"></script>
-<script src="/js/markdown.js"></script>
+<script type="text/javascript" src="/js/algorithm.js"></script>
 {{>layout/footer}}

@@ -80,6 +80,7 @@ public class ProblemService {
     }
 
     private void checkValidUser(Long problemId, Member member) {
+        log.info(problemId + " ");
         if (problemRepository.findProblemByIdAndWriter(problemId, member).isEmpty()) {
            throw new IllegalArgumentException(NOT_VALID_USER);
         }

@@ -46,6 +46,7 @@ public class ProblemApiController {
         return ResponseEntity.ok().body(response);
     }
 
+    @AuthCheck
     @PutMapping("/{problemId}")
     public ResponseEntity<?> updateProblem(@PathVariable Long problemId, @RequestBody ProblemRequestDto requestDto) {
         Member member = MemberContext.currentMember.get();
@@ -55,6 +56,7 @@ public class ProblemApiController {
         return ResponseEntity.ok().body(response);
     }
 
+    @AuthCheck
     @DeleteMapping("/{problemId}")
     public ResponseEntity<?> detailPage(@PathVariable Long problemId) {
         Member member = MemberContext.currentMember.get();

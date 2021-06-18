@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class JwtPayload {
 
-    private long id;
+    private Long id;
     private String email;
 
     public JwtPayload(Long id, String email) {
