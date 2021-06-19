@@ -2,7 +2,7 @@ package com.may.ars.mapper;
 
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
-import com.may.ars.dto.problem.ProblemRegisterDto;
+import com.may.ars.dto.problem.ProblemRequestDto;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -13,7 +13,7 @@ class ProblemMapperTest {
     @Test
     void toEntity_테스트() {
         // given
-        final ProblemRegisterDto registerDto = ProblemRegisterDto.builder()
+        final ProblemRequestDto registerDto = ProblemRequestDto.builder()
                 .content("hi")
                 .title("hi")
                 .step(3)

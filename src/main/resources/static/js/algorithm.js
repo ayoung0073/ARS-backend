@@ -4,7 +4,14 @@ let index = {
             this.register();
         });
         $("#btn-review-register").on("click", () => {
-            this.reviewRegister();
+            this.registerReview();
+        });
+
+        $("#btn-problem-update-register").on("click", (problemId) => {
+            this.updateProblem(problemId);
+        });
+        $("#btn-problem-delete").on("click", (problemId) => {
+            this.deleteProblem(problemId);
         });
     },
 
@@ -19,7 +26,6 @@ let index = {
 
         let data = {
             title: $("#title").val(),
-            // content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
             content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
             link: $("#link").val(),
             step: step,
@@ -46,7 +52,7 @@ let index = {
         });
     },
 
-    reviewRegister: function () {
+    registerReview: function () {
         let step = $("#step").val();
         let data = {
             content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
@@ -54,11 +60,7 @@ let index = {
             notificationDate: date_setting(step),
         }
 
-        console.log(data);
-        console.log(sessionStorage.getItem("access_token"));
-
         let problemId = document.getElementById("problem-id").value;
-        console.log(problemId)
 
         $.ajax({
             type: "POST",
@@ -75,8 +77,58 @@ let index = {
             alert(JSON.stringify(error));
         });
     },
-    }
 
+    updateProblem: function (problemId) {
+        let tagList = [];
+        let tagArr = document.getElementsByClassName("btn-tag");
+        let step = $("#step").val();
+        console.log(document.getElementsByClassName("tui-editor-contents")[0]);
+        for (let i = 0; i < tagArr.length; i++) {
+            tagList.push(tagArr[i].value);
+        }
+
+        let data = {
+            title: $("#title").val(),
+            content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
+            link: $("#link").val(),
+            step: step,
+            notificationDate: date_setting(step),
+            tagList: tagList
+        }
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/problems/" + problemId,
+            headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (result) {
+            console.log(result);
+            alert("글 수정이 완료되었습니다.");
+            location.href = "/problems/" + problemId + "?index=1";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+    deleteProblem: function (problemId) {
+        $.ajax({
+            type: "DELETE",
+            url: "/api/problems/" + problemId,
+            headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
+            dataType: "json"
+        }).done(function (result) {
+            console.log(result);
+            alert("글 삭제 완료하였습니다.");
+            location.href = "/";
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
+
+}
 function date_setting(step) {
     console.log(step);
     let today = new Date();
@@ -98,6 +150,8 @@ function date_setting(step) {
         case "5":
             date.setDate(today.getDate() + 7); // 1주 후
             break;
+        default:
+            return step
     }
 
     let year = date.getFullYear();
