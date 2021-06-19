@@ -106,7 +106,7 @@ let index = {
         }).done(function (result) {
             console.log(result);
             alert("글 수정이 완료되었습니다.");
-            location.href = "/problems/" + problemId;
+            location.href = "/problems/" + problemId + "?index=1";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -150,6 +150,8 @@ function date_setting(step) {
         case "5":
             date.setDate(today.getDate() + 7); // 1주 후
             break;
+        default:
+            return step
     }
 
     let year = date.getFullYear();
