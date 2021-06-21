@@ -17,4 +17,9 @@ class SlackBotServiceTest {
         slackBotService.test();
     }
 
+    @Test
+    void 유저_정보_By_이메일_테스트() {
+        slackBotService.getSlackUserIdByEmail("ayong703@gmail.com");
+    }
+
 }
