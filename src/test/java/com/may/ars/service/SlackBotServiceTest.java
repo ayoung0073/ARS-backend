@@ -1,5 +1,6 @@
 package com.may.ars.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,8 +19,8 @@ class SlackBotServiceTest {
     }
 
     @Test
-    void 유저_정보_By_이메일_테스트() {
-        slackBotService.getSlackUserIdByEmail("ayong703@gmail.com");
+    void 유저_정보_By_이메일_테스트() throws JsonProcessingException {
+        slackBotService.getSlackIdByEmail("ayong703@gmail.com");
     }
 
 }

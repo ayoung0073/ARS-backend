@@ -31,5 +31,10 @@ public class Member extends BaseEntity {
     @Column(unique = true)
     private Long socialId;
 
+    @Column(unique = true)
     private String nickname;
+
+    @Setter
+    @Column(unique = true)
+    private String slackId;
 }
