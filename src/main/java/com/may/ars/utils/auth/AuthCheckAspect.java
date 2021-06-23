@@ -1,4 +1,4 @@
-package com.may.ars.utils;
+package com.may.ars.utils.auth;
 
 import com.may.ars.dto.JwtPayload;
 import com.may.ars.domain.member.Member;
@@ -28,7 +28,7 @@ public class AuthCheckAspect {
     private final MemberRepository memberRepository;
     private final HttpServletRequest httpServletRequest;
 
-    @Around("@annotation(AuthCheck)")
+    @Around("@annotation(com.may.ars.utils.auth.AuthCheck)")
     public Object loginCheck(ProceedingJoinPoint pjp) throws Throwable {
 
         String token = httpServletRequest.getHeader(AUTHORIZATION);

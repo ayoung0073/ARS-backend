@@ -1,4 +1,4 @@
-package com.may.ars.utils;
+package com.may.ars.utils.auth;
 
 import com.may.ars.domain.member.Member;
 
