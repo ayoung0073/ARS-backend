@@ -23,8 +23,9 @@ public class SlackBotService {
     private String slackToken;
 
     public void notification(Problem problem) {
-        HttpHeaders headers = new HttpHeaders();
         String url = "https://slack.com/api/chat.postMessage";
+
+        HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + slackToken);
         headers.add("Content-type", "application/json; charset=utf-8");
 //        {"ok":false,"error":"channel_not_found","warning":"missing_charset","response_metadata":{"warnings":["missing_charset"]}}
@@ -45,9 +46,10 @@ public class SlackBotService {
     }
 
     public String getSlackIdByEmail(String email) throws JsonProcessingException {
-        HttpHeaders headers = new HttpHeaders();
         String url = "https://slack.com/api/users.lookupByEmail";
         url += "?email=" + email;
+
+        HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + slackToken);
         headers.add("Content-type", "application/x-www-form-urlencoded");
 
@@ -58,6 +60,7 @@ public class SlackBotService {
                 requestEntity,
                 String.class
         );
+
         HttpStatus httpStatus = restResponse.getStatusCode();
         int status = httpStatus.value();
         String response = restResponse.getBody();
