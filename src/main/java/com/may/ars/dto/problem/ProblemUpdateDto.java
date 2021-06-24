@@ -18,7 +18,5 @@ public class ProblemUpdateDto {
 
     private ArrayList<String> tagList;
 
-    private int step;
-
     private LocalDate notificationDate;
 }

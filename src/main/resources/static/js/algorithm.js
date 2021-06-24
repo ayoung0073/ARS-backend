@@ -91,7 +91,6 @@ let index = {
             title: $("#title").val(),
             content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
             link: $("#link").val(),
-            step: step,
             notificationDate: date_setting(step),
             tagList: tagList
         }
