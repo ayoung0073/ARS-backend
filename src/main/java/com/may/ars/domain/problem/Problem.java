@@ -20,11 +20,11 @@ public class Problem extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "problem_id")
+    @Column(name = "problem_id", updatable = false)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", updatable = false)
     private Member writer;
 
     @Column

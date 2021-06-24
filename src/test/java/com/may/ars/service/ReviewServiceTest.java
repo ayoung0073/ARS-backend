@@ -1,6 +1,6 @@
 package com.may.ars.service;
 
-import com.may.ars.dto.review.ReviewRegisterDto;
+import com.may.ars.dto.review.ReviewRequestDto;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
@@ -58,13 +58,13 @@ public class ReviewServiceTest {
 
         Long problemId = 1L;
 
-        final ReviewRegisterDto registerDto = ReviewRegisterDto.builder()
+        final ReviewRequestDto requestDto = ReviewRequestDto.builder()
                 .content("리뷰 등록 테스트")
                 .step(3)
                 .build();
 
         // when
-        reviewService.registerReview(problemId, registerDto,  member);
+        reviewService.registerReview(problemId, requestDto,  member);
     }
 
     @Test
@@ -78,14 +78,14 @@ public class ReviewServiceTest {
 
         Long problemId = 2L;
 
-        final ReviewRegisterDto registerDto = ReviewRegisterDto.builder()
+        final ReviewRequestDto requestDto = ReviewRequestDto.builder()
                 .content("리뷰 등록 테스트")
                 .step(3)
                 .build();
 
         // when
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
-                () -> reviewService.registerReview(problemId, registerDto, member)); // 예외가 발생해야 한다.
+                () -> reviewService.registerReview(problemId, requestDto, member)); // 예외가 발생해야 한다.
 
         //then
         assertThat(e.getMessage(), is(ErrorMessage.NOT_EXIST_PROBLEM));
@@ -102,14 +102,14 @@ public class ReviewServiceTest {
 
         Long problemId = 1L;
 
-        final ReviewRegisterDto registerDto = ReviewRegisterDto.builder()
+        final ReviewRequestDto requestDto = ReviewRequestDto.builder()
                 .content("리뷰 등록 테스트")
                 .step(3)
                 .build();
 
         // when
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
-                () -> reviewService.registerReview(problemId, registerDto, member)); // 예외가 발생해야 한다.
+                () -> reviewService.registerReview(problemId, requestDto, member)); // 예외가 발생해야 한다.
 
         //then
         assertThat(e.getMessage(), is(ErrorMessage.NOT_VALID_USER));

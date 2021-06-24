@@ -6,14 +6,11 @@
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
 
 <div style="margin-left: 270px; margin-right: 270px">
-    <br>
     <div class="form-group">
-        <div>
-            <button class="btn-danger btn-sm" onclick="index.deleteProblem({{problem.id}});" style="float: right;" >삭제</button>
-            <button style="float: right; margin-right: 5px;" onclick="index.updateProblem({{problem.id}});" class="btn-primary btn-sm">수정</button>
-        </div>
         <p>
             <textarea id="title" style="height: 66px;">{{problem.title}}</textarea>
+            <button class="btn-danger btn-sm" onclick="index.deleteProblem({{problem.id}});" style="float: right;" >삭제</button>
+            <button style="float: right; margin-right: 5px;" onclick="index.updateProblem({{problem.id}});" class="btn-primary btn-sm">수정</button>
             {{problem.writer.nickname}}&nbsp ·&nbsp 작성일 <span class="date">{{createdDate}}</span>
         </p>
         <select id="step" class="form-control select-box">
