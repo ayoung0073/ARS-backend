@@ -76,7 +76,7 @@ public class ProblemService {
     @Transactional
     public void deleteProblem(Long problemId, Member member) {
         checkValidUser(problemId, member);
-        problemRepository.deleteProblemById(problemId);
+        problemRepository.deleteById(problemId);
     }
 
     private void checkValidUser(Long problemId, Member member) {

@@ -39,4 +39,14 @@ public class ReviewApiController {
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "리뷰 수정 성공");
         return ResponseEntity.ok().body(response);
     }
+
+    @AuthCheck
+    @DeleteMapping("/reviews/{reviewId}")
+    public ResponseEntity<?> deleteReview(@PathVariable("reviewId") Long reviewId) {
+        Member member = MemberContext.currentMember.get();
+
+        reviewService.deleteReview(reviewId, member);
+        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "리뷰 삭제 성공");
+        return ResponseEntity.ok().body(response);
+    }
 }
