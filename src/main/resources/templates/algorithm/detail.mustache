@@ -11,7 +11,7 @@
             <div id="title" style="height: 66px;">{{problem.title}}</div>
             <div class="fix-btn-container">
                 <button class="fix-btn" onclick="location.href='/problems/{{problem.id}}/reviews/{{review.id}}'">수정</button>
-                <button class="fix-btn" onclick="index.deleteProblem({{problem.id}});">삭제</button>
+                <button class="fix-btn" onclick="index.deleteReview({{review.id}});">삭제</button>
             </div>
             {{problem.writer.nickname}}&nbsp ·&nbsp 작성일 <span class="date">{{createdDate}}</span>&nbsp ·&nbsp 알림 예정일 &nbsp<b>{{problem.notificationDate}}</b>
         </p>

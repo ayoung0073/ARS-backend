@@ -11,15 +11,17 @@ let index = {
     register: function () {
         let tagList = [];
         let tagArr = document.getElementsByClassName("btn-tag");
+        let content = document.getElementsByClassName("codemirror-lines")[0].innerText;
+        console.log(content);
+
         let step = $("#step").val();
-        console.log(document.getElementsByClassName("tui-editor-contents")[0]);
         for (let i = 0; i < tagArr.length; i++) {
             tagList.push(tagArr[i].value);
         }
 
         let data = {
             title: $("#title").val(),
-            content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
+            content: content,
             link: $("#link").val(),
             step: step,
             notificationDate: date_setting(step),
@@ -47,8 +49,10 @@ let index = {
 
     registerReview: function () {
         let step = $("#step").val();
+        let content = document.getElementsByClassName("codemirror-lines")[0].innerText;
+        console.log(content);
         let data = {
-            content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
+            content: content,
             step: step,
             notificationDate: date_setting(step),
         }
@@ -82,7 +86,8 @@ let index = {
 
         let data = {
             title: $("#title").val(),
-            content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
+            // content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
+            content: document.getElementById("editor").innerText,
             link: $("#link").val(),
             notificationDate: date_setting(step),
             tagList: tagList
@@ -121,6 +126,7 @@ let index = {
 
      updateReview: function (problemId, reviewId) {
          let tagList = [];
+         let content = document.getElementsByClassName("codemirror-lines")[0].innerText;
          let tagArr = document.getElementsByClassName("btn-tag");
          let step = $("#step").val();
          let notificationDate = date_setting(step);
@@ -137,7 +143,7 @@ let index = {
 
          let data = {
              title: $("#title").val(),
-             content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
+             content: content,
              link: $("#link").val(),
              notificationDate: notificationDate,
              tagList: tagList,
@@ -160,15 +166,15 @@ let index = {
             });
         },
 
-        deleteReview: function (problemId) {
+        deleteReview: function (reviewId) {
             $.ajax({
                 type: "DELETE",
-                url: "/api/problems/" + problemId,
+                url: "/api/reviews/" + reviewId,
                 headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
                 dataType: "json"
             }).done(function (result) {
                 console.log(result);
-                alert("글 삭제 완료하였습니다.");
+                alert("리뷰 삭제 완료하였습니다.");
                 location.href = "/";
             }).fail(function (error) {
                 alert(JSON.stringify(error));
