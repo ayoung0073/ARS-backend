@@ -3,7 +3,9 @@ package com.may.ars.controller.api;
 import com.may.ars.domain.member.Member;
 import com.may.ars.dto.ResponseDto;
 import com.may.ars.dto.review.ReviewRequestDto;
+import com.may.ars.mapper.ProblemMapper;
 import com.may.ars.mapper.ReviewMapper;
+import com.may.ars.service.ProblemService;
 import com.may.ars.service.ReviewService;
 import com.may.ars.utils.auth.AuthCheck;
 import com.may.ars.utils.auth.MemberContext;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class ReviewApiController {
 
+    private final ProblemService problemService;
+    private final ProblemMapper problemMapper;
     private final ReviewService reviewService;
     private final ReviewMapper reviewMapper;
 
@@ -31,11 +35,11 @@ public class ReviewApiController {
     }
 
     @AuthCheck
-    @PutMapping("/reviews/{reviewId}")
-    public ResponseEntity<?> updateReview(@PathVariable("reviewId") Long reviewId, @RequestBody ReviewRequestDto registerDto) {
+    @PutMapping("/problems/{problemId}/reviews/{reviewId}")
+    public ResponseEntity<?> updateReview(@PathVariable("problemId") Long problemId, @PathVariable("reviewId") Long reviewId, @RequestBody ReviewRequestDto requestDto) {
         Member member = MemberContext.currentMember.get();
-
-        reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, registerDto), member);
+        problemService.updateProblem(problemMapper.toEntity(problemId, requestDto, member));
+        reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto), member);
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "리뷰 수정 성공");
         return ResponseEntity.ok().body(response);
     }

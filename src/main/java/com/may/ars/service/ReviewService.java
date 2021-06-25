@@ -49,6 +49,13 @@ public class ReviewService {
         reviewRepository.deleteById(reviewId);
     }
 
+    @Transactional(readOnly = true)
+    public Review getReview(Long reviewId) {
+        return reviewRepository.findById(reviewId).orElseThrow(
+                () -> { throw new IllegalArgumentException(NOT_EXIST_REVIEW); }
+        );
+    }
+
     private void checkValidUser(Long reviewId, Member member) {
         reviewRepository.findReviewByIdAndMemberId(reviewId, member.getId()).orElseThrow(
                 () -> { throw new IllegalArgumentException(NOT_EXIST_REVIEW); }
