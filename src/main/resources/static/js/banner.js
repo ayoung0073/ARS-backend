@@ -4,5 +4,9 @@ if (nickname == null) {
             <a class="nav-link" href="/user/login">login</a>
         `);
 } else {
-    document.write("&nbsp;&nbsp;" + nickname + "님 환영합니다!");
+    document.write(
+        `<span style="float: right;">&nbsp;&nbsp;<b>`
+        + nickname
+        + `</b>님 환영합니다!&nbsp;&nbsp;</span>`
+    );
 }

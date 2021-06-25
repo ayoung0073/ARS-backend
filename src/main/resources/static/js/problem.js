@@ -6,27 +6,22 @@ let index = {
         $("#btn-review-register").on("click", () => {
             this.registerReview();
         });
-
-        $("#btn-problem-update-register").on("click", (problemId) => {
-            this.updateProblem(problemId);
-        });
-        $("#btn-problem-delete").on("click", (problemId) => {
-            this.deleteProblem(problemId);
-        });
     },
 
     register: function () {
         let tagList = [];
         let tagArr = document.getElementsByClassName("btn-tag");
+        let content = document.getElementsByClassName("codemirror-lines")[0].innerText;
+        console.log(content);
+
         let step = $("#step").val();
-        console.log(document.getElementsByClassName("tui-editor-contents")[0]);
         for (let i = 0; i < tagArr.length; i++) {
             tagList.push(tagArr[i].value);
         }
 
         let data = {
             title: $("#title").val(),
-            content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
+            content: content,
             link: $("#link").val(),
             step: step,
             notificationDate: date_setting(step),
@@ -54,8 +49,10 @@ let index = {
 
     registerReview: function () {
         let step = $("#step").val();
+        let content = document.getElementsByClassName("codemirror-lines")[0].innerText;
+        console.log(content);
         let data = {
-            content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
+            content: content,
             step: step,
             notificationDate: date_setting(step),
         }
@@ -89,9 +86,9 @@ let index = {
 
         let data = {
             title: $("#title").val(),
-            content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
+            // content: document.getElementsByClassName("tui-editor-contents")[0].innerHTML,
+            content: document.getElementById("editor").innerText,
             link: $("#link").val(),
-            step: step,
             notificationDate: date_setting(step),
             tagList: tagList
         }
@@ -127,8 +124,65 @@ let index = {
         });
     },
 
+     updateReview: function (problemId, reviewId) {
+         let tagList = [];
+         let content = document.getElementsByClassName("codemirror-lines")[0].innerText;
+         let tagArr = document.getElementsByClassName("btn-tag");
+         let step = $("#step").val();
+         let notificationDate = date_setting(step);
+         console.log(step)
+         if (isNaN(step)) { // 숫자가 아닌 경우, 즉 날짜인 경우
+             console.log(step);
+             step = $("#review-step").val();
+             console.log(step);
+         }
+         for (let i = 0; i < tagArr.length; i++) {
+             tagList.push(tagArr[i].value);
+         }
+
+         let data = {
+             title: $("#title").val(),
+             content: content,
+             link: $("#link").val(),
+             notificationDate: notificationDate,
+             tagList: tagList,
+             step: step
+         }
+
+            $.ajax({
+                type: "PUT",
+                url: "/api/problems/" + problemId + "/reviews/" + reviewId,
+                headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            }).done(function (result) {
+                console.log(result);
+                alert("글 수정이 완료되었습니다.");
+                location.href = "/problems/" + problemId + "?index=1";
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+        },
+
+        deleteReview: function (reviewId) {
+            $.ajax({
+                type: "DELETE",
+                url: "/api/reviews/" + reviewId,
+                headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
+                dataType: "json"
+            }).done(function (result) {
+                console.log(result);
+                alert("리뷰 삭제 완료하였습니다.");
+                location.href = "/";
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+        },
+
 
 }
+
 function date_setting(step) {
     console.log(step);
     let today = new Date();

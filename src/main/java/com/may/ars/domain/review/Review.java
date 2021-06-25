@@ -7,7 +7,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
-@Getter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -15,11 +15,11 @@ import javax.persistence.*;
 public class Review extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
+    @Column(name = "review_id", updatable = false)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "problem_id")
+    @JoinColumn(name = "problem_id", updatable = false)
     @Setter
     private Problem problem;
 

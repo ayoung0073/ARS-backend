@@ -1,0 +1,76 @@
+{{>layout/header}}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css">
+<link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
+
+<script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
+<div style="margin-left: 270px; margin-right: 270px">
+    <div class="form-group">
+        <p>
+            <textarea id="title" style="height: 66px;">{{problem.title}}</textarea>
+        </p>
+        <input id="review-step" value="{{review.step}}" hidden />
+        <select id="step" class="form-control select-box">
+            <option value="{{problem.notificationDate}}" selected>{{problem.notificationDate}}</option>
+            <option value="1">세달 후 알림</option>
+            <option value="2">두달 후 알림</option>
+            <option value="3">한달 후 알림</option>
+            <option value="4">이주일 후 알림</option>
+            <option value="5">일주일 후 알림</option>
+        </select>
+        <div id="tag-block"></div>
+    </div>
+    <hr>
+    <div id="link" tabindex="2" class="sc-jtRlXQ cspOdp"><a href="{{problem.link}}">문제 링크</a></div>
+    <hr>
+    <div style="margin-top: 13px;">
+        <div id="editor-hidden" hidden style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{review.content}}</div>
+        <div id="editor" style="box-sizing: border-box; margin-top: 5px; height: 500px;"></div>
+    </div>
+    <br>
+    <button style="float: right; margin-right: 5px;" onclick="index.updateReview({{problem.id}}, {{review.id}});" class="btn-secondary btn-sm">수정하기</button>
+</div>
+<script>
+    const content = [].join('\n');
+
+    let elem = document.getElementById('editor-hidden');
+    console.log(elem.innerText)
+
+    const editor = new toastui.Editor({
+        el: document.querySelector('#editor'),
+        previewStyle: 'vertical',
+        initialEditType: "markdown",
+        height: '500px',
+        initialValue: elem.innerText
+    });
+
+    // editor.setMarkdown(elem.innerText);
+
+    // date 포맷 수정
+    let dateArr = document.getElementsByClassName("date");
+    for (let i = 0; i < dateArr.length; i++) {
+        console.log(dateArr[i].textContent)
+        console.log(dateArr[i].innerText)
+        dateArr[i].textContent = dateArr[i].textContent.substr(0, 10);
+    }
+</script>
+
+<script>
+    /* eslint-disable no-unused-vars */
+    const content = [].join('\n');
+
+    const editor = new toastui.Editor({
+        el: document.querySelector('#editor'),
+        previewStyle: 'vertical',
+        initialEditType: "markdown",
+        height: '500px',
+        initialValue: content
+    });
+
+    $("#btn-register").on("click", () => {
+        console.log(document.getElementsByClassName("tui-editor-contents")[0].innerHTML);
+    });
+</script>
+
+<script type="text/javascript" src="/js/problem.js"></script>
+{{>layout/footer}}

@@ -46,26 +46,4 @@ public class ProblemApiController {
         return ResponseEntity.ok().body(response);
     }
 
-    @AuthCheck
-    @PutMapping("/{problemId}")
-    public ResponseEntity<?> updateProblem(@PathVariable Long problemId, @RequestBody ProblemRequestDto requestDto) {
-        Member member = MemberContext.currentMember.get();
-        problemService.updateProblem(problemMapper.toEntity(problemId, requestDto, member));
-
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_UPDATE_PROBLEM);
-        return ResponseEntity.ok().body(response);
-    }
-
-    @AuthCheck
-    @DeleteMapping("/{problemId}")
-    public ResponseEntity<?> detailPage(@PathVariable Long problemId) {
-        Member member = MemberContext.currentMember.get();
-        problemService.deleteProblem(problemId, member);
-
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_DELETE_PROBLEM);
-        return ResponseEntity.ok().body(response);
-    }
-
-
-
 }

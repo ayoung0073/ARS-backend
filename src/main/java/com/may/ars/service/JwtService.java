@@ -29,7 +29,7 @@ public class JwtService {
     public String createToken(JwtPayload payload) throws JsonProcessingException {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         Date expireTime = new Date();
-        expireTime.setTime(expireTime.getTime() + 1000 * 60 * 30); // 30m
+        expireTime.setTime(expireTime.getTime() + 1000 * 60 * 30 * 60); // 30m * 60
         byte[] secretKeyBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
 
         Map<String, Object> headerMap = new HashMap<>();

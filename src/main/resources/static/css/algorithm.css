@@ -165,3 +165,18 @@
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
+/* detail 페이지의 수정, 삭제 버튼 컨테이너 css */
+.fix-btn-container {
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    margin-bottom: -1.25rem;
+}
+
+/* detail 페이지의 수정, 삭제 버튼 css */
+.fix-btn {
+    background-color: white;
+    color: darkgrey;
+    border: none;
+}

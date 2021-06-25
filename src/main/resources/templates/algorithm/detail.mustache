@@ -6,31 +6,22 @@
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
 
 <div style="margin-left: 270px; margin-right: 270px">
-    <br>
     <div class="form-group">
-        <div>
-            <button class="btn-danger btn-sm" onclick="index.deleteProblem({{problem.id}});" style="float: right;" >삭제</button>
-            <button style="float: right; margin-right: 5px;" onclick="index.updateProblem({{problem.id}});" class="btn-primary btn-sm">수정</button>
-        </div>
         <p>
-            <textarea id="title" style="height: 66px;">{{problem.title}}</textarea>
-            {{problem.writer.nickname}}&nbsp ·&nbsp 작성일 <span class="date">{{createdDate}}</span>
+            <div id="title" style="height: 66px;">{{problem.title}}</div>
+            <div class="fix-btn-container">
+                <button class="fix-btn" onclick="location.href='/problems/{{problem.id}}/reviews/{{review.id}}'">수정</button>
+                <button class="fix-btn" onclick="index.deleteReview({{review.id}});">삭제</button>
+            </div>
+            {{problem.writer.nickname}}&nbsp ·&nbsp 작성일 <span class="date">{{createdDate}}</span>&nbsp ·&nbsp 알림 예정일 &nbsp<b>{{problem.notificationDate}}</b>
         </p>
-        <select id="step" class="form-control select-box">
-            <option value="{{problem.notificationDate}}" selected>{{problem.notificationDate}}</option>
-            <option value="1">세달 후 알림</option>
-            <option value="2">두달 후 알림</option>
-            <option value="3">한달 후 알림</option>
-            <option value="4">이주일 후 알림</option>
-            <option value="5">일주일 후 알림</option>
-        </select>
         <div id="tag-block"></div>
     </div>
     <hr>
     <div id="link" tabindex="2" class="sc-jtRlXQ cspOdp"><a href="{{problem.link}}">문제 링크</a></div>
     <hr>
     <span id="review-issue">Review#{{index}} · </span><span class="date">{{review.createdDate}}</span>
-        <div style="margin-top: 13px;">
+    <div style="margin-top: 13px;">
             <div id="editor-hidden" hidden style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{review.content}}</div>
             <div id="viewer"></div>
         </div>
@@ -79,5 +70,5 @@
     }
 </script>
 
-<script type="text/javascript" src="/js/algorithm.js"></script>
+<script type="text/javascript" src="/js/problem.js"></script>
 {{>layout/footer}}
