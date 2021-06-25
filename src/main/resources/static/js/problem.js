@@ -133,10 +133,9 @@ let index = {
          console.log(step)
          if (isNaN(step)) { // 숫자가 아닌 경우, 즉 날짜인 경우
              console.log(step);
-             step = $("review-step").val();
+             step = $("#review-step").val();
              console.log(step);
          }
-         console.log(document.getElementsByClassName("tui-editor-contents")[0]);
          for (let i = 0; i < tagArr.length; i++) {
              tagList.push(tagArr[i].value);
          }

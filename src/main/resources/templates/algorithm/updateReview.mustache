@@ -9,7 +9,7 @@
         <p>
             <textarea id="title" style="height: 66px;">{{problem.title}}</textarea>
         </p>
-        <input id="review-step" value="step" hidden />
+        <input id="review-step" value="{{review.step}}" hidden />
         <select id="step" class="form-control select-box">
             <option value="{{problem.notificationDate}}" selected>{{problem.notificationDate}}</option>
             <option value="1">세달 후 알림</option>
