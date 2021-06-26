@@ -10,8 +10,8 @@
         <p>
             <div id="title" style="height: 66px;">{{problem.title}}</div>
             <div class="fix-btn-container">
-                <button class="fix-btn" onclick="location.href='/problems/{{problem.id}}/reviews/{{review.id}}'">수정</button>
                 {{#review}}
+                    <button class="fix-btn" onclick="location.href='/problems/{{problem.id}}/reviews/{{review.id}}'">수정</button>
                     <button class="fix-btn" onclick="index.deleteReview({{review.id}});">삭제</button>
                 {{/review}}
                 {{^review}}
@@ -57,6 +57,13 @@
     </div>
 </div>
 <script>
+
+    // date 포맷 수정
+    let dateArr = document.getElementsByClassName("date");
+    for (let i = 0; i < dateArr.length; i++) {
+        dateArr[i].textContent = dateArr[i].textContent.substr(0, 10);
+    }
+
     const content = [].join('\n');
 
     const viewer = toastui.Editor.factory({
@@ -70,13 +77,6 @@
     console.log(elem.innerText)
     viewer.setMarkdown(elem.innerText);
 
-    // date 포맷 수정
-    let dateArr = document.getElementsByClassName("date");
-    for (let i = 0; i < dateArr.length; i++) {
-        console.log(dateArr[i].textContent)
-        console.log(dateArr[i].innerText)
-        dateArr[i].textContent = dateArr[i].textContent.substr(0, 10);
-    }
 </script>
 
 <script type="text/javascript" src="/js/problem.js"></script>

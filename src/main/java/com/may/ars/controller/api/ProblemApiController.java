@@ -46,4 +46,14 @@ public class ProblemApiController {
         return ResponseEntity.ok().body(response);
     }
 
+    @AuthCheck
+    @DeleteMapping("/{problemId}")
+    public ResponseEntity<?> detailPage(@PathVariable Long problemId) {
+        Member member = MemberContext.currentMember.get();
+        problemService.deleteProblem(problemId, member);
+
+        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_DELETE_PROBLEM);
+        return ResponseEntity.ok().body(response);
+    }
+
 }

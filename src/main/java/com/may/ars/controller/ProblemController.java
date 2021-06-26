@@ -33,8 +33,10 @@ public class ProblemController {
         log.info(problem.toString());
         model.addAttribute("problem", problem);
         model.addAttribute("index", index);
-        model.addAttribute("review", problem.getReviewList().get(index - 1));
-        model.addAttribute("createdDate", problem.getReviewList().get(0).getCreatedDate());
+        if (problem.getReviewList().size() != 0) {
+            model.addAttribute("review", problem.getReviewList().get(index - 1));
+        }
+        model.addAttribute("createdDate", problem.getCreatedDate());
 
         return "/algorithm/detail";
     }
