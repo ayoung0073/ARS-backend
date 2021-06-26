@@ -10,8 +10,14 @@
         <p>
             <div id="title" style="height: 66px;">{{problem.title}}</div>
             <div class="fix-btn-container">
-                <button class="fix-btn" onclick="location.href='/problems/{{problem.id}}/reviews/{{review.id}}'">수정</button>
-                <button class="fix-btn" onclick="index.deleteReview({{review.id}});">삭제</button>
+                {{#review}}
+                    <button class="fix-btn" onclick="location.href='/problems/{{problem.id}}/reviews/{{review.id}}'">수정</button>
+                    <button class="fix-btn" onclick="index.deleteReview({{review.id}});">삭제</button>
+                {{/review}}
+                {{^review}}
+                    <button class="fix-btn" onclick="index.deleteProblem({{problem.id}});">삭제</button>
+                {{/review}}
+
             </div>
             {{problem.writer.nickname}}&nbsp ·&nbsp 작성일 <span class="date">{{createdDate}}</span>&nbsp ·&nbsp 알림 예정일 &nbsp<b>{{problem.notificationDate}}</b>
         </p>
@@ -20,12 +26,15 @@
     <hr>
     <div id="link" tabindex="2" class="sc-jtRlXQ cspOdp"><a href="{{problem.link}}">문제 링크</a></div>
     <hr>
-    <span id="review-issue">Review#{{index}} · </span><span class="date">{{review.createdDate}}</span>
-    <div style="margin-top: 13px;">
-            <div id="editor-hidden" hidden style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{review.content}}</div>
-            <div id="viewer"></div>
-        </div>
-    <hr>
+    {{#review}}
+        <span id="review-issue">Review#{{index}} · </span><span class="date">{{review.createdDate}}</span>
+        <div style="margin-top: 13px;">
+                <div id="editor-hidden" hidden style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{review.content}}</div>
+                <div id="viewer"></div>
+            </div>
+        <hr>
+    {{/review}}
+
 
     <div id="reviewLinkList" class="sc-gHboQg eLpzfs link-block" style="position: fixed; top: 160px; right: 0px;">
         <a href="/problems/{{problem.id}}/reviews" class="btn-secondary btn" style="width: 180px">Add Review</a><br><br>
@@ -48,6 +57,13 @@
     </div>
 </div>
 <script>
+
+    // date 포맷 수정
+    let dateArr = document.getElementsByClassName("date");
+    for (let i = 0; i < dateArr.length; i++) {
+        dateArr[i].textContent = dateArr[i].textContent.substr(0, 10);
+    }
+
     const content = [].join('\n');
 
     const viewer = toastui.Editor.factory({
@@ -61,13 +77,6 @@
     console.log(elem.innerText)
     viewer.setMarkdown(elem.innerText);
 
-    // date 포맷 수정
-    let dateArr = document.getElementsByClassName("date");
-    for (let i = 0; i < dateArr.length; i++) {
-        console.log(dateArr[i].textContent)
-        console.log(dateArr[i].innerText)
-        dateArr[i].textContent = dateArr[i].textContent.substr(0, 10);
-    }
 </script>
 
 <script type="text/javascript" src="/js/problem.js"></script>
