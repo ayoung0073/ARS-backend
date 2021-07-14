@@ -47,7 +47,7 @@ public class ReviewServiceTest {
         given(problemRepository.findById(1L)).willReturn(Optional.of(problem));
     }
 
-    @Test
+    //@Test
     @DisplayName("리뷰 등록 테스트")
     void 리뷰_등록_성공_테스트() {
         setup();

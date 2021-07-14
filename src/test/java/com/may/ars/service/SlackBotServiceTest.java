@@ -17,7 +17,7 @@ class SlackBotServiceTest {
     @Autowired
     private ProblemService problemService;
 
-    @Test
+    // @Test
     void 메세지_전송_테스트() {
         Problem problem = problemService.getProblemById(1L);
         slackBotService.notification(problem);
