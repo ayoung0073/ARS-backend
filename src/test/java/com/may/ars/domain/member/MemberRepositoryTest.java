@@ -18,7 +18,7 @@ public class MemberRepositoryTest {
     void 멤버_저장_테스트() {
         // given
         Member member = Member.builder()
-                .email("ayong0310@naver. com")
+                .email("ayong0310@naver.com")
                 .nickname("문아영")
                 .build();
 

@@ -32,6 +32,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0' // builder 패턴 사용
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
+    testImplementation group: 'com.h2database', name: 'h2', version: '1.4.200'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
     runtimeOnly 'mysql:mysql-connector-java'
 
