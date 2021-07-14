@@ -5,7 +5,7 @@ import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
 import com.may.ars.domain.review.ReviewRepository;
-import com.may.ars.response.ErrorMessage;
+import com.may.ars.common.advice.ExceptionMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -88,7 +88,7 @@ public class ReviewServiceTest {
                 () -> reviewService.registerReview(problemId, requestDto, member)); // 예외가 발생해야 한다.
 
         //then
-        assertThat(e.getMessage(), is(ErrorMessage.NOT_EXIST_PROBLEM));
+        assertThat(e.getMessage(), is(ExceptionMessage.NOT_EXIST_PROBLEM));
     }
 
     @Test
@@ -112,6 +112,6 @@ public class ReviewServiceTest {
                 () -> reviewService.registerReview(problemId, requestDto, member)); // 예외가 발생해야 한다.
 
         //then
-        assertThat(e.getMessage(), is(ErrorMessage.NOT_VALID_USER));
+        assertThat(e.getMessage(), is(ExceptionMessage.NOT_VALID_USER));
     }
 }

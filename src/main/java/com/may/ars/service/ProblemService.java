@@ -1,5 +1,6 @@
 package com.may.ars.service;
 
+import com.may.ars.common.advice.exception.EntityNotFoundException;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.review.ReviewRepository;
 import com.may.ars.dto.problem.ProblemRequestDto;
@@ -13,9 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static com.may.ars.response.ErrorMessage.NOT_EXIST_PROBLEM;
-import static com.may.ars.response.ErrorMessage.NOT_VALID_USER;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -36,9 +34,7 @@ public class ProblemService {
 
     @Transactional(readOnly = true)
     public Problem getProblemById(Long problemId) {
-        return problemRepository.findById(problemId).orElseThrow(
-                () -> {throw new IllegalArgumentException(NOT_EXIST_PROBLEM);}
-        );
+        return problemRepository.findById(problemId).orElseThrow(EntityNotFoundException::new);
     }
 
     /**
@@ -81,8 +77,6 @@ public class ProblemService {
 
     private void checkValidUser(Long problemId, Member member) {
         log.info(problemId + " ");
-        if (problemRepository.findProblemByIdAndWriter(problemId, member).isEmpty()) {
-           throw new IllegalArgumentException(NOT_VALID_USER);
-        }
+        problemRepository.findProblemByIdAndWriter(problemId, member).orElseThrow(EntityNotFoundException::new);
     }
 }

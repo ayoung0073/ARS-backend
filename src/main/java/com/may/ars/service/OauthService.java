@@ -3,6 +3,7 @@ package com.may.ars.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.may.ars.common.advice.exception.JsonWriteException;
 import com.may.ars.config.properties.GoogleProperties;
 import com.may.ars.config.properties.KakaoProperties;
 import com.may.ars.dto.JwtPayload;
@@ -36,7 +37,7 @@ public class OauthService {
     private final GoogleProperties googleProperties;
     private final KakaoProperties kakaoProperties;
 
-    public LoginSuccessDto kakaoLogin(String code) throws JsonProcessingException {
+    public LoginSuccessDto kakaoLogin(String code) {
         String accessToken = getAccessToken(code, kakaoProperties.getTokenRequestUrl(), 0);
         System.out.println(accessToken);
         JsonNode profile = getProfile(accessToken, kakaoProperties.getProfileRequestUrl());
@@ -57,8 +58,7 @@ public class OauthService {
 
             Long memberId = memberService.saveMember(memberDto);
             jwtPayload = new JwtPayload(memberId, email);
-        }
-        else { // 로그인
+        } else { // 로그인
             memberDto = MemberDto.fromEntity(optional.get());
             jwtPayload = new JwtPayload(memberDto.getMemberId(), email);
         }
@@ -71,7 +71,7 @@ public class OauthService {
                 .build();
     }
 
-    public LoginSuccessDto googleLogin(String code) throws JsonProcessingException {
+    public LoginSuccessDto googleLogin(String code) {
         String accessToken = getAccessToken(code, googleProperties.getTokenRequestUrl(), 1);
         System.out.println(accessToken);
         JsonNode profile = getProfile(accessToken, googleProperties.getProfileRequestUrl());
@@ -90,8 +90,7 @@ public class OauthService {
 
             Long memberId = memberService.saveMember(memberDto);
             jwtPayload = new JwtPayload(memberId, email);
-        }
-        else { // 로그인
+        } else { // 로그인
             memberDto = MemberDto.fromEntity(optional.get());
             jwtPayload = new JwtPayload(memberDto.getMemberId(), email);
         }
@@ -104,7 +103,7 @@ public class OauthService {
                 .build();
     }
 
-    private String getAccessToken(String code, String tokenRequestUrl, int socialType) throws JsonProcessingException {
+    private String getAccessToken(String code, String tokenRequestUrl, int socialType) {
         HttpHeaders headers = new HttpHeaders();
 
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -130,10 +129,10 @@ public class OauthService {
                 tokenRequest,
                 String.class
         );
-        return objectMapper.readTree(response.getBody()).get("access_token").toString();
+        return readBody(response.getBody()).get("access_token").toString();
     }
 
-    private JsonNode getProfile(String accessToken, String profileRequestUrl) throws JsonProcessingException {
+    private JsonNode getProfile(String accessToken, String profileRequestUrl) {
         HttpHeaders headers = new HttpHeaders();
 
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -147,6 +146,14 @@ public class OauthService {
                 profileRequest,
                 String.class
         );
-        return objectMapper.readTree(restResponse.getBody());
+        return readBody(restResponse.getBody());
+    }
+
+    private JsonNode readBody(String responseBody) {
+        try {
+            return objectMapper.readTree(responseBody);
+        } catch (JsonProcessingException e) {
+            throw new JsonWriteException();
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.may.ars.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.may.ars.common.advice.exception.JsonWriteException;
 import com.may.ars.domain.problem.Problem;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,14 +29,7 @@ public class SlackBotService {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + slackToken);
         headers.add("Content-type", "application/json; charset=utf-8");
-//        {"ok":false,"error":"channel_not_found","warning":"missing_charset","response_metadata":{"warnings":["missing_charset"]}}
         String body = "{\"channel\": \"" + problem.getWriter().getSlackId() + "\", \"text\" : \"" + problem.getTitle() + " 문제를 풀 시간입니다!\"}";
-//        MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
-
-//        body.add("channel", problem.getWriter().getSlackId());
-//        body.add("text", problem.getTitle() + " 문제를 풀 시간이 되었어요!");
-
-//        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, headers);
         HttpEntity<String> requestEntity = new HttpEntity<>(body, headers);
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.POST, requestEntity, String.class);
         HttpStatus httpStatus = responseEntity.getStatusCode();
@@ -45,7 +39,7 @@ public class SlackBotService {
         log.info(response);
     }
 
-    public String getSlackIdByEmail(String email) throws JsonProcessingException {
+    public String getSlackIdByEmail(String email) {
         String url = "https://slack.com/api/users.lookupByEmail";
         url += "?email=" + email;
 
@@ -61,12 +55,17 @@ public class SlackBotService {
                 String.class
         );
 
-        HttpStatus httpStatus = restResponse.getStatusCode();
-        int status = httpStatus.value();
+        int status = restResponse.getStatusCode().value();
         String response = restResponse.getBody();
         log.info("Response status: " + status);
         log.info(response);
-        JsonNode body = objectMapper.readTree(restResponse.getBody());
+        JsonNode body;
+        try{
+            body = objectMapper.readTree(restResponse.getBody());
+        } catch (JsonProcessingException e) {
+            throw new JsonWriteException();
+        }
+
         if (body.get("ok").asBoolean())
             return body.get("user").get("id").textValue();
         else

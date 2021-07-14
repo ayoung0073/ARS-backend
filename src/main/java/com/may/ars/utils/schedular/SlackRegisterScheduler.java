@@ -1,6 +1,5 @@
 package com.may.ars.utils.schedular;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.member.MemberRepository;
 import com.may.ars.domain.problem.Problem;
@@ -24,7 +23,7 @@ public class SlackRegisterScheduler {
     private final ProblemRepository problemRepository;
 
     @Scheduled(cron = "0 0 0 * * *") // 매일 자정마다
-    public void registerSlackId() throws JsonProcessingException {
+    public void registerSlackId() {
         List<Member> memberList = memberRepository.findAllBySlackIdNull();
         for (Member member : memberList) {
             String slackId = slackBotService.getSlackIdByEmail(member.getEmail());
