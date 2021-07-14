@@ -19,7 +19,7 @@ public class MemberController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "/user/login";
+        return "user/login";
     }
 
     /**

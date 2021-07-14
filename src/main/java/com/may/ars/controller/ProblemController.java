@@ -24,7 +24,7 @@ public class ProblemController {
 
     @GetMapping("")
     public String registerPage() {
-        return "/algorithm/register";
+        return "algorithm/register";
     }
 
     @GetMapping("/{problemId}")
@@ -38,7 +38,7 @@ public class ProblemController {
         }
         model.addAttribute("createdDate", problem.getCreatedDate());
 
-        return "/algorithm/detail";
+        return "algorithm/detail";
     }
 
     @GetMapping("/{problemId}/reviews")
@@ -46,7 +46,7 @@ public class ProblemController {
         log.info(problemId + "");
         Problem problem = problemService.getProblemById(problemId);
         model.addAttribute("problem", problem);
-        return "/algorithm/registerReview";
+        return "algorithm/registerReview";
     }
 
     @GetMapping("/{problemId}/reviews/{reviewId}")
@@ -56,7 +56,7 @@ public class ProblemController {
         Review review = reviewService.getReview(reviewId);
         model.addAttribute("problem", problem);
         model.addAttribute("review", review);
-        return "/algorithm/updateReview";
+        return "algorithm/updateReview";
     }
 
 
