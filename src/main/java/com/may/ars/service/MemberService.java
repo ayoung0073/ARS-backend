@@ -23,26 +23,12 @@ public class MemberService {
     }
 
     @Transactional
-    public Long saveMember(MemberDto memberDto) {
-        Member member = Member.builder()
-                .email(memberDto.getEmail())
-                .roleType(RoleType.USER)
-                .socialType(memberDto.getSocialType())
-                .nickname(memberDto.getNickname())
-                .socialId(memberDto.getSocialId())
-                .build();
-
-        memberRepository.save(member);
-        return member.getId();
-    }
-
-    @Transactional
     public List<Member> findAllBySlackIdNull() {
         return memberRepository.findAllBySlackIdNull();
     }
 
     @Transactional
-    public void save(Member member) {
+    public void saveMember(Member member) {
         memberRepository.save(member);
     }
 

@@ -7,7 +7,6 @@ import com.may.ars.common.advice.exception.JsonWriteException;
 import com.may.ars.config.properties.GoogleProperties;
 import com.may.ars.config.properties.KakaoProperties;
 import com.may.ars.dto.JwtPayload;
-import com.may.ars.dto.member.MemberDto;
 import com.may.ars.dto.member.LoginSuccessDto;
 import com.may.ars.enums.SocialType;
 import com.may.ars.domain.member.Member;
@@ -39,67 +38,62 @@ public class OauthService {
 
     public LoginSuccessDto kakaoLogin(String code) {
         String accessToken = getAccessToken(code, kakaoProperties.getTokenRequestUrl(), 0);
-        System.out.println(accessToken);
+
         JsonNode profile = getProfile(accessToken, kakaoProperties.getProfileRequestUrl());
-        MemberDto memberDto;
-        JwtPayload jwtPayload;
         String socialId = profile.get("id").textValue();
+
         log.info(profile.toString());
-        log.info("사용자 ID : " + socialId);
+
         String email = profile.get("kakao_account").get("email").textValue();
         Optional<Member> optional = memberService.findMemberByEmail(email);
-
+        Member member;
         if (optional.isEmpty()) { // 회원가입
-            memberDto = new MemberDto();
-            memberDto.setEmail(email);
-            memberDto.setNickname(profile.get("properties").get("nickname").textValue());
-            memberDto.setSocialType(SocialType.KAKAO);
-            memberDto.setSocialId(socialId);
+             member = Member.builder()
+                    .email(email)
+                    .nickname(profile.get("properties").get("nickname").textValue())
+                    .socialType(SocialType.KAKAO)
+                    .socialId(socialId)
+                    .build();
 
-            Long memberId = memberService.saveMember(memberDto);
-            jwtPayload = new JwtPayload(memberId, email);
+            memberService.saveMember(member);
         } else { // 로그인
-            memberDto = MemberDto.fromEntity(optional.get());
-            jwtPayload = new JwtPayload(memberDto.getMemberId(), email);
+            member = optional.get();
         }
 
-        String token = jwtService.createToken(jwtPayload);
+        String token = jwtService.createToken(new JwtPayload(member.getId(), email));
 
         return LoginSuccessDto.builder()
-                .nickname(memberDto.getNickname())
+                .nickname(member.getNickname())
                 .access_token(token)
                 .build();
     }
 
     public LoginSuccessDto googleLogin(String code) {
         String accessToken = getAccessToken(code, googleProperties.getTokenRequestUrl(), 1);
-        System.out.println(accessToken);
         JsonNode profile = getProfile(accessToken, googleProperties.getProfileRequestUrl());
 
-        MemberDto memberDto;
-        JwtPayload jwtPayload;
+        Member member;
 
         String email = profile.get("email").textValue();
         Optional<Member> optional = memberService.findMemberByEmail(email);
 
         if (optional.isEmpty()) { // 회원가입
-            memberDto = new MemberDto();
-            memberDto.setEmail(email);
-            memberDto.setNickname(profile.get("name").textValue());
-            memberDto.setSocialType(SocialType.GOOGLE);
-            memberDto.setSocialId(profile.get("sub").textValue());
+            member = Member.builder()
+                    .email(email)
+                    .nickname(profile.get("name").textValue())
+                    .socialType(SocialType.GOOGLE)
+                    .socialId(profile.get("sub").textValue())
+                    .build();
 
-            Long memberId = memberService.saveMember(memberDto);
-            jwtPayload = new JwtPayload(memberId, email);
+            memberService.saveMember(member);
         } else { // 로그인
-            memberDto = MemberDto.fromEntity(optional.get());
-            jwtPayload = new JwtPayload(memberDto.getMemberId(), email);
+            member = optional.get();
         }
 
-        String token = jwtService.createToken(jwtPayload);
+        String token = jwtService.createToken(new JwtPayload(member.getId(), email));
 
         return LoginSuccessDto.builder()
-                .nickname(memberDto.getNickname())
+                .nickname(member.getNickname())
                 .access_token(token)
                 .build();
     }
