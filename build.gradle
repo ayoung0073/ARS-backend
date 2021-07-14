@@ -33,6 +33,7 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
+    runtimeOnly 'mysql:mysql-connector-java'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
