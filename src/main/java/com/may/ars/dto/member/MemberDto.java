@@ -25,7 +25,7 @@ public class MemberDto {
 
     private String nickname;
 
-    private Long socialId;
+    private String socialId;
 
     private LocalDateTime createdDate;
 
