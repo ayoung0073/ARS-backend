@@ -1,9 +1,12 @@
 package com.may.ars.controller;
 
+import com.may.ars.config.properties.GoogleProperties;
+import com.may.ars.config.properties.KakaoProperties;
 import com.may.ars.dto.member.LoginSuccessDto;
 import com.may.ars.service.OauthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MemberController {
 
     private final OauthService oauthService;
+    private final GoogleProperties googleProperties;
+    private final KakaoProperties kakaoProperties;
 
     @GetMapping("/login")
-    public String loginPage() {
+    public String loginPage(Model model) {
+        model.addAttribute("googleRedirectUri", googleProperties.getRedirectUri());
+        model.addAttribute("kakaoRedirectUri", kakaoProperties.getRedirectUri());
         return "user/login";
     }
 
