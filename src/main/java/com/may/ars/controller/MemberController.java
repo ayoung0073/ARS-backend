@@ -39,7 +39,7 @@ public class MemberController {
         model.addAttribute("access_token", successDto.getAccess_token());
         model.addAttribute("nickname", successDto.getNickname());
 
-        return "index";
+        return "redirect:/";
     }
 
     /**
@@ -52,6 +52,6 @@ public class MemberController {
         model.addAttribute("access_token", successDto.getAccess_token());
         model.addAttribute("nickname", successDto.getNickname());
 
-        return "index";
+        return "redirect:/";
     }
 }
