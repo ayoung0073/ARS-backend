@@ -18,4 +18,9 @@ class SlackRegisterSchedulerTest {
         scheduler.registerSlackId();
     }
 
+    @Test
+    void 슬랙_알림_테스트() throws JsonProcessingException {
+        scheduler.notification();
+    }
+
 }
