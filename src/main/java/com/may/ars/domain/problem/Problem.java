@@ -32,6 +32,8 @@ public class Problem extends BaseEntity {
 
     private String link;
 
+    private int step;
+
     private LocalDate notificationDate;
 
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

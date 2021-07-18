@@ -1,8 +1,5 @@
 package com.may.ars.dto.problem;
 
-import com.may.ars.domain.member.Member;
-import com.may.ars.domain.problem.Problem;
-import com.may.ars.domain.review.Review;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -20,12 +17,12 @@ public class ProblemRequestDto {
 
     private String link;
 
-    private ArrayList<String> tagList;
-
-    private String content;
-
     private int step;
 
     private LocalDate notificationDate;
+
+    private ArrayList<String> tagList;
+
+    private String content;
 
 }
