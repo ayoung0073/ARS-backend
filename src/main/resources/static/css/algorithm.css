@@ -47,6 +47,7 @@
     border: none;
     /*font-weight: bold;*/
     color: rgb(33, 37, 41);
+    height: 30;
 }
 
 .link-block {
@@ -131,8 +132,6 @@
     font-size: 1rem;
 }
 
-
-
 .review-block {
     display: block;
     transition: all 0.125s ease-in 0s;
@@ -151,8 +150,9 @@
 
 /* 사용 X */
 .select-box {
-    display: block;
-    /*width: 30%;*/
+    float: right;
+    width: 50%;
+    margin-left: 35%;
     height: calc(1.5em + .75rem + 2px);
     padding: .375rem .75rem;
     font-size: 1rem;
@@ -179,4 +179,9 @@
     background-color: white;
     color: darkgrey;
     border: none;
+}
+
+.star {
+    padding-bottom: 3px;
+    width: 30px;
 }

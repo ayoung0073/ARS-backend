@@ -21,17 +21,23 @@
 </div>
 <div class="light-line-left"></div>
 <textarea placeholder="문제 링크를 입력하세요" id="link"></textarea>
-<select id="step" class="form-control select-box">
-    <option value="1" selected>알림 기한 설정</option>
-    <option value="1">세달 후 알림</option>
-    <option value="2">두달 후 알림</option>
-    <option value="3">한달 후 알림</option>
-    <option value="4">이주일 후 알림</option>
-    <option value="5">일주일 후 알림</option>
-</select>
-<div id="editor" style="box-sizing: border-box; margin-top: 5px; height: 500px;"></div>
+<div class="light-line-left"></div>
+    <div>
+    <input hidden id="step" value="1">
+    <b>난이도</b>&nbsp
+    <img class="star" width="35" id="star1" src="/image/star_selected.png" onclick="selectStar(1)"><img class="star" width="35" id="star2" src="/image/star_not_selected.png" onclick="selectStar(2)"><img class="star" width="35" id="star3" src="/image/star_not_selected.png" onclick="selectStar(3)"><img class="star" width="35" id="star4" src="/image/star_not_selected.png" onclick="selectStar(4)"><img class="star" width="35" id="star5" src="/image/star_not_selected.png" onclick="selectStar(5)">
+    <select id="notificationDate" class="form-control select-box">
+        <option value="1" selected>알림 기한 설정</option>
+        <option value="5">일주일 후 알림</option>
+        <option value="4">이주일 후 알림</option>
+        <option value="3">한달 후 알림</option>
+        <option value="2">두달 후 알림</option>
+        <option value="1">세달 후 알림</option>
+    </select>
+</div>
+<div id="editor" style="box-sizing: border-box; margin-top: 10px; height: 700px;"></div>
 <br/>
-<button id="btn-register" class="btn btn-dark">등록하기</button>
+<button id="btn-register" style="float: right;" class="btn btn-dark">등록하기</button>
 <br/>
 </div>
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
@@ -52,6 +58,18 @@
            console.log(document.getElementsByClassName("tui-editor-contents")[0].innerHTML);
            console.log(document.getElementById("editor").innerText);
     });
+</script>
+
+<script>
+    function selectStar(starNum) {
+        console.log(starNum)
+        document.getElementById("step").value = starNum
+        let num
+        for (num = 1; num <= starNum; num++)
+            document.getElementById("star" + num).src = "/image/star_selected.png";
+        for (num = starNum + 1; num <= 5; num++)
+            document.getElementById("star" + num).src = "/image/star_not_selected.png";
+    }
 </script>
 
 <script type="text/javascript" src="/js/problem.js"></script>

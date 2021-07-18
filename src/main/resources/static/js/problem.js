@@ -24,7 +24,7 @@ let index = {
             content: content,
             link: $("#link").val(),
             step: step,
-            notificationDate: date_setting(step),
+            notificationDate: date_setting($("#notificationDate").val()),
             tagList: tagList
         }
 
@@ -48,12 +48,11 @@ let index = {
     },
 
     registerReview: function () {
-        let step = $("#step").val();
         let content = document.getElementsByClassName("codemirror-lines")[0].innerText;
         console.log(content);
         let data = {
             content: content,
-            step: step,
+            step: $("#step").val(),
             notificationDate: date_setting(step),
         }
 
@@ -205,7 +204,8 @@ function date_setting(step) {
             date.setDate(today.getDate() + 7); // 1주 후
             break;
         default:
-            return step
+            date.setMonth(today.getMonth() + 3); // 3달 후
+            break;
     }
 
     let year = date.getFullYear();
