@@ -20,8 +20,9 @@ import org.springframework.web.bind.annotation.*;
 public class ReviewApiController {
 
     private final ProblemService problemService;
-    private final ProblemMapper problemMapper;
     private final ReviewService reviewService;
+
+    private final ProblemMapper problemMapper;
     private final ReviewMapper reviewMapper;
 
     @AuthCheck

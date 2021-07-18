@@ -52,8 +52,7 @@ let index = {
         console.log(content);
         let data = {
             content: content,
-            step: $("#step").val(),
-            notificationDate: date_setting(step),
+            notificationDate: date_setting($("#notificationDate").val()),
         }
 
         let problemId = document.getElementById("problem-id").value;

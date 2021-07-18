@@ -1,5 +1,6 @@
 package com.may.ars.service;
 
+import com.may.ars.common.advice.exception.EntityNotFoundException;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.review.Review;
 import com.may.ars.dto.review.ReviewRequestDto;
@@ -8,6 +9,7 @@ import com.may.ars.domain.problem.ProblemRepository;
 import com.may.ars.domain.review.ReviewRepository;
 import com.may.ars.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +26,7 @@ public class ReviewService {
 
     @Transactional
     public void registerReview(Long problemId, ReviewRequestDto registerDto, Member member) {
-        Problem problem = problemRepository.findById(problemId).orElseThrow(
-                () -> {
-                    throw new IllegalArgumentException(NOT_EXIST_PROBLEM);
-                }
-        );
+        Problem problem = problemRepository.findById(problemId).orElseThrow(EntityNotFoundException::new);
         problem.setNotificationDate(registerDto.getNotificationDate());
         if (!problem.getWriter().getId().equals(member.getId())) {
             throw new IllegalArgumentException(NOT_VALID_USER);
@@ -57,8 +55,6 @@ public class ReviewService {
     }
 
     private void checkValidUser(Long reviewId, Member member) {
-        reviewRepository.findReviewByIdAndMemberId(reviewId, member.getId()).orElseThrow(
-                () -> { throw new IllegalArgumentException(NOT_EXIST_REVIEW); }
-        );
+        reviewRepository.findReviewByIdAndMemberId(reviewId, member.getId()).orElseThrow(EntityNotFoundException::new);
     }
 }
