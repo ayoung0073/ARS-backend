@@ -71,6 +71,13 @@ public class ProblemService {
     }
 
     @Transactional
+    public void updateStep(Long problemId, Member member, int step) {
+        Problem updateProblem = checkValidUser(problemId, member);
+        updateProblem.setStep(step);
+        problemRepository.save(updateProblem);
+    }
+
+    @Transactional
     public void deleteProblem(Long problemId, Member member) {
         checkValidUser(problemId, member);
         problemRepository.deleteById(problemId);

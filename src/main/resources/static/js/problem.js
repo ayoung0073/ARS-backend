@@ -107,6 +107,26 @@ let index = {
         });
     },
 
+    updateStep: function (problemId, step) {
+
+        let data = {
+            step: step
+        }
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/problems/" + problemId + "/step",
+            headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (result) {
+            console.log(result);
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
     deleteProblem: function (problemId) {
         $.ajax({
             type: "DELETE",
@@ -116,7 +136,7 @@ let index = {
         }).done(function (result) {
             console.log(result);
             alert("글 삭제 완료하였습니다.");
-            location.href = "/";
+            location.href = "/problems/" + problemId + "?index=1";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

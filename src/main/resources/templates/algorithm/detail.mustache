@@ -93,6 +93,7 @@
             document.getElementById("star" + num).src = "/image/star_selected.png";
         for (num = starNum + 1; num <= 5; num++)
             document.getElementById("star" + num).src = "/image/star_not_selected.png";
+        index.updateStep({{problem.id}}, starNum)
     }
 </script>
 
