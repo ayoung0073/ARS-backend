@@ -24,7 +24,6 @@ class ReviewRepositoryTest {
         Review review = Review.builder()
                 .id(reviewId)
                 .content(content)
-                .step(1)
                 .build();
 
         // when

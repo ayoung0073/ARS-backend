@@ -1,5 +1,6 @@
 package com.may.ars.service;
 
+import com.may.ars.common.advice.exception.EntityNotFoundException;
 import com.may.ars.dto.review.ReviewRequestDto;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
@@ -60,7 +61,6 @@ public class ReviewServiceTest {
 
         final ReviewRequestDto requestDto = ReviewRequestDto.builder()
                 .content("리뷰 등록 테스트")
-                .step(3)
                 .build();
 
         // when
@@ -80,15 +80,14 @@ public class ReviewServiceTest {
 
         final ReviewRequestDto requestDto = ReviewRequestDto.builder()
                 .content("리뷰 등록 테스트")
-                .step(3)
                 .build();
 
         // when
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+        EntityNotFoundException e = assertThrows(EntityNotFoundException.class,
                 () -> reviewService.registerReview(problemId, requestDto, member)); // 예외가 발생해야 한다.
 
         //then
-        assertThat(e.getMessage(), is(ExceptionMessage.NOT_EXIST_PROBLEM));
+        assertThat(e.getMessage(), is("Entity Not Found"));
     }
 
     @Test
@@ -104,7 +103,6 @@ public class ReviewServiceTest {
 
         final ReviewRequestDto requestDto = ReviewRequestDto.builder()
                 .content("리뷰 등록 테스트")
-                .step(3)
                 .build();
 
         // when

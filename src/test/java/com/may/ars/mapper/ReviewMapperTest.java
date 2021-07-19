@@ -37,7 +37,6 @@ class ReviewMapperTest {
         // given
         final ReviewRequestDto requestDto = ReviewRequestDto.builder()
                 .content("hi")
-                .step(3)
                 .build();
 
         // when
