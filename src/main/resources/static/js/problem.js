@@ -24,7 +24,7 @@ let index = {
             content: content,
             link: $("#link").val(),
             step: step,
-            notificationDate: date_setting(step),
+            notificationDate: date_setting($("#notificationDate").val()),
             tagList: tagList
         }
 
@@ -48,13 +48,11 @@ let index = {
     },
 
     registerReview: function () {
-        let step = $("#step").val();
         let content = document.getElementsByClassName("codemirror-lines")[0].innerText;
         console.log(content);
         let data = {
             content: content,
-            step: step,
-            notificationDate: date_setting(step),
+            notificationDate: date_setting($("#notificationDate").val()),
         }
 
         let problemId = document.getElementById("problem-id").value;
@@ -109,6 +107,26 @@ let index = {
         });
     },
 
+    updateStep: function (problemId, step) {
+
+        let data = {
+            step: step
+        }
+
+        $.ajax({
+            type: "PUT",
+            url: "/api/problems/" + problemId + "/step",
+            headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (result) {
+            console.log(result);
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+    },
+
     deleteProblem: function (problemId) {
         $.ajax({
             type: "DELETE",
@@ -118,7 +136,7 @@ let index = {
         }).done(function (result) {
             console.log(result);
             alert("글 삭제 완료하였습니다.");
-            location.href = "/";
+            location.href = "/problems/" + problemId + "?index=1";
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -205,7 +223,8 @@ function date_setting(step) {
             date.setDate(today.getDate() + 7); // 1주 후
             break;
         default:
-            return step
+            date.setMonth(today.getMonth() + 3); // 3달 후
+            break;
     }
 
     let year = date.getFullYear();

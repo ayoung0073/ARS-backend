@@ -2,7 +2,6 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.48.4/codemirror.css">
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
-
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
 
 <div style="margin-left: 270px; margin-right: 270px">
@@ -19,7 +18,15 @@
                 {{/review}}
 
             </div>
-            {{problem.writer.nickname}}&nbsp ·&nbsp 작성일 <span class="date">{{createdDate}}</span>&nbsp ·&nbsp 알림 예정일 &nbsp<b>{{problem.notificationDate}}</b>
+            <input hidden id="step" value="{{problem.step}}"/>
+            <img class="star" width="35" id="star1" src="/image/star_selected.png" onclick="selectStar(1)"><img class="star" width="35" id="star2" src="/image/star_not_selected.png" onclick="selectStar(2)"><img class="star" width="35" id="star3" src="/image/star_not_selected.png" onclick="selectStar(3)"><img class="star" width="35" id="star4" src="/image/star_not_selected.png" onclick="selectStar(4)"><img class="star" width="35" id="star5" src="/image/star_not_selected.png" onclick="selectStar(5)">
+             ·&nbsp 알림 예정일 &nbsp<b>{{problem.notificationDate}}</b>&nbsp ·&nbsp&nbsp{{problem.writer.nickname}}
+            <script>
+                for (let num = 1; num <= {{problem.step}}; num++)
+                    document.getElementById("star" + num).src = "/image/star_selected.png";
+                for (let num = {{problem.step}} + 1; num <= 5; num++)
+                    document.getElementById("star" + num).src = "/image/star_not_selected.png";
+            </script>
         </p>
         <div id="tag-block"></div>
     </div>
@@ -56,9 +63,8 @@
         </script>
     </div>
 </div>
-<script>
 
-    // date 포맷 수정
+<script>
     let dateArr = document.getElementsByClassName("date");
     for (let i = 0; i < dateArr.length; i++) {
         dateArr[i].textContent = dateArr[i].textContent.substr(0, 10);
@@ -76,8 +82,21 @@
     let elem = document.getElementById('editor-hidden');
     console.log(elem.innerText)
     viewer.setMarkdown(elem.innerText);
+</script>
 
+<script>
+    function selectStar(starNum) {
+        console.log(starNum)
+        document.getElementById("step").value = starNum
+        let num
+        for (num = 1; num <= starNum; num++)
+            document.getElementById("star" + num).src = "/image/star_selected.png";
+        for (num = starNum + 1; num <= 5; num++)
+            document.getElementById("star" + num).src = "/image/star_not_selected.png";
+        index.updateStep({{problem.id}}, starNum)
+    }
 </script>
 
 <script type="text/javascript" src="/js/problem.js"></script>
+
 {{>layout/footer}}

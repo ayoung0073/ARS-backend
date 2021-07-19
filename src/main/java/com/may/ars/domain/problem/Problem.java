@@ -30,7 +30,9 @@ public class Problem extends BaseEntity {
     @Column
     private String title;
 
-    private String link;
+    private String link = "";
+
+    private int step;
 
     private LocalDate notificationDate;
 

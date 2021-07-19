@@ -28,6 +28,4 @@ public class Review extends BaseEntity {
     @Type(type = "text")
     private String content;
 
-    @Setter
-    private int step;
 }

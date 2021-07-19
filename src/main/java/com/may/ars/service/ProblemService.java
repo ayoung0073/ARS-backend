@@ -65,8 +65,16 @@ public class ProblemService {
 
     @Transactional
     public void updateProblem(Problem problem) {
-        checkValidUser(problem.getId(), problem.getWriter());
-        problemRepository.save(problem);
+        Problem updateProblem = checkValidUser(problem.getId(), problem.getWriter());
+        updateProblem.setNotificationDate(problem.getNotificationDate());
+        problemRepository.save(updateProblem);
+    }
+
+    @Transactional
+    public void updateStep(Long problemId, Member member, int step) {
+        Problem updateProblem = checkValidUser(problemId, member);
+        updateProblem.setStep(step);
+        problemRepository.save(updateProblem);
     }
 
     @Transactional
@@ -75,8 +83,8 @@ public class ProblemService {
         problemRepository.deleteById(problemId);
     }
 
-    private void checkValidUser(Long problemId, Member member) {
+    private Problem checkValidUser(Long problemId, Member member) {
         log.info(problemId + " ");
-        problemRepository.findProblemByIdAndWriter(problemId, member).orElseThrow(EntityNotFoundException::new);
+        return problemRepository.findProblemByIdAndWriter(problemId, member).orElseThrow(EntityNotFoundException::new);
     }
 }

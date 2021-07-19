@@ -9,26 +9,25 @@
         <p>
             <textarea id="title" style="height: 66px;">{{problem.title}}</textarea>
         </p>
-        <input id="review-step" value="{{review.step}}" hidden />
-        <select id="step" class="form-control select-box">
+        <select id="step" class="form-control select-box" style="width: 100%; margin-bottom: 5px;">
             <option value="{{problem.notificationDate}}" selected>{{problem.notificationDate}}</option>
-            <option value="1">세달 후 알림</option>
-            <option value="2">두달 후 알림</option>
-            <option value="3">한달 후 알림</option>
-            <option value="4">이주일 후 알림</option>
             <option value="5">일주일 후 알림</option>
+            <option value="4">이주일 후 알림</option>
+            <option value="3">한 달 후 알림</option>
+            <option value="2">두 달 후 알림</option>
+            <option value="1">세 달 후 알림</option>
         </select>
         <div id="tag-block"></div>
     </div>
-    <hr>
-    <div id="link" tabindex="2" class="sc-jtRlXQ cspOdp"><a href="{{problem.link}}">문제 링크</a></div>
-    <hr>
     <div style="margin-top: 13px;">
-        <div id="editor-hidden" hidden style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{review.content}}</div>
+        <div id="editor-hidden" hidden
+             style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{review.content}}</div>
         <div id="editor" style="box-sizing: border-box; margin-top: 5px; height: 500px;"></div>
     </div>
-    <br>
-    <button style="float: right; margin-right: 5px;" onclick="index.updateReview({{problem.id}}, {{review.id}});" class="btn-secondary btn-sm">수정하기</button>
+    <br><br>
+    <button style="float: right; margin-right: 5px;" onclick="index.updateReview({{problem.id}}, {{review.id}});"
+            class="btn-secondary btn-sm">수정하기
+    </button>
 </div>
 <script>
     const content = [].join('\n');
@@ -44,8 +43,6 @@
         initialValue: elem.innerText
     });
 
-    // editor.setMarkdown(elem.innerText);
-
     // date 포맷 수정
     let dateArr = document.getElementsByClassName("date");
     for (let i = 0; i < dateArr.length; i++) {
@@ -56,7 +53,6 @@
 </script>
 
 <script>
-    /* eslint-disable no-unused-vars */
     const content = [].join('\n');
 
     const editor = new toastui.Editor({

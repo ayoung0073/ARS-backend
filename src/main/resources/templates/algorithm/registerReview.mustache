@@ -5,22 +5,21 @@
     <div class="form-group">
         <h1 id="title">{{problem.title}}</h1>
         <input hidden id="problem-id" value="{{problem.id}}" />
-        <select id="step" class="form-control select-box">
+        <select id="notificationDate" class="form-control select-box" style="width: 100%; margin-bottom: 5px">
             <option value="1" selected>알림 기한 설정</option>
-            <option value="1">세달 후 알림</option>
-            <option value="2">두달 후 알림</option>
-            <option value="3">한달 후 알림</option>
-            <option value="4">이주일 후 알림</option>
             <option value="5">일주일 후 알림</option>
+            <option value="4">이주일 후 알림</option>
+            <option value="3">한 달 후 알림</option>
+            <option value="2">두 달 후 알림</option>
+            <option value="1">세 달 후 알림</option>
         </select>
     </div>
     <div id="editor" style="box-sizing: border-box; margin-top: 5px; height: 500px;"></div>
-    <br/>
-    <button id="btn-review-register" class="btn btn-dark">등록하기</button>
+    <br/><br/>
+    <button id="btn-review-register" class="btn btn-dark" style="float: right">등록하기</button>
     <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
 
     <script>
-        /* eslint-disable no-unused-vars */
         const content = [].join('\n');
 
         const editor = new toastui.Editor({

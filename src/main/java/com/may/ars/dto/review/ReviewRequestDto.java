@@ -19,7 +19,5 @@ public class ReviewRequestDto {
 
     private String content;
 
-    private int step;
-
     private LocalDate notificationDate;
 }

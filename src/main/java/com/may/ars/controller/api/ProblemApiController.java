@@ -4,6 +4,7 @@ import com.may.ars.domain.member.Member;
 import com.may.ars.dto.ResponseDto;
 import com.may.ars.dto.problem.ProblemRequestDto;
 import com.may.ars.domain.problem.Problem;
+import com.may.ars.dto.problem.ProblemStepUpdateDto;
 import com.may.ars.mapper.ProblemMapper;
 import com.may.ars.response.SuccessMessage;
 import com.may.ars.service.ProblemService;
@@ -43,6 +44,16 @@ public class ProblemApiController {
         problemService.registerProblem(problemMapper.toEntity(requestDto, member), requestDto);
 
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_REGISTER_PROBLEM);
+        return ResponseEntity.ok().body(response);
+    }
+
+    @AuthCheck
+    @PutMapping("/{problemId}/step")
+    public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody ProblemStepUpdateDto updateDto) {
+        Member member = MemberContext.currentMember.get();
+        problemService.updateStep(problemId, member, updateDto.getStep());
+
+        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_UPDATE_PROBLEM);
         return ResponseEntity.ok().body(response);
     }
 
