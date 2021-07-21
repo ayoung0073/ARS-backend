@@ -1,0 +1,9 @@
+spring:
+  config:
+    use-legacy-processing: true
+  profiles:
+    include: dev
+server:
+  port: 8082
+  servlet:
+    context-path: /

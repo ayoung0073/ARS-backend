@@ -27,5 +27,5 @@ out/
 !**/src/test/**/out/
 
 application.yml
-applicaion-dev.yml
-applicaion-local.yml
+application-dev.yml
+application-local.yml

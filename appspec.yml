@@ -7,5 +7,12 @@ files:
     overwrite: yes
 
 hooks:
+  AfterInstall:
+    - location: scripts/stop.sh # 엔진엑스와 연결되어 있지 않은 스프링부트를 종료한다.
+      timeout: 60
   ApplicationStart:
-    - location: scripts/deploy.sh
+    - location: scripts/start.sh # 엔진엑스와 연결되어 있지 않은 포트로 새 버전의 스프링부트를 시작한다.
+      timeout: 60
+  ValidateService:
+    - location: scripts/health.sh # 새 스프링부트가 정상적으로 실행됐는지 확인한다.
+      timeout: 60
