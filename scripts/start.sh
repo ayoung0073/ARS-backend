@@ -13,11 +13,11 @@ cp $BUILD_JAR $DEPLOY_PATH
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포"    >> /home/ec2-user/log/deploy.log
-JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n 1)
+JAR_NAME=$(ls -tr $DEPLOY_PATH/*.jar | tail -n 1)
 
 IDLE_PROFILE=$(find_idle_profile)
 
 echo "> $JAR_NAME 를 profile=$IDLE_PROFILE 로 실행합니다."  >> /home/ec2-user/log/deploy.log
 nohup java -jar \
     -Dspring.profiles.active=$IDLE_PROFILE \
-    $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
+    $DEPLOY_PATH$JAR_NAME > $DEPLOY_PATH/nohup.out 2>&1 &
