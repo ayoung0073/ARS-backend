@@ -37,9 +37,6 @@ public class ProblemService {
         return problemRepository.findById(problemId).orElseThrow(EntityNotFoundException::new);
     }
 
-    /**
-     * 알고리즘 문제 등록
-     */
     @Transactional
     public void registerProblem(Problem problem, ProblemRequestDto registerDto) {
         problemRepository.save(problem);
@@ -81,6 +78,14 @@ public class ProblemService {
     public void deleteProblem(Long problemId, Member member) {
         checkValidUser(problemId, member);
         problemRepository.deleteById(problemId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Problem> getProblemListByStep(int step, Member member) {
+        if (step == 0) {
+            return getProblemListByMember(member);
+        }
+        return problemRepository.findAllByStepAndWriter(step, member);
     }
 
     private Problem checkValidUser(Long problemId, Member member) {

@@ -16,4 +16,7 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
     void deleteProblemById(Long id);
 
     List<Problem> findAllByNotificationDate(LocalDate date);
+
+    List<Problem> findAllByStepAndWriter(int step, Member member);
+
 }

@@ -29,10 +29,8 @@ public class ProblemApiController {
 
     @AuthCheck
     @GetMapping("")
-    public ResponseEntity<?> getProblemList() {
-        Member member = MemberContext.currentMember.get();
-        List<Problem> problemList = problemService.getProblemListByMember(member);
-
+    public ResponseEntity<?> getProblemList(@RequestParam int step) {
+        List<Problem> problemList = problemService.getProblemListByStep(step, MemberContext.currentMember.get());
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기", problemList);
         return ResponseEntity.ok().body(response);
     }
