@@ -8,7 +8,7 @@ function find_idle_profile()
     then
         CURRENT_PROFILE=dev2
     else
-        CURRENT_PROFILE=$(curl -s http://localhost/profile)
+        CURRENT_PROFILE=$(curl -s http://localhost/api/profile)
     fi
 
     if [ ${CURRENT_PROFILE} == dev1 ]

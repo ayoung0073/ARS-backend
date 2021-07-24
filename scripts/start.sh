@@ -13,7 +13,7 @@ cp $BUILD_JAR $DEPLOY_PATH
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포"    >> /home/ec2-user/log/deploy.log
-JAR_NAME=$(ls -tr $DEPLOY_PATH/*.jar | tail -n 1)
+JAR_NAME=$(ls -tr $DEPLOY_PATH*.jar | tail -n 1)
 
 IDLE_PROFILE=$(find_idle_profile)
 
