@@ -20,4 +20,4 @@ IDLE_PROFILE=$(find_idle_profile)
 echo "> $JAR_NAME 를 profile=$IDLE_PROFILE 로 실행합니다."  >> /home/ec2-user/log/deploy.log
 nohup java -jar \
     -Dspring.profiles.active=$IDLE_PROFILE \
-    $DEPLOY_PATH$JAR_NAME > $DEPLOY_PATH/nohup.out 2>&1 &
+    $JAR_NAME > $DEPLOY_PATH/nohup.out 2>&1 &
