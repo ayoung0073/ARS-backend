@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
 
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
-<div id="review-update-div" style="margin-left: 270px; margin-right: 270px">
+<div id="review-update-div" style="margin-left: 130px; margin-right: 130px">
 <script>
     let div = document.getElementById("review-update-div")
 
@@ -52,14 +52,14 @@
                     dateArr[i].textContent = dateArr[i].textContent.substr(0, 10);
                 }
 
-                const content = [].join('\n');
+                let elem = document.getElementById('editor-hidden');
 
                 const editor = new toastui.Editor({
                     el: document.querySelector('#editor'),
                     previewStyle: 'vertical',
                     initialEditType: "markdown",
                     height: '500px',
-                    initialValue: content
+                    initialValue: elem.innerText
                 });
 
                 $("#btn-register").on("click", () => {
@@ -75,4 +75,3 @@
 </script>
 </div>
 <script type="text/javascript" src="/js/problem.js"></script>
-{{>layout/footer}}
