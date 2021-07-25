@@ -35,6 +35,13 @@ public class ProblemApiController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/tag")
+    public ResponseEntity<?> getProblemListByTag(@RequestParam String name) {
+        List<Problem> problemList = problemService.getProblemListByTagName(name);
+        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기", problemList);
+        return ResponseEntity.ok().body(response);
+    }
+
     @AuthCheck
     @PostMapping("")
     public ResponseEntity<?> saveProblem(@RequestBody ProblemRequestDto requestDto) {

@@ -20,7 +20,7 @@
             </div>
             <input hidden id="step" value="{{problem.step}}"/>
             <img class="star" width="35" id="star1" src="/image/star_selected.png" onclick="selectStar(1)"><img class="star" width="35" id="star2" src="/image/star_not_selected.png" onclick="selectStar(2)"><img class="star" width="35" id="star3" src="/image/star_not_selected.png" onclick="selectStar(3)"><img class="star" width="35" id="star4" src="/image/star_not_selected.png" onclick="selectStar(4)"><img class="star" width="35" id="star5" src="/image/star_not_selected.png" onclick="selectStar(5)">
-             ·&nbsp 알림 예정일 &nbsp<b>{{problem.notificationDate}}</b>&nbsp ·&nbsp&nbsp{{problem.writer.nickname}}
+             ·&nbsp 알림 예정일 &nbsp<b>{{problem.notificationDate}}</b>&nbsp
             <script>
                 for (let num = 1; num <= {{problem.step}}; num++)
                     document.getElementById("star" + num).src = "/image/star_selected.png";

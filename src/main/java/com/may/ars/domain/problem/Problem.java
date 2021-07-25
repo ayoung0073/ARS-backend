@@ -1,5 +1,6 @@
 package com.may.ars.domain.problem;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.may.ars.domain.BaseEntity;
 import com.may.ars.domain.member.Member;
@@ -25,6 +26,7 @@ public class Problem extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "member_id", updatable = false)
+    @JsonIgnore
     private Member writer;
 
     @Column

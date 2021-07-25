@@ -21,6 +21,7 @@ import java.util.Optional;
 public class ProblemService {
 
     private final ProblemRepository problemRepository;
+    private final ProblemQueryRepository problemQueryRepository;
     private final TagRepository tagRepository;
     private final ReviewRepository reviewRepository;
     private final ProblemTagRepository problemTagRepository;
@@ -30,6 +31,11 @@ public class ProblemService {
     @Transactional(readOnly = true)
     public List<Problem> getProblemListByMember(Member member) {
         return problemRepository.findAllByWriterIdOrderByCreatedDateDesc(member.getId());
+    }
+
+    @Transactional(readOnly = true)
+    public List<Problem> getProblemListByTagName(String tagName) {
+        return problemQueryRepository.findAllByTag(tagName);
     }
 
     @Transactional(readOnly = true)
