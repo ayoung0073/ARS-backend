@@ -6,6 +6,7 @@ import com.may.ars.common.advice.exception.JsonWriteException;
 import com.may.ars.dto.JwtPayload;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,15 +54,15 @@ public class JwtService {
     }
 
     public JwtPayload getPayload(String token) {
-        Claims claims = Jwts.parserBuilder()
-                .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
-
         try {
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY))
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+
             return objectMapper.readValue(claims.getSubject(), JwtPayload.class);
-        } catch (JsonProcessingException e) {
+        } catch (JsonProcessingException | IllegalArgumentException | MalformedJwtException e) {
             throw new JsonWriteException();
         }
     }

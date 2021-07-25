@@ -1,49 +1,46 @@
 {{>layout/header}}
 <br>
-<span class="btn btn-dark" type="button" style="right: 10px; top: 105px; position: fixed;">
-    <a href="https://join.slack.com/t/slack-8hc7801/shared_invite/zt-szxnt7ir-s~~8lts~bIVk9Bzk1~oIEw" style="color: white;">알림 서비스 받으러 가기</a>
-</span>
+<!--<span class="btn btn-dark" type="button" style="right: 10px; top: 105px; position: fixed;">-->
+<!--    <a href="https://join.slack.com/t/slack-8hc7801/shared_invite/zt-szxnt7ir-s~~8lts~bIVk9Bzk1~oIEw" style="color: white;">알림 서비스 받으러 가기</a>-->
+<!--</span>-->
 <br>
 <script>
     let problemList = [];
-    if (sessionStorage.getItem("access_token")) {
-        $.ajax({
-            type: "GET",
-            url: "/api/problems?step=0",
-            headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
-            contentType: "application/json; charset=utf-8",
-            dataType: "json"
-        }).done(function (result) {
-            problemList = result.data;
-            console.log(problemList);
-            let problem;
-            for (let i = 0; i < problemList.length; i++) {
-                problem = problemList[i];
-                const element = document.getElementById("problemList"); // (O); $("#problemList") (X)
-                let content = '';
-                content += `
-                        <div class="card m-2">
-                            <span class="problem-last-step">`
-                if (problem.reviewList.length != 0) {
-                    content += '⭐'.repeat(problem.step)
-                }
-                content += `</span><br/><div class="card-body">
-                    <h4 class="card-title"><a class="problem-a" href=
-                    "/problems/${problem.id}?index=1">${problem.title}</a></h4><br/>`;
-                for (let j = 0; j < problem.tagList.length; j++) {
-                    content += `<button class="btn-tag" value="${problem.tagList[j].tag.id}">&nbsp;${problem.tagList[j].tag.tagName}&nbsp;</button>&nbsp;`;
-                }
-                content += `
-                    </div>
-                </div>`;
-                element.innerHTML += content;
+
+    $.ajax({
+        type: "GET",
+        url: "/api/problems?step=0",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json"
+    }).done(function (result) {
+        problemList = result.data;
+        console.log(problemList);
+        let problem;
+        for (let i = 0; i < problemList.length; i++) {
+            problem = problemList[i];
+            const element = document.getElementById("problemList"); // (O); $("#problemList") (X)
+            let content = '';
+            content += `
+                    <div class="card m-2">
+                        <span class="problem-last-step">`
+            if (problem.reviewList.length != 0) {
+                content += '⭐'.repeat(problem.step)
             }
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    } else {
-        location.href = "/user/login";
-    }
+            content += `</span><br/><div class="card-body">
+                <h4 class="card-title"><a class="problem-a" href=
+                "/problems/${problem.id}?index=1">${problem.title}</a></h4><br/>`;
+            for (let j = 0; j < problem.tagList.length; j++) {
+                content += `<button class="btn-tag" value="${problem.tagList[j].tag.id}">&nbsp;${problem.tagList[j].tag.tagName}&nbsp;</button>&nbsp;`;
+            }
+            content += `
+                </div>
+            </div>`;
+            element.innerHTML += content;
+        }
+    }).fail(function (error) {
+        alert(JSON.stringify(error));
+    });
+
 
 </script>
 <div class="container">

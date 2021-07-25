@@ -16,7 +16,8 @@ public enum ExceptionCode {
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
 
     // JWT
-    JWT_EXCEPTION(400, "Jwt Exception");
+    JWT_EXCEPTION(400, "Jwt Exception"),
+    NOT_VALID_USER(400, "Authorization Exception");
 
     private final int status;
     private final String message;

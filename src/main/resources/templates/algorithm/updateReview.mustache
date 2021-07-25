@@ -4,69 +4,75 @@
 <link rel="stylesheet" href="https://uicdn.toast.com/editor/2.0.0/toastui-editor.min.css">
 
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
-<div style="margin-left: 270px; margin-right: 270px">
-    <div class="form-group">
-        <p>
-            <textarea id="title" style="height: 66px;">{{problem.title}}</textarea>
-        </p>
-        <select id="step" class="form-control select-box" style="width: 100%; margin-bottom: 5px;">
-            <option value="{{problem.notificationDate}}" selected>{{problem.notificationDate}}</option>
-            <option value="5">일주일 후 알림</option>
-            <option value="4">이주일 후 알림</option>
-            <option value="3">한 달 후 알림</option>
-            <option value="2">두 달 후 알림</option>
-            <option value="1">세 달 후 알림</option>
-        </select>
-        <div id="tag-block"></div>
-    </div>
-    <div style="margin-top: 13px;">
-        <div id="editor-hidden" hidden
-             style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{review.content}}</div>
-        <div id="editor" style="box-sizing: border-box; margin-top: 5px; height: 500px;"></div>
-    </div>
-    <br><br>
-    <button style="float: right; margin-right: 5px;" onclick="index.updateReview({{problem.id}}, {{review.id}});"
-            class="btn-secondary btn-sm">수정하기
-    </button>
-</div>
+<div id="review-update-div" style="margin-left: 270px; margin-right: 270px">
 <script>
-    const content = [].join('\n');
+    let div = document.getElementById("review-update-div")
 
-    let elem = document.getElementById('editor-hidden');
-    console.log(elem.innerText)
+    if (sessionStorage.getItem("access_token")) {
+        $.ajax({
+            type: "GET",
+            url: "/api/members/check",
+            headers: {"Authorization": sessionStorage.getItem("access_token"), "Content-type": "application/json"},
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (result) {
+            const status = result.status;
+            if (status === 200) {
+                div.innerHTML += `
+                <div class="form-group">
+                    <p>
+                        <textarea id="title" style="height: 66px;">{{problem.title}}</textarea>
+                    </p>
+                    <select id="step" class="form-control select-box" style="width: 100%; margin-bottom: 5px;">
+                        <option value="{{problem.notificationDate}}" selected>{{problem.notificationDate}}</option>
+                        <option value="5">일주일 후 알림</option>
+                        <option value="4">이주일 후 알림</option>
+                        <option value="3">한 달 후 알림</option>
+                        <option value="2">두 달 후 알림</option>
+                        <option value="1">세 달 후 알림</option>
+                    </select>
+                    <div id="tag-block"></div>
+                </div>
+                <div style="margin-top: 13px;">
+                    <div id="editor-hidden" hidden
+                         style="box-sizing: border-box; margin-top: 5px; height: 500px;">{{review.content}}</div>
+                    <div id="editor" style="box-sizing: border-box; margin-top: 5px; height: 500px;"></div>
+                </div>
+                <br><br>
+                <button style="float: right; margin-right: 5px;" onclick="index.updateReview({{problem.id}}, {{review.id}});"
+                        class="btn-secondary btn-sm">수정하기
+                </button>
+            </div>`;
 
-    const editor = new toastui.Editor({
-        el: document.querySelector('#editor'),
-        previewStyle: 'vertical',
-        initialEditType: "markdown",
-        height: '500px',
-        initialValue: elem.innerText
-    });
+                // date 포맷 수정
+                let dateArr = document.getElementsByClassName("date");
+                for (let i = 0; i < dateArr.length; i++) {
+                    console.log(dateArr[i].textContent)
+                    console.log(dateArr[i].innerText)
+                    dateArr[i].textContent = dateArr[i].textContent.substr(0, 10);
+                }
 
-    // date 포맷 수정
-    let dateArr = document.getElementsByClassName("date");
-    for (let i = 0; i < dateArr.length; i++) {
-        console.log(dateArr[i].textContent)
-        console.log(dateArr[i].innerText)
-        dateArr[i].textContent = dateArr[i].textContent.substr(0, 10);
+                const content = [].join('\n');
+
+                const editor = new toastui.Editor({
+                    el: document.querySelector('#editor'),
+                    previewStyle: 'vertical',
+                    initialEditType: "markdown",
+                    height: '500px',
+                    initialValue: content
+                });
+
+                $("#btn-register").on("click", () => {
+                    console.log(document.getElementsByClassName("tui-editor-contents")[0].innerHTML);
+                });
+            } else {
+                alert("등록 권한이 없습니다. 문아영한테 문의하시길.");
+            }
+        })
+    } else {
+        location.href = "/user/login"
     }
 </script>
-
-<script>
-    const content = [].join('\n');
-
-    const editor = new toastui.Editor({
-        el: document.querySelector('#editor'),
-        previewStyle: 'vertical',
-        initialEditType: "markdown",
-        height: '500px',
-        initialValue: content
-    });
-
-    $("#btn-register").on("click", () => {
-        console.log(document.getElementsByClassName("tui-editor-contents")[0].innerHTML);
-    });
-</script>
-
+</div>
 <script type="text/javascript" src="/js/problem.js"></script>
 {{>layout/footer}}

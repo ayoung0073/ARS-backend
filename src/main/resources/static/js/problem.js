@@ -108,7 +108,6 @@ let index = {
     },
 
     updateStep: function (problemId, step) {
-
         let data = {
             step: step
         }
@@ -122,8 +121,9 @@ let index = {
             dataType: "json"
         }).done(function (result) {
             console.log(result);
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
+        }).fail(function () {
+            alert("수정 권한 없습니다.");
+            location.reload();
         });
     },
 
@@ -138,7 +138,7 @@ let index = {
             alert("글 삭제 완료하였습니다.");
             location.href = "/problems/" + problemId + "?index=1";
         }).fail(function (error) {
-            alert(JSON.stringify(error));
+            alert("삭제 권한이 없습니다.");
         });
     },
 
@@ -194,7 +194,7 @@ let index = {
                 alert("리뷰 삭제 완료하였습니다.");
                 location.href = "/";
             }).fail(function (error) {
-                alert(JSON.stringify(error));
+                alert("삭제 권한이 없습니다.");
             });
         },
 
