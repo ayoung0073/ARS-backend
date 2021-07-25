@@ -1,7 +1,14 @@
+buildscript {
+    ext {
+        querydslVersion = "4.4.0"
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.4.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group = 'com.may'
@@ -33,6 +40,8 @@ dependencies {
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
     testImplementation group: 'com.h2database', name: 'h2', version: '1.4.200'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.200'
+
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
     runtimeOnly 'mysql:mysql-connector-java'
 
@@ -49,8 +58,31 @@ dependencies {
     // TDD
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.7.0'
 
+    // Querydsl
+    implementation 'com.querydsl:querydsl-jpa'
+    implementation 'com.querydsl:querydsl-core'
+
 }
 
 test {
     useJUnitPlatform()
+}
+
+def querydslSrcDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslSrcDir
+}
+
+sourceSets {
+    main.java.srcDirs querydslSrcDir
+}
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl{
+    options.annotationProcessorPath = configurations.querydsl
 }
