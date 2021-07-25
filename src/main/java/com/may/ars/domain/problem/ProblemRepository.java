@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface ProblemRepository extends JpaRepository<Problem, Long> {
 
-    List<Problem> findAllByWriterIdOrderByCreatedDateDesc(Long id);
+    List<Problem> findAllByOrderByCreatedDateDesc();
 
     Optional<Problem> findProblemByIdAndWriter(Long id, Member writer);
 
@@ -17,6 +17,6 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
 
     List<Problem> findAllByNotificationDate(LocalDate date);
 
-    List<Problem> findAllByStepAndWriter(int step, Member member);
+    List<Problem> findAllByStep(int step);
 
 }

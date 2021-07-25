@@ -27,10 +27,9 @@ public class ProblemApiController {
     private final ProblemMapper problemMapper;
     private final ProblemService problemService;
 
-    @AuthCheck
     @GetMapping("")
     public ResponseEntity<?> getProblemList(@RequestParam int step) {
-        List<Problem> problemList = problemService.getProblemListByStep(step, MemberContext.currentMember.get());
+        List<Problem> problemList = problemService.getProblemListByStep(step);
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기", problemList);
         return ResponseEntity.ok().body(response);
     }
@@ -62,9 +61,8 @@ public class ProblemApiController {
         return ResponseEntity.ok().body(response);
     }
 
-    @AuthCheck
     @DeleteMapping("/{problemId}")
-    public ResponseEntity<?> detailPage(@PathVariable Long problemId) {
+    public ResponseEntity<?> deleteProblem(@PathVariable Long problemId) {
         Member member = MemberContext.currentMember.get();
         problemService.deleteProblem(problemId, member);
 

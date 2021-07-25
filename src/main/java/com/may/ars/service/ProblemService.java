@@ -29,8 +29,8 @@ public class ProblemService {
     private final ReviewMapper reviewMapper;
 
     @Transactional(readOnly = true)
-    public List<Problem> getProblemListByMember(Member member) {
-        return problemRepository.findAllByWriterIdOrderByCreatedDateDesc(member.getId());
+    public List<Problem> getProblemList() {
+        return problemRepository.findAllByOrderByCreatedDateDesc();
     }
 
     @Transactional(readOnly = true)
@@ -87,15 +87,14 @@ public class ProblemService {
     }
 
     @Transactional(readOnly = true)
-    public List<Problem> getProblemListByStep(int step, Member member) {
+    public List<Problem> getProblemListByStep(int step) {
         if (step == 0) {
-            return getProblemListByMember(member);
+            return getProblemList();
         }
-        return problemRepository.findAllByStepAndWriter(step, member);
+        return problemRepository.findAllByStep(step);
     }
 
     private Problem checkValidUser(Long problemId, Member member) {
-        log.info(problemId + " ");
         return problemRepository.findProblemByIdAndWriter(problemId, member).orElseThrow(EntityNotFoundException::new);
     }
 }

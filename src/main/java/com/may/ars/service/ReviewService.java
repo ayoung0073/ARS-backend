@@ -49,9 +49,7 @@ public class ReviewService {
 
     @Transactional(readOnly = true)
     public Review getReview(Long reviewId) {
-        return reviewRepository.findById(reviewId).orElseThrow(
-                () -> { throw new IllegalArgumentException(NOT_EXIST_REVIEW); }
-        );
+        return reviewRepository.findById(reviewId).orElseThrow(EntityNotFoundException::new);
     }
 
     private void checkValidUser(Long reviewId, Member member) {
