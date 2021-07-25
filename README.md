@@ -10,7 +10,7 @@
 
 ## 페이지
 ### 메인 페이지 
-![](https://images.velog.io/images/ayoung0073/post/3bffaf07-1c74-4500-83c7-2aad6099c1fd/image.png)
+![](https://media.vlpt.us/images/ayoung0073/post/b2ebf661-0c1e-41a5-81cc-c010595695ab/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-07-25%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.38.00.png)
 ### 상세 페이지 
 "저"임이 인증이 되었다면 별을 클릭하여 난이도를 즉시 수정할 수 있습니다.<br><br>
 ![](https://images.velog.io/images/ayoung0073/post/b2a4254e-292f-4d68-aaaa-1a979f15bb25/image.png)
@@ -18,11 +18,3 @@
 오른쪽 영역은 고정되어 있습니다. <br><br>
 ![상세 페이지 스크롤](https://user-images.githubusercontent.com/69340410/126901539-46c88f0f-4e0d-4b31-9f25-5e86033c8e2d.gif) 
 
-### 문제 등록 페이지
-![](https://images.velog.io/images/ayoung0073/post/ad8a44a0-49b6-4ab9-bd04-f85fed0852c2/image.png)
-
-### 리뷰 추가 페이지
-![](https://images.velog.io/images/ayoung0073/post/98eae4ed-899c-4ffd-a3f8-4f9703a1e1fd/image.png)
-
-### 리뷰 수정 페이지
-![](https://images.velog.io/images/ayoung0073/post/fad848b6-4f82-4d2a-8722-634dc845ccb7/image.png)
