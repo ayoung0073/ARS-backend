@@ -64,6 +64,7 @@
 
                 $("#btn-register").on("click", () => {
                     console.log(document.getElementsByClassName("tui-editor-contents")[0].innerHTML);
+                    index.updateReview({{problem.id}}, {{review.id}})
                 });
             } else {
                 alert("등록 권한이 없습니다. 문아영한테 문의하시길.");

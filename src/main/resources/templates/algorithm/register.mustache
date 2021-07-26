@@ -31,7 +31,7 @@
                                 key.preventDefault();
                                 let tagName = $("#tag").val();
                                 let tagBlock = document.getElementById("tag-block");
-                                tagBlock.innerHTML += ' <button class="btn-tag" value="${tagName}">' + tagName + "</button> "
+                                tagBlock.innerHTML += ' <button class="btn-tag" value=' + tagName + '>' + tagName + "</button> "
                                 $("#tag").val("");
                             }
                         });
@@ -81,8 +81,6 @@
 
 
                 $("#btn-register").on("click", () => {
-                    console.log(document.getElementsByClassName("tui-editor-contents")[0].innerHTML);
-                    console.log(document.getElementById("editor").innerText);
                     index.register();
                 });
 

@@ -1,11 +1,11 @@
 let index = {
     init: function () {
-        $("#btn-register").on("click", () => {
-            this.register();
-        });
-        $("#btn-review-register").on("click", () => {
-            this.registerReview();
-        });
+        // $("#btn-register").on("click", () => {
+        //     this.register();
+        // });
+        // $("#btn-review-register").on("click", () => {
+        //     this.registerReview();
+        // });
     },
 
     register: function () {

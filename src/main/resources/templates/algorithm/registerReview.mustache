@@ -1,7 +1,7 @@
 {{>layout/header}}
 <br>
 <script src="https://uicdn.toast.com/editor/2.0.0/toastui-editor-all.min.js"></script>
-<div id="review-register-div" style="margin-left: 270px; margin-right: 270px">
+<div id="review-register-div" style="margin-left: 130px; margin-right: 130px">
 
 <script>
     let div = document.getElementById("review-register-div")
@@ -44,8 +44,8 @@
                     initialValue: content
                 });
 
-                $("#btn-register").on("click", () => {
-                    console.log(document.getElementsByClassName("tui-editor-contents")[0].innerHTML);
+                $("#btn-review-register").on("click", () => {
+                    index.registerReview()
                 });
             } else {
                 alert("등록 권한이 없습니다. 문아영한테 문의하시길.");
