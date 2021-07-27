@@ -34,6 +34,12 @@ public class ProblemApiController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/{problemId}")
+    public ResponseEntity<?> getProblem(@PathVariable Long problemId) {
+        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기", problemService.getProblemById(problemId));
+        return ResponseEntity.ok().body(response);
+    }
+
     @GetMapping("/tag")
     public ResponseEntity<?> getProblemListByTag(@RequestParam String name) {
         List<Problem> problemList = problemService.getProblemListByTagName(name);
