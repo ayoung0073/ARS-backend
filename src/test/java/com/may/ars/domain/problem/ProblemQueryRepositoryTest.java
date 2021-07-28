@@ -30,7 +30,7 @@ class ProblemQueryRepositoryTest {
     @Test
     void 태그로_문제리스트_조회_성공_테스트() {
         // given
-        String tagName = "테스트";
+        String tagName = "ㅌㅅㅌ";
         String title = "테스트요";
 
         Problem problem = Problem.builder()

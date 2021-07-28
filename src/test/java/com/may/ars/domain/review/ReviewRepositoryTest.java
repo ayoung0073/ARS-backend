@@ -19,10 +19,8 @@ class ReviewRepositoryTest {
     @Test
     void 리뷰_수정_테스트() {
         // given
-        Long reviewId = 1L;
         String content = "TEST";
         Review review = Review.builder()
-                .id(reviewId)
                 .content(content)
                 .build();
 
@@ -30,7 +28,7 @@ class ReviewRepositoryTest {
         reviewRepository.save(review);
 
         // then
-        Review result = reviewRepository.findById(reviewId).get();
+        Review result = reviewRepository.findById(review.getId()).get();
         assertThat(result.getContent(), is(content));
     }
 }

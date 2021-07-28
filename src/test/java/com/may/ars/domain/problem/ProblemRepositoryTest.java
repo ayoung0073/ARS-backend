@@ -59,7 +59,6 @@ class ProblemRepositoryTest {
         String title = "테스트";
         String link = "test.com";
         Problem problem = Problem.builder()
-                .id(1L)
                 .title(title)
                 .writer(member)
                 .link(link)
