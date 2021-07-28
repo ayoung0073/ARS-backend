@@ -3,7 +3,7 @@ package com.may.ars.service;
 import com.may.ars.common.advice.exception.EntityNotFoundException;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.review.ReviewRepository;
-import com.may.ars.dto.problem.ProblemRequestDto;
+import com.may.ars.dto.problem.request.ProblemRequestDto;
 import com.may.ars.domain.problem.*;
 import com.may.ars.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;

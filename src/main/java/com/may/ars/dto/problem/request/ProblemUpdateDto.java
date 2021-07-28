@@ -1,4 +1,4 @@
-package com.may.ars.dto.problem;
+package com.may.ars.dto.problem.request;
 
 
 import lombok.*;

@@ -3,8 +3,7 @@ package com.may.ars.mapper;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.review.Review;
-import com.may.ars.dto.problem.ProblemRequestDto;
-import com.may.ars.dto.problem.ProblemRegisterDto;
+import com.may.ars.dto.problem.request.ProblemRequestDto;
 import com.may.ars.dto.review.ReviewRequestDto;
 import org.junit.jupiter.api.Test;
 
