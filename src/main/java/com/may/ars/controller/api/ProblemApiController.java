@@ -2,9 +2,9 @@ package com.may.ars.controller.api;
 
 import com.may.ars.domain.member.Member;
 import com.may.ars.dto.ResponseDto;
-import com.may.ars.dto.problem.ProblemRequestDto;
-import com.may.ars.domain.problem.Problem;
-import com.may.ars.dto.problem.ProblemStepUpdateDto;
+import com.may.ars.dto.problem.request.ProblemRequestDto;
+import com.may.ars.dto.problem.request.ProblemStepUpdateDto;
+import com.may.ars.dto.problem.response.ProblemOnlyDto;
 import com.may.ars.mapper.ProblemMapper;
 import com.may.ars.response.SuccessMessage;
 import com.may.ars.service.ProblemService;
@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,20 +30,25 @@ public class ProblemApiController {
 
     @GetMapping("")
     public ResponseEntity<?> getProblemList(@RequestParam int step) {
-        List<Problem> problemList = problemService.getProblemListByStep(step);
+        List<ProblemOnlyDto> problemList = problemService.getProblemListByStep(step).stream()
+                                                                                    .map(problemMapper::toReviewExcludeDto)
+                                                                                    .collect(Collectors.toList());
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기", problemList);
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/{problemId}")
     public ResponseEntity<?> getProblem(@PathVariable Long problemId) {
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기", problemService.getProblemById(problemId));
+        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기",
+                    problemMapper.toDto(problemService.getProblemById(problemId)));
         return ResponseEntity.ok().body(response);
     }
 
     @GetMapping("/tag")
     public ResponseEntity<?> getProblemListByTag(@RequestParam String name) {
-        List<Problem> problemList = problemService.getProblemListByTagName(name);
+        List<ProblemOnlyDto> problemList = problemService.getProblemListByTagName(name).stream()
+                                                                                            .map(problemMapper::toReviewExcludeDto)
+                                                                                            .collect(Collectors.toList());
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기", problemList);
         return ResponseEntity.ok().body(response);
     }

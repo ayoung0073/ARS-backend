@@ -1,6 +1,5 @@
 package com.may.ars.domain.problem;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.may.ars.domain.BaseEntity;
 import com.may.ars.domain.member.Member;
@@ -11,12 +10,11 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Builder
-@Getter @Setter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Getter @Setter
 @Entity
-@ToString
+@Builder
 public class Problem extends BaseEntity {
 
     @Id
@@ -26,10 +24,8 @@ public class Problem extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "member_id", updatable = false)
-    @JsonIgnore
     private Member writer;
 
-    @Column
     private String title;
 
     private String link;
@@ -44,6 +40,7 @@ public class Problem extends BaseEntity {
     private List<Review> reviewList;
 
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties({"problem"}) // X -> 무한참조
+    @JsonIgnoreProperties({"problem"})
     private List<ProblemTag> tagList;
+
 }

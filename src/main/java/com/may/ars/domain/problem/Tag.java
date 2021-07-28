@@ -1,15 +1,12 @@
 package com.may.ars.domain.problem;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Getter
 @Entity
 @Builder
 public class Tag {
@@ -25,4 +22,5 @@ public class Tag {
     public Tag(String tagName) {
         this.tagName = tagName;
     }
+
 }

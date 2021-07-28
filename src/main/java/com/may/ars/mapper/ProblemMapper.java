@@ -2,7 +2,9 @@ package com.may.ars.mapper;
 
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
-import com.may.ars.dto.problem.ProblemRequestDto;
+import com.may.ars.dto.problem.request.ProblemRequestDto;
+import com.may.ars.dto.problem.response.ProblemDto;
+import com.may.ars.dto.problem.response.ProblemOnlyDto;
 import com.may.ars.dto.review.ReviewRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,4 +28,8 @@ public interface ProblemMapper {
     @Mapping(target = "step", ignore = true)
     @Mapping(target = "reviewList", ignore = true)
     Problem toEntity(Long id, ReviewRequestDto requestDto, Member member);
+
+    ProblemDto toDto(Problem problem);
+
+    ProblemOnlyDto toReviewExcludeDto(Problem problem);
 }

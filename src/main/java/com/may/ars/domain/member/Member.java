@@ -7,11 +7,10 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Getter
 @Entity
-@Builder
 public class Member extends BaseEntity {
 
     @Id
@@ -40,4 +39,12 @@ public class Member extends BaseEntity {
 
     @Setter
     private boolean checkSlack;
+
+    @Builder
+    public Member(String email, SocialType socialType, String socialId, String nickname) {
+        this.email = email;
+        this.socialType = socialType;
+        this.socialId = socialId;
+        this.nickname = nickname;
+    }
 }
