@@ -4,7 +4,8 @@ import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.review.Review;
 import com.may.ars.dto.problem.request.ProblemRequestDto;
-import com.may.ars.dto.review.ReviewRequestDto;
+import com.may.ars.dto.review.SearchDto;
+import com.may.ars.dto.ReviewRequestDto;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -44,5 +45,29 @@ class ReviewMapperTest {
         //then
         assertNotNull(review);
         assertThat(review.getContent(), is(requestDto.getContent()));
+    }
+
+    @Test
+    void toSearchDto_테스트() {
+        // given
+        Problem problem = Problem.builder()
+                .title("테스트")
+                .link("test.com")
+                .step(3)
+                .build();
+        Review review = Review.builder()
+                .content("내용 테스트")
+                .problem(problem)
+                .build();
+
+        // when
+        SearchDto searchDto = ReviewMapper.INSTANCE.toSearchDto(review);
+
+        // then
+        assertThat(searchDto.getTitle(), is(problem.getTitle()));
+        assertThat(searchDto.getStep(), is(problem.getStep()));
+        assertThat(searchDto.getLink(), is(problem.getLink()));
+        assertThat(searchDto.getContent(), is(review.getContent()));
+        assertThat(searchDto.getCreatedDate(), is(review.getCreatedDate()));
     }
 }

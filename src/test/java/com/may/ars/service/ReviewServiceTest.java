@@ -1,14 +1,13 @@
 package com.may.ars.service;
 
 import com.may.ars.common.advice.exception.EntityNotFoundException;
-import com.may.ars.dto.review.ReviewRequestDto;
+import com.may.ars.dto.ReviewRequestDto;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
 import com.may.ars.domain.review.ReviewRepository;
 import com.may.ars.common.advice.ExceptionMessage;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

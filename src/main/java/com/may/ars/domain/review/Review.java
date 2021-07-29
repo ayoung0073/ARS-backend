@@ -19,7 +19,7 @@ public class Review extends BaseEntity {
     @Column(name = "review_id", updatable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "problem_id", updatable = false)
     @Setter
     private Problem problem;

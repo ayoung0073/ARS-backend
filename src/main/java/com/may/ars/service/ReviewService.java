@@ -3,13 +3,12 @@ package com.may.ars.service;
 import com.may.ars.common.advice.exception.EntityNotFoundException;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.review.Review;
-import com.may.ars.dto.review.ReviewRequestDto;
+import com.may.ars.dto.ReviewRequestDto;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
 import com.may.ars.domain.review.ReviewRepository;
 import com.may.ars.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

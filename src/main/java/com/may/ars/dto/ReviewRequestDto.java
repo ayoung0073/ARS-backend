@@ -1,4 +1,4 @@
-package com.may.ars.dto.review;
+package com.may.ars.dto;
 
 import lombok.Builder;
 import lombok.Getter;
