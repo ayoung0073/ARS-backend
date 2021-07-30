@@ -4,7 +4,7 @@ import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.review.Review;
 import com.may.ars.dto.problem.request.ProblemRequestDto;
 import com.may.ars.dto.review.SearchDto;
-import com.may.ars.dto.ReviewRequestDto;
+import com.may.ars.dto.review.ReviewRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

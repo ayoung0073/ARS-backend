@@ -1,7 +1,7 @@
 package com.may.ars.service;
 
 import com.may.ars.common.advice.exception.EntityNotFoundException;
-import com.may.ars.dto.ReviewRequestDto;
+import com.may.ars.dto.review.ReviewRequestDto;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
