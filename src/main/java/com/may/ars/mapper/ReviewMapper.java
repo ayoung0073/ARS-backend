@@ -26,6 +26,7 @@ public interface ReviewMapper {
     @Mapping(target = "id", source = "id")
     Review toEntity(Long id, ReviewRequestDto registerDto);
 
+    @Mapping(target = "id", source="problem.id")
     @Mapping(target = "title", source="problem.title")
     @Mapping(target = "step", source="problem.step")
     @Mapping(target = "link", source="problem.link")

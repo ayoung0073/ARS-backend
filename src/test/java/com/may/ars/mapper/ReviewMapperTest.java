@@ -69,5 +69,6 @@ class ReviewMapperTest {
         assertThat(searchDto.getLink(), is(problem.getLink()));
         assertThat(searchDto.getContent(), is(review.getContent()));
         assertThat(searchDto.getCreatedDate(), is(review.getCreatedDate()));
+        assertThat(searchDto.getId(), is(problem.getId()));
     }
 }
