@@ -68,7 +68,7 @@ public class OauthService {
                 .build();
     }
 
-    public LoginSuccessDto googleLogin(String code) {
+    public LoginSuccessDto googleLoginByCode(String code) {
         String accessToken = getAccessToken(code, googleProperties.getTokenRequestUrl(), 1);
         JsonNode profile = getProfile(accessToken, googleProperties.getProfileRequestUrl());
 
@@ -76,6 +76,33 @@ public class OauthService {
 
         String email = profile.get("email").textValue();
         Optional<Member> optional = memberService.findMemberByEmail(email);
+
+        if (optional.isEmpty()) { // 회원가입
+            member = Member.builder()
+                    .email(email)
+                    .nickname(profile.get("name").textValue())
+                    .socialType(SocialType.GOOGLE)
+                    .socialId(profile.get("sub").textValue())
+                    .build();
+
+            memberService.saveMember(member);
+        } else { // 로그인
+            member = optional.get();
+        }
+
+        String token = jwtService.createToken(new JwtPayload(member.getId(), email));
+
+        return LoginSuccessDto.builder()
+                .nickname(member.getNickname())
+                .access_token(token)
+                .build();
+    }
+
+    public LoginSuccessDto googleLogin(String accessToken) {
+        JsonNode profile = getProfile(accessToken, googleProperties.getProfileRequestUrl());
+        String email = profile.get("email").textValue();
+        Optional<Member> optional = memberService.findMemberByEmail(email);
+        Member member;
 
         if (optional.isEmpty()) { // 회원가입
             member = Member.builder()

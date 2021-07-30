@@ -47,7 +47,7 @@ public class MemberController {
      */
     @GetMapping("/google/callback")
     public String googleCallback(String code, Model model) throws Exception {
-        LoginSuccessDto successDto = oauthService.googleLogin(code);
+        LoginSuccessDto successDto = oauthService.googleLoginByCode(code);
 
         model.addAttribute("access_token", successDto.getAccess_token());
         model.addAttribute("nickname", successDto.getNickname());
