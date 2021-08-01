@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.may.ars.common.advice.exception.JsonWriteException;
+import com.may.ars.common.advice.exception.JwtException;
 import com.may.ars.config.properties.GoogleProperties;
 import com.may.ars.config.properties.KakaoProperties;
 import com.may.ars.dto.JwtPayload;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import java.util.Optional;
 
@@ -104,25 +106,18 @@ public class OauthService {
         Optional<Member> optional = memberService.findMemberByEmail(email);
         Member member;
 
-        if (optional.isEmpty()) { // 회원가입
-            member = Member.builder()
-                    .email(email)
-                    .nickname(profile.get("name").textValue())
-                    .socialType(SocialType.GOOGLE)
-                    .socialId(profile.get("sub").textValue())
-                    .build();
-
-            memberService.saveMember(member);
-        } else { // 로그인
+        if (optional.isEmpty()) { // 불가
+            throw new JwtException();
+        } else {                 // 로그인
             member = optional.get();
+
+            String token = jwtService.createToken(new JwtPayload(member.getId(), email));
+
+            return LoginSuccessDto.builder()
+                    .nickname(member.getNickname())
+                    .access_token(token)
+                    .build();
         }
-
-        String token = jwtService.createToken(new JwtPayload(member.getId(), email));
-
-        return LoginSuccessDto.builder()
-                .nickname(member.getNickname())
-                .access_token(token)
-                .build();
     }
 
     private String getAccessToken(String code, String tokenRequestUrl, int socialType) {

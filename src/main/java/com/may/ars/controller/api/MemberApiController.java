@@ -25,14 +25,4 @@ public class MemberApiController {
         return ResponseEntity.ok().body(response);
     }
 
-    @AuthCheck
-    @GetMapping("/check")
-    public ResponseEntity<?> checkAuth() {
-        Long memberId = MemberContext.currentMember.get().getId();
-        if (memberId != 1L && memberId != 2L) {
-            return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.BAD_REQUEST, "실패"));
-        }
-        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, "성공"));
-    }
-
 }
