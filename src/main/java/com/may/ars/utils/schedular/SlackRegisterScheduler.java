@@ -22,7 +22,7 @@ public class SlackRegisterScheduler {
     private final MemberRepository memberRepository;
     private final ProblemRepository problemRepository;
 
-    @Scheduled(cron = "0 0 0 * * *") // 매일 자정마다
+    //    @Scheduled(cron = "0 0 0 * * *") // 매일 자정마다
     public void registerSlackId() {
         List<Member> memberList = memberRepository.findAllBySlackIdNull();
         for (Member member : memberList) {
