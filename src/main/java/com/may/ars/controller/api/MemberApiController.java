@@ -3,8 +3,6 @@ package com.may.ars.controller.api;
 import com.may.ars.dto.ResponseDto;
 import com.may.ars.dto.member.GoogleTokenDto;
 import com.may.ars.service.OauthService;
-import com.may.ars.utils.auth.AuthCheck;
-import com.may.ars.utils.auth.MemberContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
