@@ -25,7 +25,7 @@ class ProblemMapperTest {
         final Member member = null;
         // when
         final Problem problem = ProblemMapper.INSTANCE.toEntity(registerDto, member);
-        //then
+        // then
         assertNotNull(problem);
         assertThat(problem.getTitle(), is(registerDto.getTitle()));
     }

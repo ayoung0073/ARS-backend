@@ -5,12 +5,10 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter @Setter
 @Builder
-@ToString
 public class ProblemRequestDto {
 
     private String title;
