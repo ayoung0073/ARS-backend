@@ -9,6 +9,7 @@ import com.may.ars.domain.BaseEntity;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
+@Builder
 @Entity
 public class GuestBook extends BaseEntity {
 
@@ -22,11 +23,5 @@ public class GuestBook extends BaseEntity {
 
     @Column
     private String content;
-
-    @Builder
-    public GuestBook(String nickname, String content) {
-        this.nickname = nickname;
-        this.content = content;
-    }
 
 }
