@@ -14,6 +14,7 @@ public enum ExceptionCode {
     METHOD_NOT_ALLOWED(400, "Invalid Method"),
     JSON_WRITE_ERROR(400, "Json Write Error"),
     INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
+    SERVLET_ERROR(400, "Servlet Error"),
 
     // JWT
     JWT_EXCEPTION(400, "Jwt Exception"),

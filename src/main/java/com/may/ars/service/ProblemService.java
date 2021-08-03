@@ -35,6 +35,9 @@ public class ProblemService {
 
     @Transactional(readOnly = true)
     public List<Problem> getProblemListByTagName(String tagName) {
+        if (tagName == null) {
+            return getProblemList();
+        }
         return problemQueryRepository.findAllByTag(tagName);
     }
 

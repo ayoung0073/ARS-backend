@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.may.ars.common.message.SuccessMessage.SUCCESS_GET_SEARCH_LIST;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")
@@ -28,7 +30,6 @@ public class SearchApiController {
         List<SearchDto> searchList = searchService.search(search).stream()
                                                                  .map(reviewMapper::toSearchDto)
                                                                  .collect(Collectors.toList());
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "검색 결과입니다.", searchList);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_GET_SEARCH_LIST, searchList));
     }
 }

@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.may.ars.common.message.SuccessMessage.SUCCESS_ISSUE_TOKEN;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -19,8 +21,9 @@ public class MemberApiController {
 
     @PostMapping("/google")
     public ResponseEntity<?> googleLogin(@RequestBody GoogleTokenDto tokenDto) {
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "토큰 발급", oauthService.googleLogin(tokenDto.getAccessToken()));
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(
+                HttpStatus.OK, SUCCESS_ISSUE_TOKEN, oauthService.googleLogin(tokenDto.getAccessToken()))
+        );
     }
 
 }

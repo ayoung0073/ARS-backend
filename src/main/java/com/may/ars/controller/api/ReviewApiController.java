@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.may.ars.common.message.SuccessMessage.*;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")
@@ -31,8 +33,7 @@ public class ReviewApiController {
         Member member = MemberContext.currentMember.get();
 
         reviewService.registerReview(problemId, registerDto, member);
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "리뷰 등록 성공");
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_REGISTER_REVIEW));
     }
 
     @AuthCheck
@@ -41,8 +42,7 @@ public class ReviewApiController {
         Member member = MemberContext.currentMember.get();
         problemService.updateProblem(problemMapper.toEntity(problemId, requestDto, member));
         reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto), member);
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "리뷰 수정 성공");
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_REVIEW));
     }
 
     @AuthCheck
@@ -51,7 +51,6 @@ public class ReviewApiController {
         Member member = MemberContext.currentMember.get();
 
         reviewService.deleteReview(reviewId, member);
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "리뷰 삭제 성공");
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_DELETE_REVIEW));
     }
 }

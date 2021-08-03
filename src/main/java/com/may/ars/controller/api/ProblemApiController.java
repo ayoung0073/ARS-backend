@@ -6,7 +6,7 @@ import com.may.ars.dto.problem.request.ProblemRequestDto;
 import com.may.ars.dto.problem.request.ProblemStepUpdateDto;
 import com.may.ars.dto.problem.response.ProblemOnlyDto;
 import com.may.ars.mapper.ProblemMapper;
-import com.may.ars.response.SuccessMessage;
+import com.may.ars.common.message.SuccessMessage;
 import com.may.ars.service.ProblemService;
 import com.may.ars.utils.auth.AuthCheck;
 import com.may.ars.utils.auth.MemberContext;

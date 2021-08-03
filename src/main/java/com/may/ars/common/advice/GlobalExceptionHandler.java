@@ -8,6 +8,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.ServletException;
+
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
@@ -17,6 +19,13 @@ public class GlobalExceptionHandler {
         log.error("Business Exception : " + e.getMessage());
         final ExceptionCode exceptionCode = e.getExceptionCode();
         return new ResponseEntity<>(ResponseDto.fail(e.getMessage()), HttpStatus.valueOf(exceptionCode.getStatus()));
+    }
+
+    @ExceptionHandler(ServletException.class)
+    protected ResponseEntity<ResponseDto<?>> servletException(final ServletException e) {
+        log.error("ServletException Exception : " + e.getMessage());
+        final ExceptionCode exceptionCode = ExceptionCode.SERVLET_ERROR;
+        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getMessage()), HttpStatus.valueOf(exceptionCode.getStatus()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

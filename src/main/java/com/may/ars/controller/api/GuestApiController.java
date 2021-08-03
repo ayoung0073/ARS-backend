@@ -1,11 +1,10 @@
 package com.may.ars.controller.api;
 
-import com.may.ars.domain.guest.GuestBook;
 import com.may.ars.dto.ResponseDto;
 import com.may.ars.dto.guest.GuestRequestDto;
 import com.may.ars.dto.guest.GuestResponseDto;
 import com.may.ars.mapper.GuestMapper;
-import com.may.ars.response.SuccessMessage;
+import com.may.ars.common.message.SuccessMessage;
 import com.may.ars.service.GuestBookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,15 +28,17 @@ public class GuestApiController {
         List<GuestResponseDto> guestBookList = guestBookService.getGuestBookList().stream()
                                                                                   .map(guestMapper::toDto)
                                                                                   .collect(toList());
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_GET_GUEST_LIST, guestBookList);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(
+                HttpStatus.OK, SuccessMessage.SUCCESS_GET_GUEST_LIST, guestBookList)
+        );
     }
 
     @PostMapping("")
     public ResponseEntity<?> saveGuestBook(@RequestBody GuestRequestDto requestDto) {
         guestBookService.saveGuestBook(guestMapper.toEntity(requestDto));
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_REGISTER_GUEST);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(
+                HttpStatus.OK, SuccessMessage.SUCCESS_REGISTER_GUEST)
+        );
     }
 
 }
