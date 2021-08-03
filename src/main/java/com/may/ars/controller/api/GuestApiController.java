@@ -4,8 +4,8 @@ import com.may.ars.dto.ResponseDto;
 import com.may.ars.dto.guest.GuestRequestDto;
 import com.may.ars.dto.guest.GuestResponseDto;
 import com.may.ars.mapper.GuestMapper;
-import com.may.ars.common.message.SuccessMessage;
 import com.may.ars.service.GuestBookService;
+import com.may.ars.utils.auth.AuthCheck;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static com.may.ars.common.message.SuccessMessage.*;
 import static java.util.stream.Collectors.toList;
 
 @RequiredArgsConstructor
@@ -30,7 +31,7 @@ public class GuestApiController {
                                                                                   .map(guestMapper::toDto)
                                                                                   .collect(toList());
         return ResponseEntity.ok().body(ResponseDto.of(
-                HttpStatus.OK, SuccessMessage.SUCCESS_GET_GUEST_LIST, guestBookList)
+                HttpStatus.OK, SUCCESS_GET_GUEST_LIST, guestBookList)
         );
     }
 
@@ -38,7 +39,16 @@ public class GuestApiController {
     public ResponseEntity<?> saveGuestBook(@RequestBody @Valid GuestRequestDto requestDto) {
         guestBookService.saveGuestBook(guestMapper.toEntity(requestDto));
         return ResponseEntity.ok().body(ResponseDto.of(
-                HttpStatus.OK, SuccessMessage.SUCCESS_REGISTER_GUEST)
+                HttpStatus.OK, SUCCESS_REGISTER_GUEST)
+        );
+    }
+
+    @AuthCheck
+    @DeleteMapping("/{guestId}")
+    public ResponseEntity<?> deleteGuestBook(@PathVariable Long guestId) {
+        guestBookService.deleteGuestBook(guestId);
+        return ResponseEntity.ok().body(ResponseDto.of(
+                HttpStatus.OK, SUCCESS_DELETE_GUEST)
         );
     }
 

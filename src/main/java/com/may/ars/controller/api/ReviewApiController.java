@@ -35,7 +35,8 @@ public class ReviewApiController {
         Member member = MemberContext.currentMember.get();
 
         reviewService.registerReview(problemId, registerDto, member);
-        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_REGISTER_REVIEW));
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_REGISTER_REVIEW
+        ));
     }
 
     @AuthCheck

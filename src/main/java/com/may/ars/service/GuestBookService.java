@@ -23,4 +23,9 @@ public class GuestBookService {
     public void saveGuestBook(GuestBook guestBook) {
         guestBookRepository.save(guestBook);
     }
+
+    @Transactional
+    public void deleteGuestBook(Long guestId) {
+        guestBookRepository.deleteById(guestId);
+    }
 }
