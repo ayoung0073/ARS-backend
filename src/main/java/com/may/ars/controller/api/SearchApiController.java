@@ -26,8 +26,8 @@ public class SearchApiController {
     private final ReviewMapper reviewMapper;
 
     @GetMapping
-    public ResponseEntity<?> search(@RequestParam String search) {
-        List<SearchDto> searchList = searchService.search(search).stream()
+    public ResponseEntity<?> search(@RequestParam(value = "search") String name) {
+        List<SearchDto> searchList = searchService.search(name).stream()
                                                                  .map(reviewMapper::toSearchDto)
                                                                  .collect(Collectors.toList());
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_GET_SEARCH_LIST, searchList));

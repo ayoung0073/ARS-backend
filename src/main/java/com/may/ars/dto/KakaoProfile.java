@@ -31,5 +31,4 @@ public class KakaoProfile {
         public String nickname;
     }
 
-
 }

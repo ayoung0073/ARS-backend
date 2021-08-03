@@ -4,14 +4,15 @@ import com.may.ars.dto.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.ServletException;
 
-@ControllerAdvice
 @Slf4j
+@ControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
@@ -21,6 +22,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ResponseDto.fail(e.getMessage()), HttpStatus.valueOf(exceptionCode.getStatus()));
     }
 
+    /*
+     * javax.validation.Valid or @Validated 으로 binding error 발생할 경우
+     *  HttpMessageConverter 에서 등록한 HttpMessageConverter binding 못 할 경우 발생
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    protected ResponseEntity<ResponseDto<?>> httpMessageNotReadableException() {
+        log.error("HttpMessageNotReadableException");
+        final ExceptionCode exceptionCode = ExceptionCode.INVALID_INPUT_VALUE;
+        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getMessage()), HttpStatus.valueOf(exceptionCode.getStatus()));
+    }
+
     @ExceptionHandler(ServletException.class)
     protected ResponseEntity<ResponseDto<?>> servletException(final ServletException e) {
         log.error("ServletException Exception : " + e.getMessage());
@@ -28,6 +40,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getMessage()), HttpStatus.valueOf(exceptionCode.getStatus()));
     }
 
+    /**
+     * javax.validation.Valid or @Validated 으로 binding error 발생 시 발생
+     * HttpMessageConverter 에서 등록한 HttpMessageConverter binding 못할 경우 발생
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     protected ResponseEntity<ResponseDto<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error("MethodArgumentNotValidException : " + e.getMessage());

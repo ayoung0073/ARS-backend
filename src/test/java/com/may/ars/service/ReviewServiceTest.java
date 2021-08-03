@@ -1,12 +1,12 @@
 package com.may.ars.service;
 
+import com.may.ars.common.advice.ExceptionCode;
 import com.may.ars.common.advice.exception.EntityNotFoundException;
 import com.may.ars.dto.review.ReviewRequestDto;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
 import com.may.ars.domain.review.ReviewRepository;
-import com.may.ars.common.advice.ExceptionMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -106,6 +106,6 @@ public class ReviewServiceTest {
                 () -> reviewService.registerReview(problem.getId(), requestDto, member)); // 예외가 발생해야 한다.
 
         //then
-        assertThat(e.getMessage(), is(ExceptionMessage.NOT_VALID_USER));
+        assertThat(e.getMessage(), is(ExceptionCode.NOT_VALID_USER.getMessage()));
     }
 }

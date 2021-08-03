@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static com.may.ars.common.message.SuccessMessage.*;
 
 @RequiredArgsConstructor
@@ -29,7 +31,7 @@ public class ReviewApiController {
 
     @AuthCheck
     @PostMapping("/problems/{problemId}/reviews")
-    public ResponseEntity<?> saveReview(@PathVariable("problemId") Long problemId, @RequestBody ReviewRequestDto registerDto) {
+    public ResponseEntity<?> saveReview(@PathVariable("problemId") Long problemId, @RequestBody @Valid ReviewRequestDto registerDto) {
         Member member = MemberContext.currentMember.get();
 
         reviewService.registerReview(problemId, registerDto, member);
@@ -38,7 +40,9 @@ public class ReviewApiController {
 
     @AuthCheck
     @PutMapping("/problems/{problemId}/reviews/{reviewId}")
-    public ResponseEntity<?> updateReview(@PathVariable("problemId") Long problemId, @PathVariable("reviewId") Long reviewId, @RequestBody ReviewRequestDto requestDto) {
+    public ResponseEntity<?> updateReview(@PathVariable("problemId") Long problemId,
+                                          @PathVariable("reviewId") Long reviewId,
+                                          @RequestBody @Valid ReviewRequestDto requestDto) {
         Member member = MemberContext.currentMember.get();
         problemService.updateProblem(problemMapper.toEntity(problemId, requestDto, member));
         reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto), member);

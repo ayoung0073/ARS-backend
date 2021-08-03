@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.may.ars.common.message.SuccessMessage.SUCCESS_GET_TAG_LIST;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api")
@@ -18,7 +20,8 @@ public class TagApiController {
 
     @GetMapping("/tags")
     public ResponseEntity<?> getProblemListByTag() {
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "태그 가져오기", tagService.getAllTagList());
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(
+                HttpStatus.OK, SUCCESS_GET_TAG_LIST, tagService.getAllTagList())
+        );
     }
 }

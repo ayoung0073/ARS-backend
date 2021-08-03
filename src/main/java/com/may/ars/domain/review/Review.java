@@ -2,7 +2,6 @@ package com.may.ars.domain.review;
 
 import com.may.ars.domain.BaseEntity;
 import com.may.ars.domain.problem.Problem;
-import com.may.ars.mapper.Default;
 import lombok.*;
 import org.hibernate.annotations.Type;
 
@@ -12,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter @Setter
 @Entity
+@Builder
 public class Review extends BaseEntity {
 
     @Id
@@ -28,12 +28,5 @@ public class Review extends BaseEntity {
     @Lob
     @Type(type = "text")
     private String content;
-
-    @Default
-    @Builder
-    public Review(Problem problem, String content) {
-        this.problem = problem;
-        this.content = content;
-    }
 
 }

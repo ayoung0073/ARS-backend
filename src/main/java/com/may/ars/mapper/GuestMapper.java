@@ -9,6 +9,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface GuestMapper {
+
     GuestMapper INSTANCE = Mappers.getMapper(GuestMapper.class);
 
     @Mapping(target = "id", ignore = true)
