@@ -29,16 +29,19 @@ public class ProblemService {
     private final ReviewMapper reviewMapper;
 
     @Transactional(readOnly = true)
-    public List<Problem> getProblemList() {
-        return problemRepository.findAllByOrderByCreatedDateDesc();
-    }
-
-    @Transactional(readOnly = true)
-    public List<Problem> getProblemListByTagName(String tagName) {
-        if (tagName == null) {
+    public List<Problem> getProblemListByStepOrTag(int step, String tagName) {
+        if (step == 0 && tagName.isBlank()) {
             return getProblemList();
         }
-        return problemQueryRepository.findAllByTag(tagName);
+        else if (step == 0) {
+            return getProblemListByTagName(tagName);
+        }
+        else if (tagName.isBlank()){
+            return getProblemListByStep(step);
+        }
+        else {
+            return getProblemList();
+        }
     }
 
     @Transactional(readOnly = true)
@@ -89,12 +92,19 @@ public class ProblemService {
         problemRepository.deleteById(problemId);
     }
 
-    @Transactional(readOnly = true)
+    public List<Problem> getProblemList() {
+        return problemRepository.findAllByOrderByCreatedDateDesc();
+    }
+
     public List<Problem> getProblemListByStep(int step) {
-        if (step == 0) {
+        return problemRepository.findAllByStep(step);
+    }
+
+    public List<Problem> getProblemListByTagName(String tagName) {
+        if (tagName == null) {
             return getProblemList();
         }
-        return problemRepository.findAllByStep(step);
+        return problemQueryRepository.findAllByTag(tagName);
     }
 
     private Problem checkValidUser(Long problemId, Member member) {

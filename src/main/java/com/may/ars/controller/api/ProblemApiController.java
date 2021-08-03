@@ -29,8 +29,9 @@ public class ProblemApiController {
     private final ProblemService problemService;
 
     @GetMapping("")
-    public ResponseEntity<?> getProblemList(@RequestParam int step) {
-        List<ProblemOnlyDto> problemList = problemService.getProblemListByStep(step).stream()
+    public ResponseEntity<?> getProblemList(@RequestParam(value = "step", defaultValue = "0") int step,
+                                            @RequestParam(value = "tag", defaultValue = "") String tagName){
+        List<ProblemOnlyDto> problemList = problemService.getProblemListByStepOrTag(step, tagName).stream()
                                                                                     .map(problemMapper::toReviewExcludeDto)
                                                                                     .collect(Collectors.toList());
         ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기", problemList);
