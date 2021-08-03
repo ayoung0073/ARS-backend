@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,7 +51,7 @@ public class ProblemApiController {
 
     @AuthCheck
     @PostMapping("")
-    public ResponseEntity<?> saveProblem(@RequestBody ProblemRequestDto requestDto) {
+    public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto) {
         Member member = MemberContext.currentMember.get();
         problemService.registerProblem(problemMapper.toEntity(requestDto, member), requestDto);
 
@@ -59,7 +60,7 @@ public class ProblemApiController {
 
     @AuthCheck
     @PutMapping("/{problemId}/step")
-    public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody ProblemStepUpdateDto updateDto) {
+    public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody @Valid ProblemStepUpdateDto updateDto) {
         Member member = MemberContext.currentMember.get();
         problemService.updateStep(problemId, member, updateDto.getStep());
 

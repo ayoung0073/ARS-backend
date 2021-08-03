@@ -3,21 +3,28 @@ package com.may.ars.dto.review;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Builder
 @Getter
 public class ReviewRequestDto {
-    // Problem 관련 업데이트도 같이 Request 함
-    // TODO Problem, Review 함께 있는 거 분리?
+
+    @NotBlank
     private String title;
 
+    @NotNull
     private String link;
 
+    @NotNull
     private ArrayList<String> tagList;
 
+    @NotBlank
     private String content;
 
+    @NotNull
     private LocalDate notificationDate;
+
 }
