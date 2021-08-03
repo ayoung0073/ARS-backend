@@ -16,7 +16,7 @@ public class GuestBookService {
 
     @Transactional(readOnly = true)
     public List<GuestBook> getGuestBookList() {
-        return guestBookRepository.findAll();
+        return guestBookRepository.findAllByOrderByCreatedDateDesc();
     }
 
     @Transactional
