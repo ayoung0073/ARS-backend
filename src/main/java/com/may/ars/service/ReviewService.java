@@ -1,6 +1,7 @@
 package com.may.ars.service;
 
 import com.may.ars.common.advice.exception.EntityNotFoundException;
+import com.may.ars.common.advice.exception.UserAuthenticationException;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.review.Review;
 import com.may.ars.dto.review.ReviewRequestDto;
@@ -11,8 +12,6 @@ import com.may.ars.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static com.may.ars.common.advice.ExceptionMessage.*;
 
 @RequiredArgsConstructor
 @Service
@@ -28,7 +27,7 @@ public class ReviewService {
         Problem problem = problemRepository.findById(problemId).orElseThrow(EntityNotFoundException::new);
         problem.setNotificationDate(registerDto.getNotificationDate());
         if (!problem.getWriter().getId().equals(member.getId())) {
-            throw new IllegalArgumentException(NOT_VALID_USER);
+            throw new UserAuthenticationException();
         }
         problemRepository.save(problem);
         reviewRepository.save(reviewMapper.toEntity(problem, registerDto));

@@ -10,4 +10,5 @@ public class SuccessMessage {
 
     public static String SUCCESS_REGISTER_GUEST = "방명록 등록 성공입니다.";
     public static String SUCCESS_GET_GUEST_LIST = "방명록 목록 조회 성공입니다.";
+
 }
