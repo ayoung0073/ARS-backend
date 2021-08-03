@@ -16,15 +16,15 @@ public interface ReviewMapper {
 
     @Mapping(target = "problem", source = "problem")
     @Mapping(target = "id", ignore = true)
-    Review toEntity(Problem problem, ProblemRequestDto registerDto);
+    Review toEntity(Problem problem, ProblemRequestDto requestDto);
 
     @Mapping(target = "problem", source = "problem")
     @Mapping(target = "id", ignore = true)
-    Review toEntity(Problem problem, ReviewRequestDto registerDto);
+    Review toEntity(Problem problem, ReviewRequestDto requestDto);
 
     @Mapping(target = "problem", ignore = true)
     @Mapping(target = "id", source = "id")
-    Review toEntity(Long id, ReviewRequestDto registerDto);
+    Review toEntity(Long id, ReviewRequestDto requestDto);
 
     @Mapping(target = "id", source="problem.id")
     @Mapping(target = "title", source="problem.title")

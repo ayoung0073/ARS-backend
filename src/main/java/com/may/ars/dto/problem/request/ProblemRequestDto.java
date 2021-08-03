@@ -7,8 +7,8 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter @Setter
 @Builder
 public class ProblemRequestDto {
@@ -19,8 +19,8 @@ public class ProblemRequestDto {
     @NotNull
     private String link;
 
-    @NotNull
-    private int step;
+    @Builder.Default
+    private int step = 1;
 
     @NotNull
     private LocalDate notificationDate;
