@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.may.ars.common.message.SuccessMessage.*;
+
 @Slf4j
 @RequiredArgsConstructor
 @RestController
@@ -34,15 +36,16 @@ public class ProblemApiController {
         List<ProblemOnlyDto> problemList = problemService.getProblemListByStepOrTag(step, tagName).stream()
                                                                                     .map(problemMapper::toReviewExcludeDto)
                                                                                     .collect(Collectors.toList());
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기", problemList);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(
+                HttpStatus.OK, SUCCESS_GET_PROBLEM_LIST, problemList)
+        );
     }
 
     @GetMapping("/{problemId}")
     public ResponseEntity<?> getProblem(@PathVariable Long problemId) {
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, "문제 가져오기",
-                    problemMapper.toDto(problemService.getProblemById(problemId)));
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(
+                HttpStatus.OK, SUCCESS_GET_PROBLEM, problemMapper.toDto(problemService.getProblemById(problemId)))
+        );
     }
 
     @AuthCheck
@@ -51,8 +54,7 @@ public class ProblemApiController {
         Member member = MemberContext.currentMember.get();
         problemService.registerProblem(problemMapper.toEntity(requestDto, member), requestDto);
 
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_REGISTER_PROBLEM);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_REGISTER_PROBLEM));
     }
 
     @AuthCheck
@@ -61,8 +63,7 @@ public class ProblemApiController {
         Member member = MemberContext.currentMember.get();
         problemService.updateStep(problemId, member, updateDto.getStep());
 
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_UPDATE_PROBLEM);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_PROBLEM));
     }
 
     @DeleteMapping("/{problemId}")
@@ -70,8 +71,7 @@ public class ProblemApiController {
         Member member = MemberContext.currentMember.get();
         problemService.deleteProblem(problemId, member);
 
-        ResponseDto<?> response = ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_DELETE_PROBLEM);
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_DELETE_PROBLEM));
     }
 
 }
