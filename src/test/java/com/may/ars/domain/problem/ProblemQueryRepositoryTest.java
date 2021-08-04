@@ -3,6 +3,7 @@ package com.may.ars.domain.problem;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
@@ -47,7 +48,7 @@ class ProblemQueryRepositoryTest {
         tagRepository.save(tag);
 
         // then
-        List<Problem> problemList = problemQueryRepository.findAllByTag(tagName);
+        List<Problem> problemList = problemQueryRepository.findAllByTag(tagName, PageRequest.of(0, 5));
         assertThat(problemList.size(), is(1));
         assertThat(problemList.get(0).getTitle(), is(title));
     }

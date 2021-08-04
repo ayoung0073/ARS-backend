@@ -28,6 +28,7 @@ public class Message {
     private String text;
 
     @JsonProperty("attachments")
+    @Builder.Default
     public List<Attachment> attachments = new ArrayList<>();
 
 }

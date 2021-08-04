@@ -25,6 +25,7 @@ public interface ProblemMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "writer", source = "member")
     @Mapping(target = "tagList", ignore = true)
+    @Mapping(target = "link", ignore = true)
     @Mapping(target = "step", ignore = true)
     @Mapping(target = "reviewList", ignore = true)
     Problem toEntity(Long id, ReviewRequestDto requestDto, Member member);

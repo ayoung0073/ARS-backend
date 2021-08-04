@@ -8,6 +8,7 @@ import com.may.ars.domain.problem.*;
 import com.may.ars.mapper.ReviewMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,18 +30,18 @@ public class ProblemService {
     private final ReviewMapper reviewMapper;
 
     @Transactional(readOnly = true)
-    public List<Problem> getProblemListByStepOrTag(int step, String tagName) {
+    public List<Problem> getProblemListByStepOrTag(int step, String tagName, Pageable page) {
         if (step == 0 && tagName.isBlank()) {
-            return getProblemList();
+            return getProblemList(page);
         }
         else if (step == 0) {
-            return getProblemListByTagName(tagName);
+            return getProblemListByTagName(tagName, page);
         }
         else if (tagName.isBlank()){
-            return getProblemListByStep(step);
+            return getProblemListByStep(step, page);
         }
         else {
-            return getProblemList();
+            return getProblemList(page);
         }
     }
 
@@ -57,6 +58,7 @@ public class ProblemService {
 
         List<ProblemTag> problemTagList = new ArrayList<>();
 
+        // TODO 리팩토링 하고 싶다.
         for (String tagName: registerDto.getTagList()) {
             Optional<Tag> tagOptional = tagRepository.findByTagName(tagName);
             Tag tag;
@@ -92,19 +94,19 @@ public class ProblemService {
         problemRepository.deleteById(problemId);
     }
 
-    public List<Problem> getProblemList() {
-        return problemRepository.findAllByOrderByCreatedDateDesc();
+    public List<Problem> getProblemList(Pageable page) {
+        return problemRepository.findAllByOrderByCreatedDateDesc(page);
     }
 
-    public List<Problem> getProblemListByStep(int step) {
-        return problemRepository.findAllByStep(step);
+    public List<Problem> getProblemListByStep(int step, Pageable page) {
+        return problemRepository.findAllByStep(step, page);
     }
 
-    public List<Problem> getProblemListByTagName(String tagName) {
+    public List<Problem> getProblemListByTagName(String tagName, Pageable page) {
         if (tagName == null) {
-            return getProblemList();
+            return getProblemList(page);
         }
-        return problemQueryRepository.findAllByTag(tagName);
+        return problemQueryRepository.findAllByTag(tagName, page);
     }
 
     private Problem checkValidUser(Long problemId, Member member) {
