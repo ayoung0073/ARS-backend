@@ -36,7 +36,7 @@ public class ProblemApiController {
     public ResponseEntity<?> getProblemList(@RequestParam(value = "step", defaultValue = "0") int step,
                                             @RequestParam(value = "tag", defaultValue = "") String tagName,
                                             @RequestParam(value = "page", defaultValue = "0") int page,
-                                            @RequestParam(value = "size", defaultValue = "9") int size){
+                                            @RequestParam(value = "size", defaultValue = "12") int size){
         List<ProblemOnlyDto> problemList = problemService.getProblemListByStepOrTag(step, tagName, PageRequest.of(page, size)).stream()
                                                                                     .map(problemMapper::toReviewExcludeDto)
                                                                                     .collect(Collectors.toList());

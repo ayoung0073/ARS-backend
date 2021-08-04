@@ -7,6 +7,7 @@ import com.may.ars.mapper.GuestMapper;
 import com.may.ars.service.GuestBookService;
 import com.may.ars.utils.auth.AuthCheck;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,9 @@ public class GuestApiController {
     private final GuestMapper guestMapper;
 
     @GetMapping("")
-    public ResponseEntity<?> getGuestBookList() {
-        List<GuestResponseDto> guestBookList = guestBookService.getGuestBookList().stream()
+    public ResponseEntity<?> getGuestBookList(@RequestParam(value = "page", defaultValue = "0") int page,
+                                              @RequestParam(value = "size", defaultValue = "10") int size) {
+        List<GuestResponseDto> guestBookList = guestBookService.getGuestBookList(PageRequest.of(page, size)).stream()
                                                                                   .map(guestMapper::toDto)
                                                                                   .collect(toList());
         return ResponseEntity.ok().body(ResponseDto.of(
