@@ -22,4 +22,7 @@ public class SuccessMessage {
 
     public static String SUCCESS_GET_TAG_LIST = "태그 리스트 조회 성공입니다.";
 
+
+    public static String SUCCESS_AUTHORIZATION = "인증 성공입니다.";
+
 }
