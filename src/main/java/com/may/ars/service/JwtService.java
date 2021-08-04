@@ -3,7 +3,7 @@ package com.may.ars.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.may.ars.common.advice.exception.JsonWriteException;
-import com.may.ars.dto.JwtPayload;
+import com.may.ars.dto.member.JwtPayload;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

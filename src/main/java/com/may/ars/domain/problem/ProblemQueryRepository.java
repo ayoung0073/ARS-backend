@@ -1,6 +1,7 @@
 package com.may.ars.domain.problem;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -19,11 +20,13 @@ public class ProblemQueryRepository extends QuerydslRepositorySupport {
         this.queryFactory = queryFactory;
     }
 
-    public List<Problem> findAllByTag(String tagName){
+    public List<Problem> findAllByTag(String tagName, Pageable page){
         return queryFactory
                 .selectFrom(problem)
                 .join(problemTag).on(problemTag.problem.eq(problem))
                 .where(problemTag.tag.tagName.eq(tagName))
+                .offset(page.getOffset())
+                .limit(page.getPageSize())
                 .orderBy(problem.createdDate.desc())
                 .fetch();
     }
