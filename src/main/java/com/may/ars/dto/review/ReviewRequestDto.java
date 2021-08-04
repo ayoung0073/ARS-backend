@@ -15,12 +15,6 @@ public class ReviewRequestDto {
     @NotBlank
     private String title;
 
-    @NotNull
-    private String link;
-
-    @NotNull
-    private ArrayList<String> tagList;
-
     @NotBlank
     private String content;
 
