@@ -52,6 +52,13 @@ public class ProblemApiController {
         );
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<?> getProblemCount() {
+        return ResponseEntity.ok(ResponseDto.of(
+                HttpStatus.OK, SUCCESS_GET_PROBLEM_COUNT, problemService.getProblemCount()
+        ));
+    }
+
     @AuthCheck
     @PostMapping("")
     public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto) {

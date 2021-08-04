@@ -50,6 +50,11 @@ public class ProblemService {
         return problemRepository.findById(problemId).orElseThrow(EntityNotFoundException::new);
     }
 
+    @Transactional(readOnly = true)
+    public long getProblemCount() {
+        return problemRepository.count();
+    }
+
     @Transactional
     public void registerProblem(Problem problem, ProblemRequestDto registerDto) {
         problemRepository.save(problem);

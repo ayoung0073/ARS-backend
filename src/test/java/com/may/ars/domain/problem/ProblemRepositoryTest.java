@@ -74,4 +74,11 @@ class ProblemRepositoryTest {
         assertThat(updatedProblem.getLink(), is(link));
     }
 
+
+//    @Test
+    void 문제_개수_카운트_테스트() {
+        // when
+        long count = problemRepository.count();
+        System.out.println(count);
+    }
 }

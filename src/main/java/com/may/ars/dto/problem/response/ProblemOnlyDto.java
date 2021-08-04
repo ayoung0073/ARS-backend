@@ -2,7 +2,6 @@ package com.may.ars.dto.problem.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.may.ars.domain.problem.ProblemTag;
-import com.may.ars.domain.review.Review;
 import lombok.*;
 
 import java.time.LocalDate;
