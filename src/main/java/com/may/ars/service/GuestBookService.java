@@ -20,6 +20,11 @@ public class GuestBookService {
         return guestBookRepository.findAllByOrderByCreatedDateDesc(page);
     }
 
+    @Transactional(readOnly = true)
+    public long getGuestBookCount() {
+        return guestBookRepository.count();
+    }
+
     @Transactional
     public void saveGuestBook(GuestBook guestBook) {
         guestBookRepository.save(guestBook);

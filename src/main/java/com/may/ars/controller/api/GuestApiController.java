@@ -37,6 +37,13 @@ public class GuestApiController {
         );
     }
 
+    @GetMapping("/count")
+    public ResponseEntity<?> getGuestBookCount() {
+        return ResponseEntity.ok().body(ResponseDto.of(
+                HttpStatus.OK, SUCCESS_GET_GUEST_COUNT, guestBookService.getGuestBookCount())
+        );
+    }
+
     @PostMapping("")
     public ResponseEntity<?> saveGuestBook(@RequestBody @Valid GuestRequestDto requestDto) {
         guestBookService.saveGuestBook(guestMapper.toEntity(requestDto));
