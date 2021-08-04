@@ -1,7 +1,7 @@
 package com.may.ars.utils.auth;
 
 import com.may.ars.common.advice.exception.UserAuthenticationException;
-import com.may.ars.dto.JwtPayload;
+import com.may.ars.dto.member.JwtPayload;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.member.MemberRepository;
 import com.may.ars.service.JwtService;

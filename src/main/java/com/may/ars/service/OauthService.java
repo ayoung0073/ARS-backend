@@ -7,7 +7,7 @@ import com.may.ars.common.advice.exception.JsonWriteException;
 import com.may.ars.common.advice.exception.JwtException;
 import com.may.ars.config.properties.GoogleProperties;
 import com.may.ars.config.properties.KakaoProperties;
-import com.may.ars.dto.JwtPayload;
+import com.may.ars.dto.member.JwtPayload;
 import com.may.ars.dto.member.LoginSuccessDto;
 import com.may.ars.enums.SocialType;
 import com.may.ars.domain.member.Member;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.support.StandardMultipartHttpServletRequest;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
 package com.may.ars.controller.api;
 
-import com.may.ars.dto.ResponseDto;
+import com.may.ars.dto.common.ResponseDto;
 import com.may.ars.dto.review.SearchDto;
 import com.may.ars.mapper.ReviewMapper;
 import com.may.ars.service.SearchService;

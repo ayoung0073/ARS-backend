@@ -1,4 +1,4 @@
-package com.may.ars.dto;
+package com.may.ars.dto.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

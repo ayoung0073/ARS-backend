@@ -1,7 +1,7 @@
 package com.may.ars.controller.api;
 
 import com.may.ars.domain.member.Member;
-import com.may.ars.dto.ResponseDto;
+import com.may.ars.dto.common.ResponseDto;
 import com.may.ars.dto.review.ReviewRequestDto;
 import com.may.ars.mapper.ProblemMapper;
 import com.may.ars.mapper.ReviewMapper;

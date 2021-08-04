@@ -1,4 +1,4 @@
-package com.may.ars.dto;
+package com.may.ars.dto.member;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,6 @@
 package com.may.ars.controller.api;
 
-import com.may.ars.dto.ResponseDto;
+import com.may.ars.dto.common.ResponseDto;
 import com.may.ars.dto.guest.GuestRequestDto;
 import com.may.ars.dto.guest.GuestResponseDto;
 import com.may.ars.mapper.GuestMapper;

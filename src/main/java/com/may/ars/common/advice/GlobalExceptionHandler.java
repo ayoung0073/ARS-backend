@@ -1,6 +1,6 @@
 package com.may.ars.common.advice;
 import com.may.ars.common.advice.exception.BusinessException;
-import com.may.ars.dto.ResponseDto;
+import com.may.ars.dto.common.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
