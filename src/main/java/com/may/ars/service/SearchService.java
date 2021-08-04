@@ -15,8 +15,8 @@ public class SearchService {
 
     private final ReviewQueryRepository reviewQueryRepository;
 
-    public List<Review> search(String keyword, Pageable pageable) {
-        return reviewQueryRepository.search(keyword, pageable);
+    public List<Review> search(String keyword) {
+        return reviewQueryRepository.search(keyword);
     }
 
 }

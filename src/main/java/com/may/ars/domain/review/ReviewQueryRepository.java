@@ -20,12 +20,10 @@ public class ReviewQueryRepository extends QuerydslRepositorySupport {
         this.queryFactory = queryFactory;
     }
 
-    public List<Review> search(String keyword, Pageable page){
+    public List<Review> search(String keyword){
         return queryFactory
                 .selectFrom(review)
                 .where(review.content.containsIgnoreCase(keyword).or(review.problem.title.containsIgnoreCase(keyword)))
-                .offset(page.getOffset())
-                .limit(page.getPageSize())
                 .orderBy(review.problem.createdDate.desc())
                 .fetch();
     }
