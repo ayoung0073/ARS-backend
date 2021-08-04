@@ -5,6 +5,7 @@ import com.may.ars.dto.review.SearchDto;
 import com.may.ars.mapper.ReviewMapper;
 import com.may.ars.service.SearchService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +27,12 @@ public class SearchApiController {
     private final ReviewMapper reviewMapper;
 
     @GetMapping
-    public ResponseEntity<?> search(@RequestParam(value = "search") String name) {
-        List<SearchDto> searchList = searchService.search(name).stream()
-                                                                 .map(reviewMapper::toSearchDto)
-                                                                 .collect(Collectors.toList());
+    public ResponseEntity<?> search(@RequestParam(value = "search") String name,
+                                    @RequestParam(value = "page", defaultValue = "0") int page,
+                                    @RequestParam(value = "size", defaultValue = "10") int size) {
+        List<SearchDto> searchList = searchService.search(name, PageRequest.of(page, size)).stream()
+                .map(reviewMapper::toSearchDto)
+                .collect(Collectors.toList());
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_GET_SEARCH_LIST, searchList));
     }
 }
