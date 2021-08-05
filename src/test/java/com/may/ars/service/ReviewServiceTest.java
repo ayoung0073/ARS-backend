@@ -2,12 +2,15 @@ package com.may.ars.service;
 
 import com.may.ars.common.advice.ExceptionCode;
 import com.may.ars.common.advice.exception.EntityNotFoundException;
+import com.may.ars.common.advice.exception.UserAuthenticationException;
 import com.may.ars.dto.review.ReviewRequestDto;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
 import com.may.ars.domain.review.ReviewRepository;
+import com.may.ars.mapper.ReviewMapper;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -32,12 +35,16 @@ public class ReviewServiceTest {
     @Mock
     private ProblemRepository problemRepository;
 
-    void setup() {
-        final Member member = Member.builder()
-                .email("test")
-                .nickname("test")
-                .build();
+    @Mock
+    private ReviewMapper reviewMapper;
 
+    final Member member = Member.builder()
+            .id(1L)
+            .email("test")
+            .nickname("test")
+            .build();
+
+    void setup() {
         final Problem problem = Problem.builder()
                 .writer(member)
                 .build();
@@ -45,14 +52,11 @@ public class ReviewServiceTest {
         given(problemRepository.findById(1L)).willReturn(Optional.of(problem));
     }
 
-    //@Test
+    @Test
     @DisplayName("리뷰 등록 테스트")
     void 리뷰_등록_성공_테스트() {
         setup();
         // given
-        final Member member = Member.builder()
-                .build();
-
         Long problemId = 1L;
 
         final ReviewRequestDto requestDto = ReviewRequestDto.builder()
@@ -60,16 +64,14 @@ public class ReviewServiceTest {
                 .build();
 
         // when
-        reviewService.registerReview(problemId, requestDto,  member);
+        reviewService.registerReview(problemId, requestDto, member);
     }
 
-    // @Test
+    @Test
     @DisplayName("리뷰 등록 실패 테스트 - 문제 존재하지 않는 경우")
     void 리뷰_등록_문제X_테스트() {
         //given
         given(problemRepository.findById(2L)).willReturn(Optional.empty());
-        Member member = Member.builder()
-                .build();
 
         Long problemId = 2L;
 
@@ -82,10 +84,10 @@ public class ReviewServiceTest {
                 () -> reviewService.registerReview(problemId, requestDto, member)); // 예외가 발생해야 한다.
 
         //then
-        assertThat(e.getMessage(), is("Entity Not Found"));
+        assertThat(e.getMessage(), is(ExceptionCode.ENTITY_NOT_FOUND.getMessage()));
     }
 
-    // @Test
+    @Test
     @DisplayName("리뷰 등록 실패 테스트 - 권한 없는 경우")
     void 리뷰_등록_권한X_테스트() {
         setup();
@@ -93,17 +95,15 @@ public class ReviewServiceTest {
         final Member member = Member.builder()
                 .build();
 
-        Problem problem = Problem.builder()
-                .writer(member)
-                .build();
+        Long problemId = 1L;
 
         final ReviewRequestDto requestDto = ReviewRequestDto.builder()
                 .content("리뷰 등록 테스트")
                 .build();
 
         // when
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
-                () -> reviewService.registerReview(problem.getId(), requestDto, member)); // 예외가 발생해야 한다.
+        UserAuthenticationException e = assertThrows(UserAuthenticationException.class,
+                () -> reviewService.registerReview(problemId, requestDto, member)); // 예외가 발생해야 한다.
 
         //then
         assertThat(e.getMessage(), is(ExceptionCode.NOT_VALID_USER.getMessage()));

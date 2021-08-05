@@ -1,0 +1,32 @@
+spring:
+  profiles:
+    active: dev1
+
+server:
+  port: 8082
+
+---
+
+spring:
+  profiles:
+    active: dev2
+
+server:
+  port: 8083
+
+---
+
+spring:
+  profiles:
+    active: local
+
+server:
+  port: 8080
+
+---
+
+spring:
+  profiles:
+    active: test
+
+---

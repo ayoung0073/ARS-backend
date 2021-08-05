@@ -4,7 +4,6 @@ import com.may.ars.domain.member.Member;
 import com.may.ars.domain.member.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Optional;
@@ -13,7 +12,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ProblemRepositoryTest {
 
     @Autowired
@@ -22,63 +20,95 @@ class ProblemRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    // @Test
+
+     @Test
     void 문제_존재X_테스트() {
-        // given
-        Member member = memberRepository.findByEmail("ayong703@gmail.com").get();
+         // given
+         final Member member = Member.builder()
+                 .email("ayong703@gmail.com")
+                 .build();
+
+         final Problem problem = Problem.builder()
+                 .writer(member)
+                 .build();
+
+         memberRepository.save(member);
+         problemRepository.save(problem);
 
         // when
-        Optional<Problem> problem = problemRepository.findProblemByIdAndWriter(1L, member);
+        Optional<Problem> optional = problemRepository.findProblemByIdAndWriter(problem.getId() + 1, member);
 
         // then
-        assertThat(problem.isEmpty(), is(problem.isEmpty()));
+        assertThat(optional.isEmpty(), is(true));
     }
 
-    // @Test
+    @Test
     void 문제_존재O_테스트() {
         // given
-        Member member = memberRepository.findByEmail("ayong703@naver.com").get();
+        final Member member = Member.builder()
+                .email("ayong703@gmail.com")
+                .build();
+
+        final Problem problem = Problem.builder()
+                .writer(member)
+                .build();
+
+        memberRepository.save(member);
+        problemRepository.save(problem);
 
         // when
-        Optional<Problem> problem = problemRepository.findProblemByIdAndWriter(1L, member);
+        Optional<Problem> optional = problemRepository.findProblemByIdAndWriter(2L, member);
 
         // then
-        assertThat(problem.isPresent(), is(true));
+        assertThat(optional.isPresent(), is(true));
     }
 
     @Test
     void 문제_삭제_테스트() {
-        problemRepository.deleteProblemById(1L);
+        // given
+        final Member member = Member.builder()
+                .email("ayong703@gmail.com")
+                .build();
+
+        final Problem problem = Problem.builder()
+                .writer(member)
+                .build();
+
+        memberRepository.save(member);
+        problemRepository.save(problem);
+
+        problemRepository.deleteProblemById(problem.getId());
     }
 
 
-    // @Test
+    @Test
     void 문제_수정_테스트() {
         // given
-        Member member = memberRepository.findByEmail("ayong703@gmail.com").get();
         String title = "테스트";
+
         String link = "test.com";
-        Problem problem = Problem.builder()
-                .title(title)
+
+        final Member member = Member.builder()
+                .email("ayong703@gmail.com")
+                .build();
+        final Problem problem = Problem.builder()
                 .writer(member)
-                .link(link)
                 .build();
 
+
+        memberRepository.save(member);
+        problemRepository.save(problem);
+
         // when
+        problem.setTitle(title);
+        problem.setLink(link);
+
         problemRepository.save(problem);
 
         // then
-        Problem updatedProblem = problemRepository.findById(1L).get();
+        Problem updatedProblem = problemRepository.findById(problem.getId()).get();
 
         assertThat(updatedProblem.getTitle(), is(title));
         assertThat(updatedProblem.getLink(), is(link));
-    }
-
-
-//    @Test
-    void 문제_개수_카운트_테스트() {
-        // when
-        long count = problemRepository.count();
-        System.out.println(count);
     }
 }

@@ -10,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
+@Builder
 @Entity
 public class Member extends BaseEntity {
 
@@ -40,11 +41,4 @@ public class Member extends BaseEntity {
     @Setter
     private boolean checkSlack;
 
-    @Builder
-    public Member(String email, SocialType socialType, String socialId, String nickname) {
-        this.email = email;
-        this.socialType = socialType;
-        this.socialId = socialId;
-        this.nickname = nickname;
-    }
 }
