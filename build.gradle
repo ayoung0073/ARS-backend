@@ -12,7 +12,7 @@ plugins {
 }
 
 group = 'com.may'
-version = '0.0.1-SNAPSHOT' + new Date().format("yyyyMMdd")
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
 configurations {
