@@ -12,7 +12,7 @@ BUILD_JAR=$(ls /home/ec2-user/jenkins/build/libs/*.jar)
 JAR_NAME=$(basename $BUILD_JAR)
 
 echo "> Build 파일 복사"  >> /home/ec2-user/log/deploy.log
-cp $BUILD_JAR $DEPLOY_PATH 	# 새로운 jar 파일을 덮어쓴다.
+cp $BUILD_JAR $DEPL OY_PATH 	# 새로운 jar 파일을 덮어쓴다.
 
 DEPLOY_JAR=$DEPLOY_PATH$JAR_NAME
 echo "> DEPLOY_JAR 배포"    >> /home/ec2-user/log/deploy.log
@@ -26,3 +26,4 @@ cd $DEPLOY_PATH
 
 docker build -t ars ./
 docker run -it --name $IDLE_PROFILE -d -e active=$IDLE_PROFILE -p $IDLE_PORT:$IDLE_PORT ars
+echo ">  Success Docker run"  >> /home/ec2-user/log/deploy.log
