@@ -9,12 +9,12 @@ IDLE_PORT=$(find_idle_port)
 
 echo "> Health Check Start!" >> /home/ec2-user/log/deploy.log
 echo "> IDLE_PORT: $IDLE_PORT" >> /home/ec2-user/log/deploy.log
-echo "> curl -s http://localhost:$IDLE_PORT/api/profile " >> /home/ec2-user/log/deploy.log
+echo "> curl -s http://172.31.33.165:$IDLE_PORT/api/profile " >> /home/ec2-user/log/deploy.log
 sleep 10
 
 for RETRY_COUNT in {1..10}
 do
-  RESPONSE=$(curl -s http://localhost:${IDLE_PORT}/api/profile)
+  RESPONSE=$(curl -s http://172.31.33.165:${IDLE_PORT}/api/profile)
   UP_COUNT=$(echo ${RESPONSE} | grep 'dev' | wc -l)
 
   if [ ${UP_COUNT} -ge 1 ]
