@@ -28,4 +28,4 @@ cd $DEPLOY_PATH
 docker build -t ars ./
 echo "> docker run -it --name $IDLE_PROFILE -d -e active=$IDLE_PROFILE -p $IDLE_PORT:$IDLE_PORT ars" >> /home/ec2-user/log/deploy.log
 docker run -it --name $IDLE_PROFILE -d -e active=$IDLE_PROFILE -p $IDLE_PORT:$IDLE_PORT ars
-echo ">  Success Docker run"  >> /home/ec2-user/log/deploy.log
+echo "> Success Docker run"  >> /home/ec2-user/log/deploy.log
