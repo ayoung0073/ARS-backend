@@ -31,12 +31,11 @@ public class ReviewApiController {
 
     @AuthCheck
     @PostMapping("/problems/{problemId}/reviews")
-    public ResponseEntity<?> saveReview(@PathVariable("problemId") Long problemId, @RequestBody @Valid ReviewRequestDto registerDto) {
+    public ResponseEntity<?> saveReview(@PathVariable("problemId") Long problemId, @RequestBody @Valid ReviewRequestDto requestDto) {
         Member member = MemberContext.currentMember.get();
 
-        reviewService.registerReview(problemId, registerDto, member);
-        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_REGISTER_REVIEW
-        ));
+        reviewService.registerReview(problemId, requestDto, member);
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_REGISTER_REVIEW));
     }
 
     @AuthCheck

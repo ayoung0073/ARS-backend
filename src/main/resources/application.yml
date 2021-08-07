@@ -18,12 +18,6 @@ server:
 
 spring:
   profiles:
-    active: test
-
----
-
-spring:
-  profiles:
     active: local
 
 server:

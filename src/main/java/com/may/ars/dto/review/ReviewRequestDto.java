@@ -13,9 +13,6 @@ import java.util.ArrayList;
 public class ReviewRequestDto {
 
     @NotBlank
-    private String title;
-
-    @NotBlank
     private String content;
 
     @NotNull
