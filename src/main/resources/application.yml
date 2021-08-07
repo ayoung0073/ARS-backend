@@ -18,15 +18,15 @@ server:
 
 spring:
   profiles:
-    active: local
-
-server:
-  port: 8080
+    active: test
 
 ---
 
 spring:
   profiles:
-    active: test
+    active: local
+
+server:
+  port: 8080
 
 ---

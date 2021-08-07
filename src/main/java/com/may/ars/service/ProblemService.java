@@ -56,27 +56,26 @@ public class ProblemService {
     }
 
     @Transactional
-    public void registerProblem(Problem problem, ProblemRequestDto registerDto) {
+    public Long registerProblem(Problem problem, ProblemRequestDto registerDto) {
         problemRepository.save(problem);
-        log.info(problem.toString());
         reviewRepository.save(reviewMapper.toEntity(problem, registerDto));
 
         List<ProblemTag> problemTagList = new ArrayList<>();
 
         // TODO 리팩토링 하고 싶다.
-        for (String tagName: registerDto.getTagList()) {
+        for (String tagName : registerDto.getTagList()) {
             Optional<Tag> tagOptional = tagRepository.findByTagName(tagName);
             Tag tag;
             if (tagOptional.isEmpty()) { // 태그 새로 등록해야 하는 경우
                 tag = new Tag(tagName);
                 tagRepository.save(tag);
-            }
-            else {
+            } else {
                 tag = tagOptional.get();
             }
             problemTagList.add(new ProblemTag(problem, tag));
         }
         problemTagRepository.saveAll(problemTagList);
+        return problem.getId();
     }
 
     @Transactional

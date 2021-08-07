@@ -63,9 +63,12 @@ public class ProblemApiController {
     @PostMapping("")
     public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto) {
         Member member = MemberContext.currentMember.get();
-        problemService.registerProblem(problemMapper.toEntity(requestDto, member), requestDto);
 
-        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SuccessMessage.SUCCESS_REGISTER_PROBLEM));
+        return ResponseEntity.ok().body(ResponseDto.of(
+                HttpStatus.OK,
+                SuccessMessage.SUCCESS_REGISTER_PROBLEM,
+                problemService.registerProblem(problemMapper.toEntity(requestDto, member), requestDto)
+        ));
     }
 
     @AuthCheck
