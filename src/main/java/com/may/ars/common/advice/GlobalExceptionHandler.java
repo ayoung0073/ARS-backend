@@ -2,7 +2,6 @@ package com.may.ars.common.advice;
 import com.may.ars.common.advice.exception.BusinessException;
 import com.may.ars.dto.common.ResponseDto;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,7 +18,7 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<ResponseDto<?>> businessException(final BusinessException e) {
         log.error("Business Exception : " + e.getMessage());
         final ExceptionCode exceptionCode = e.getExceptionCode();
-        return new ResponseEntity<>(ResponseDto.fail(e.getMessage()), HttpStatus.valueOf(exceptionCode.getStatus()));
+        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getStatus(), e.getMessage()), exceptionCode.getStatus());
     }
 
     /*
@@ -30,14 +29,14 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<ResponseDto<?>> httpMessageNotReadableException() {
         log.error("HttpMessageNotReadableException");
         final ExceptionCode exceptionCode = ExceptionCode.INVALID_INPUT_VALUE;
-        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getMessage()), HttpStatus.valueOf(exceptionCode.getStatus()));
+        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getStatus(), exceptionCode.getMessage()), exceptionCode.getStatus());
     }
 
     @ExceptionHandler(ServletException.class)
     protected ResponseEntity<ResponseDto<?>> servletException(final ServletException e) {
         log.error("ServletException Exception : " + e.getMessage());
         final ExceptionCode exceptionCode = ExceptionCode.SERVLET_ERROR;
-        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getMessage()), HttpStatus.valueOf(exceptionCode.getStatus()));
+        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getStatus(), exceptionCode.getMessage()), exceptionCode.getStatus());
     }
 
     /**
@@ -48,7 +47,7 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<ResponseDto<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         log.error("MethodArgumentNotValidException : " + e.getMessage());
         final ExceptionCode exceptionCode = ExceptionCode.INVALID_INPUT_VALUE;
-        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getMessage()), HttpStatus.valueOf(exceptionCode.getStatus()));
+        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getStatus(), exceptionCode.getMessage()), exceptionCode.getStatus());
     }
 
     /**
@@ -58,7 +57,7 @@ public class GlobalExceptionHandler {
     protected ResponseEntity<ResponseDto<?>> handleException(final Exception e) {
         log.error("Exception : " + e.getMessage());
         final ExceptionCode exceptionCode = ExceptionCode.INTERNAL_SERVER_ERROR;
-        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getMessage()), HttpStatus.valueOf(exceptionCode.getStatus()));
+        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getStatus(), exceptionCode.getMessage()), exceptionCode.getStatus());
     }
 
 }

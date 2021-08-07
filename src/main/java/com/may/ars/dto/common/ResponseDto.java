@@ -35,7 +35,7 @@ public class ResponseDto<T> {
         return new ResponseDto<>(status, message, data);
     }
 
-    public static ResponseDto<?> fail(String message) {
-        return new ResponseDto<>(HttpStatus.BAD_REQUEST.value(), message, null);
+    public static ResponseDto<?> fail(HttpStatus httpStatus, String message) {
+        return new ResponseDto<>(httpStatus.value(), message, null);
     }
 }
