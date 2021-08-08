@@ -5,16 +5,21 @@
 복습 알림 서비스 기능으로 알림 날짜를 설정하면 해당 날짜에 Slack을 통해 복습 알림을 받을 수 있습니다.
 #### [1차 프로젝트 개발 후기 링크](https://velog.io/@ayoung0073/Project-ARS-1%EC%B0%A8)
 ## 🛠 Architecture 
-![Architecture](https://media.vlpt.us/images/ayoung0073/post/5d7ec65b-2d16-4ad2-bda1-f25ccf039aff/image.png)
+![Architecture](https://images.velog.io/images/ayoung0073/post/cadb8c1a-7029-45c5-a0aa-d41da203bc28/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-08-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.07.20.png)
 
 
 ## 페이지
 ### 메인 페이지 
-![](https://media.vlpt.us/images/ayoung0073/post/b2ebf661-0c1e-41a5-81cc-c010595695ab/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-07-25%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%2011.38.00.png)
+![](https://images.velog.io/images/ayoung0073/post/06e01bcb-a7b9-4fa6-8df0-14ca8d8a7c4b/image.png)
 ### 상세 페이지 
-"저"임이 인증이 되었다면 별을 클릭하여 난이도를 즉시 수정할 수 있습니다.<br><br>
-![](https://images.velog.io/images/ayoung0073/post/b2a4254e-292f-4d68-aaaa-1a979f15bb25/image.png)
+"저"임이 인증이 되었다면 알림 날짜와 난이도를 즉시 수정할 수 있습니다.<br><br>
+![](https://images.velog.io/images/ayoung0073/post/007d9a58-d5a7-4d57-908d-12cee1a376e5/image.png)
 <br><br>
 오른쪽 영역은 고정되어 있습니다. <br><br>
-![상세 페이지 스크롤](https://user-images.githubusercontent.com/69340410/126901539-46c88f0f-4e0d-4b31-9f25-5e86033c8e2d.gif) 
+![상세 페이지 스크롤](https://user-images.githubusercontent.com/69340410/128628683-82af6401-53a0-4181-bed9-33b04f365265.gif) 
 
+### 태그별 문제 리스트 조회
+![태그별 문제 리스트 조회](https://user-images.githubusercontent.com/69340410/128629434-18159c9a-6468-48f0-a158-881a25921ff6.gif) 
+
+### 슬랙 알림
+![](https://images.velog.io/images/ayoung0073/post/bf9c1032-6f6e-475f-9e66-adc2e4826e76/image.png)
