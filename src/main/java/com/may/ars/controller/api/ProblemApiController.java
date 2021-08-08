@@ -2,6 +2,7 @@ package com.may.ars.controller.api;
 
 import com.may.ars.domain.member.Member;
 import com.may.ars.dto.common.ResponseDto;
+import com.may.ars.dto.problem.request.ProblemNotificationUpdateDto;
 import com.may.ars.dto.problem.request.ProblemRequestDto;
 import com.may.ars.dto.problem.request.ProblemStepUpdateDto;
 import com.may.ars.dto.problem.response.ProblemOnlyDto;
@@ -76,6 +77,15 @@ public class ProblemApiController {
     public ResponseEntity<?> updateStep(@PathVariable Long problemId, @RequestBody @Valid ProblemStepUpdateDto updateDto) {
         Member member = MemberContext.currentMember.get();
         problemService.updateStep(problemId, member, updateDto.getStep());
+
+        return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_PROBLEM));
+    }
+
+    @AuthCheck
+    @PutMapping("/{problemId}/notification")
+    public ResponseEntity<?> updateNotificationDate(@PathVariable Long problemId, @RequestBody @Valid ProblemNotificationUpdateDto updateDto) {
+        Member member = MemberContext.currentMember.get();
+        problemService.updateNotificationDate(problemId, member, updateDto.getNotificationDate());
 
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_PROBLEM));
     }

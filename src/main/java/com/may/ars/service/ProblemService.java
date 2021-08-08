@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -89,6 +90,13 @@ public class ProblemService {
     public void updateStep(Long problemId, Member member, int step) {
         Problem updateProblem = checkValidUser(problemId, member);
         updateProblem.setStep(step);
+        problemRepository.save(updateProblem);
+    }
+
+    @Transactional
+    public void updateNotificationDate(Long problemId, Member member, LocalDate notificationDate) {
+        Problem updateProblem = checkValidUser(problemId, member);
+        updateProblem.setNotificationDate(notificationDate);
         problemRepository.save(updateProblem);
     }
 
