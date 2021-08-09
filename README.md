@@ -1,14 +1,22 @@
 ## 개인 프로젝트
 # ARS (Algorithm Review Service)
 알고리즘 복습을 편하게 할 수 있는 "저"만의 웹서비스입니다. <br>
+태그별 문제 리스트를 조회할 수 있고, 검색을 통해 리뷰 리스트를 조회할 수 있습니다. <br>
 등록된 문제에 계속해서 복습 내용을 추가할 수 있고, 문제 상세 보기에 복습 목록이 함께 보여집니다. <br>
-복습 알림 서비스 기능으로 알림 날짜를 설정하면 해당 날짜에 Slack을 통해 복습 알림을 받을 수 있습니다.
-#### [1차 프로젝트 개발 후기 링크](https://velog.io/@ayoung0073/Project-ARS-1%EC%B0%A8)
+복습 알림 서비스 기능으로 알림 날짜를 설정하면 해당 날짜에 Slack을 통해 복습 알림을 받을 수 있습니다. <br>
+
+## 🔗 Link
+- [ARS 웹사이트](https://ars.vercel.app/)
+- [프로젝트 정리 및 후기](https://velog.io/@ayoung0073/Project-ARS-%EA%B0%9C%EC%9D%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%ED%9B%84%EA%B8%B0)
+- [API 명세서](https://github.com/ayoung0073/ARS-backend/wiki)
+- [프론트엔드 레포지토리](https://github.com/ayoung0073/ARS-frontend)
+
+
 ## 🛠 Architecture 
 ![Architecture](https://images.velog.io/images/ayoung0073/post/cadb8c1a-7029-45c5-a0aa-d41da203bc28/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202021-08-08%20%E1%84%8B%E1%85%A9%E1%84%92%E1%85%AE%205.07.20.png)
 
 
-## 페이지
+## 📝 페이지
 ### 메인 페이지 
 ![](https://images.velog.io/images/ayoung0073/post/06e01bcb-a7b9-4fa6-8df0-14ca8d8a7c4b/image.png)
 ### 상세 페이지 
