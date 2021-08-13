@@ -21,14 +21,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-    - name: Setup MySQL
-      uses: samin/mysql-action@v1
-      with:
-        character set server: 'utf8'
-        mysql database: 'test'
-        mysql user: 'developer'
-        mysql password: ${{ secrets.MYSQL_PASSWORD }}
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: chmod +x gradlew -Dspring.profiles.active=test
     - name: Build with Gradle
       run: ./gradlew build
