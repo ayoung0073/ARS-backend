@@ -21,7 +21,18 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+    - name: Setup MySQL 
+      uses: samin/mysql-action@v1 
+      with: 
+        character set server: 'utf8' 
+        mysql database: 'test' 
+        mysql user: 'sa' 
+        mysql password: ${{ secrets.MYSQL_PASSWORD }}
+    - name: Start Redis 
+      uses: supercharge/redis-github-action@1.1.0 
+      with: 
+        redis-version: 6
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build -Dspring.profiles.active=test
+      run: ./gradlew build
