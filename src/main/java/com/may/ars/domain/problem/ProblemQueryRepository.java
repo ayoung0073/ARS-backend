@@ -25,9 +25,9 @@ public class ProblemQueryRepository extends QuerydslRepositorySupport {
                 .selectFrom(problem)
                 .join(problemTag).on(problemTag.problem.eq(problem))
                 .where(problemTag.tag.tagName.eq(tagName))
+                .orderBy(problem.modifiedDate.desc())
                 .offset(page.getOffset())
                 .limit(page.getPageSize())
-                .orderBy(problem.createdDate.desc())
                 .fetch();
     }
 

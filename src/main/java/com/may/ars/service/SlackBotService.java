@@ -50,7 +50,7 @@ public class SlackBotService {
         log.info(response);
     }
 
-    public String getSlackIdByEmail(String email) {
+    public void getSlackIdByEmail(String email) {
         String url = "https://slack.com/api/users.lookupByEmail";
         url += "?email=" + email;
 
@@ -77,10 +77,9 @@ public class SlackBotService {
             throw new JsonWriteException();
         }
 
-        if (body.get("ok").asBoolean())
-            return body.get("user").get("id").textValue();
-        else
-            return null;
+        if (body.get("ok").asBoolean()) {
+            body.get("user").get("id").textValue();
+        }
     }
 
 }

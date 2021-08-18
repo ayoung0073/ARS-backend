@@ -1,6 +1,5 @@
 package com.may.ars.utils.schedular;
 
-import com.may.ars.domain.member.Member;
 import com.may.ars.domain.member.MemberRepository;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
@@ -19,20 +18,7 @@ import java.util.List;
 public class SlackRegisterScheduler {
 
     private final SlackBotService slackBotService;
-    private final MemberRepository memberRepository;
     private final ProblemRepository problemRepository;
-
-    //    @Scheduled(cron = "0 0 0 * * *") // 매일 자정마다
-    public void registerSlackId() {
-        List<Member> memberList = memberRepository.findAllBySlackIdNull();
-        for (Member member : memberList) {
-            String slackId = slackBotService.getSlackIdByEmail(member.getEmail());
-            if (slackId != null) {
-                member.setSlackId(slackId);
-                memberRepository.save(member);
-            }
-        }
-    }
 
     @Scheduled(cron = "0 0 9 * * *") // 매일 오전 9시마다
     public void notification() {

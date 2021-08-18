@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface ProblemRepository extends JpaRepository<Problem, Long> {
 
-    List<Problem> findAllByOrderByCreatedDateDesc(Pageable pageable);
+    List<Problem> findAllByOrderByModifiedDateDesc(Pageable pageable);
 
     Optional<Problem> findProblemByIdAndWriter(Long id, Member writer);
 

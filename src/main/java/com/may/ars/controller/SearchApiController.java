@@ -5,7 +5,6 @@ import com.may.ars.dto.review.SearchDto;
 import com.may.ars.mapper.ReviewMapper;
 import com.may.ars.service.SearchService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,5 @@
 package com.may.ars.domain.problem;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.may.ars.domain.BaseEntity;
 import com.may.ars.domain.member.Member;
 import com.may.ars.domain.review.Review;
@@ -8,6 +7,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -35,12 +35,10 @@ public class Problem extends BaseEntity {
     private LocalDate notificationDate;
 
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties({"problem"})
     @OrderBy("createdDate desc")
-    private List<Review> reviewList;
+    private List<Review> reviewList = new ArrayList<>();
 
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties({"problem"})
-    private List<ProblemTag> tagList;
+    private List<ProblemTag> tagList = new ArrayList<>();
 
 }

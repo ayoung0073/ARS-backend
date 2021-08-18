@@ -21,10 +21,8 @@ public class Review extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "problem_id", updatable = false)
-    @Setter
     private Problem problem;
 
-    @Setter
     @Lob
     @Type(type = "text")
     private String content;
