@@ -1,4 +1,4 @@
-package com.may.ars.controller.api;
+package com.may.ars.controller;
 
 import com.may.ars.domain.member.Member;
 import com.may.ars.dto.common.ResponseDto;

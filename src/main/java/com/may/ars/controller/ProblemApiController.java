@@ -1,4 +1,4 @@
-package com.may.ars.controller.api;
+package com.may.ars.controller;
 
 import com.may.ars.domain.member.Member;
 import com.may.ars.dto.common.ResponseDto;
@@ -33,7 +33,7 @@ public class ProblemApiController {
     private final ProblemMapper problemMapper;
     private final ProblemService problemService;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<?> getProblemList(@RequestParam(value = "step", defaultValue = "0") int step,
                                             @RequestParam(value = "tag", defaultValue = "") String tagName,
                                             @RequestParam(value = "page", defaultValue = "0") int page,
@@ -61,7 +61,7 @@ public class ProblemApiController {
     }
 
     @AuthCheck
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<?> saveProblem(@RequestBody @Valid ProblemRequestDto requestDto) {
         Member member = MemberContext.currentMember.get();
 

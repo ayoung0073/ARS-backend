@@ -1,4 +1,4 @@
-package com.may.ars.controller.api;
+package com.may.ars.controller;
 
 import com.may.ars.dto.common.ResponseDto;
 import com.may.ars.dto.review.SearchDto;

@@ -1,4 +1,4 @@
-package com.may.ars.controller.api;
+package com.may.ars.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

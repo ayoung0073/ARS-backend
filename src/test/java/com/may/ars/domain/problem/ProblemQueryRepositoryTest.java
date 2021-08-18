@@ -28,7 +28,7 @@ class ProblemQueryRepositoryTest {
     @Autowired
     private TagRepository tagRepository;
 
-    // @Test
+    @Test
     void 태그로_문제리스트_조회_성공_테스트() {
         // given
         String tagName = "ㅌㅅㅌ";

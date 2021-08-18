@@ -1,4 +1,4 @@
-package com.may.ars.controller.api;
+package com.may.ars.controller;
 
 import com.may.ars.dto.common.ResponseDto;
 import com.may.ars.dto.guest.GuestRequestDto;
@@ -26,7 +26,7 @@ public class GuestApiController {
     private final GuestBookService guestBookService;
     private final GuestMapper guestMapper;
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<?> getGuestBookList(@RequestParam(value = "page", defaultValue = "0") int page,
                                               @RequestParam(value = "size", defaultValue = "10") int size) {
         List<GuestResponseDto> guestBookList = guestBookService.getGuestBookList(PageRequest.of(page, size)).stream()
@@ -44,7 +44,7 @@ public class GuestApiController {
         );
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<?> saveGuestBook(@RequestBody @Valid GuestRequestDto requestDto) {
         guestBookService.saveGuestBook(guestMapper.toEntity(requestDto));
         return ResponseEntity.ok().body(ResponseDto.of(
