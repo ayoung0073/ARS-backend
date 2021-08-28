@@ -11,11 +11,6 @@ class SlackRegisterSchedulerTest {
     private SlackRegisterScheduler scheduler;
 
     @Test
-    void 슬랙_아이디_저장_테스트() {
-        scheduler.registerSlackId();
-    }
-
-    @Test
     void 슬랙_알림_테스트()  {
         scheduler.notification();
     }

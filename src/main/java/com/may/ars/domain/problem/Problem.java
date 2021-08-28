@@ -34,10 +34,12 @@ public class Problem extends BaseEntity {
 
     private LocalDate notificationDate;
 
-    @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @Builder.Default
     @OrderBy("createdDate desc")
+    @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Review> reviewList = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<ProblemTag> tagList = new ArrayList<>();
 
