@@ -1,27 +1,62 @@
 # This workflow will build a Java project with Gradle
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: Build & Deploy to AWS EC2
 
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+env:
+  S3_BUCKET_NAME: ayo-springboot-build
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    # 실행 환경 지정
+    runs-on: ubuntu-18.04
+    # Task의 sequence를 명시한다.
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-        distribution: 'adopt'
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-    - name: Build with Gradle
-      run: ./gradlew build -Dspring.profiles.active=test
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      # Build
+      - name: Build with Gradle
+        run: ./gradlew clean build
+      # 전송할 파일을 담을 디렉토리 생성
+      - name: Make Directory for deliver
+        run: mkdir deploy
+
+      # Jar 파일 Copy
+      - name: Copy Jar
+        run: cp ./build/libs/*.jar ./deploy/
+
+      # appspec.yml Copy
+      - name: Copy appspec
+        run: cp appspec.yml ./deploy/
+
+      # script file Copy
+      - name: Copy shell scripts
+        run: cp ./scripts/* ./deploy/
+
+      # 압축파일 형태로 전달
+      - name: Make zip file
+        run: zip -r -qq -j ./ars-build.zip ./deploy
+
+      # S3 Bucket으로 copy
+      - name: Deliver to AWS S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws s3 cp --region ap-northeast-2 --acl private ./ars-build.zip s3://$S3_BUCKET_NAME/
+      # Deploy
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: aws deploy create-deployment --application-name ayo-springboot-service --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name ayo-springboot-webservice-group --file-exists-behavior OVERWRITE --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=ars-build.zip --region ap-northeast-2
