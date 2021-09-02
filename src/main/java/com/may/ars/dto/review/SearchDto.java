@@ -10,6 +10,8 @@ public class SearchDto {
 
     private Long id;
 
+    private Long problemId;
+
     private String title;
 
     private int step;

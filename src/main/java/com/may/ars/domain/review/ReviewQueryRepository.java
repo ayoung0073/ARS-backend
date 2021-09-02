@@ -1,8 +1,7 @@
 package com.may.ars.domain.review;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
@@ -20,12 +19,23 @@ public class ReviewQueryRepository extends QuerydslRepositorySupport {
         this.queryFactory = queryFactory;
     }
 
-    public List<Review> search(String keyword){
+    public List<Review> search(String keyword, Long reviewId, int size) {
         return queryFactory
                 .selectFrom(review)
-                .where(review.content.containsIgnoreCase(keyword).or(review.problem.title.containsIgnoreCase(keyword)))
-                .orderBy(review.problem.createdDate.desc())
+                .where(
+                        ltReviewId(reviewId),
+                        review.content.containsIgnoreCase(keyword).or(review.problem.title.containsIgnoreCase(keyword))
+                )
+                .orderBy(review.id.desc())
+                .limit(size)
                 .fetch();
+    }
+
+    private BooleanExpression ltReviewId(Long reviewId) {
+        if (reviewId.equals(0L)) {
+            return null;
+        }
+        return review.id.lt(reviewId);
     }
 
 }
