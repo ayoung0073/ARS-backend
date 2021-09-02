@@ -102,22 +102,22 @@ public class ProblemService {
     }
 
     public List<Problem> getProblemList(Long cursorId, Pageable page) {
-        return cursorId == 0 ?
-                problemRepository.findAllByOrderByModifiedDateDesc(page) :
-                problemRepository.findByIdLessThanOrderByModifiedDateDesc(cursorId, page); // 커서기반 페이징
+        return cursorId == 0L ?
+                problemRepository.findAllByOrderByIdDesc(page) :
+                problemRepository.findByIdLessThanOrderByIdDesc(cursorId, page); // 커서기반 페이징
     }
 
     public List<Problem> getProblemListByStep(int step, Long cursorId, Pageable page) {
-        return cursorId == 0 ?
+        return cursorId == 0L ?
                 problemRepository.findAllByStepOrderByModifiedDateDesc(step, page) :
-                problemRepository.findByIdLessThanAndStepOrderByModifiedDateDesc(cursorId, step, page); // 커서기반 페이징
+                problemRepository.findByIdLessThanAndStepOrderByIdDesc(cursorId, step, page); // 커서기반 페이징
     }
 
     public List<Problem> getProblemListByTagName(String tagName, Long cursorId, Pageable page) {
         if (tagName == null) {
             return getProblemList(cursorId, page);
         }
-        return problemQueryRepository.findAllByTag(tagName, page);
+        return problemQueryRepository.findAllByTag(tagName, cursorId, page);
     }
 
     private Problem checkValidUser(Long problemId, Member member) {

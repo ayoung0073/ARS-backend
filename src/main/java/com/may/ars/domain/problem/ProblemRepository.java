@@ -10,9 +10,9 @@ import java.util.Optional;
 
 public interface ProblemRepository extends JpaRepository<Problem, Long> {
 
-    List<Problem> findAllByOrderByModifiedDateDesc(Pageable pageable);
+    List<Problem> findAllByOrderByIdDesc(Pageable pageable);
 
-    List<Problem> findByIdLessThanOrderByModifiedDateDesc(Long id, Pageable pageable); // 커서 기반 페이징
+    List<Problem> findByIdLessThanOrderByIdDesc(Long id, Pageable pageable); // 커서 기반 페이징
 
     Optional<Problem> findProblemByIdAndWriter(Long id, Member writer);
 
@@ -22,6 +22,6 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
 
     List<Problem> findAllByStepOrderByModifiedDateDesc(int step, Pageable pageable);
 
-    List<Problem> findByIdLessThanAndStepOrderByModifiedDateDesc(Long id, int step, Pageable pageable); // 커서 기반 페이징
+    List<Problem> findByIdLessThanAndStepOrderByIdDesc(Long id, int step, Pageable pageable); // 커서 기반 페이징
 
 }
