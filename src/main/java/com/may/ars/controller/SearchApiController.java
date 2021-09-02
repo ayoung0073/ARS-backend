@@ -26,8 +26,10 @@ public class SearchApiController {
     private final ReviewMapper reviewMapper;
 
     @GetMapping
-    public ResponseEntity<?> search(@RequestParam(value = "search") String name) {
-        List<SearchDto> searchList = searchService.search(name).stream()
+    public ResponseEntity<?> search(@RequestParam(value = "search") String name,
+                                    @RequestParam(defaultValue = "0") Long cursorId,
+                                    @RequestParam(defaultValue = "10") int size) {
+        List<SearchDto> searchList = searchService.search(name, cursorId, size).stream()
                 .map(reviewMapper::toSearchDto)
                 .collect(Collectors.toList());
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_GET_SEARCH_LIST, searchList));

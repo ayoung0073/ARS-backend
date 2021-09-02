@@ -7,12 +7,9 @@ import com.may.ars.dto.review.SearchDto;
 import com.may.ars.dto.review.ReviewRequestDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface ReviewMapper {
-
-    ReviewMapper INSTANCE = Mappers.getMapper(ReviewMapper.class);
 
     @Mapping(target = "problem", source = "problem")
     @Mapping(target = "id", ignore = true)
@@ -26,7 +23,8 @@ public interface ReviewMapper {
     @Mapping(target = "id", source = "id")
     Review toEntity(Long id, ReviewRequestDto requestDto);
 
-    @Mapping(target = "id", source="problem.id")
+    @Mapping(target = "id", source="id")
+    @Mapping(target = "problemId", source="problem.id")
     @Mapping(target = "title", source="problem.title")
     @Mapping(target = "step", source="problem.step")
     @Mapping(target = "link", source="problem.link")
