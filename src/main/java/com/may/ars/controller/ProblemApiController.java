@@ -36,9 +36,10 @@ public class ProblemApiController {
     @GetMapping
     public ResponseEntity<?> getProblemList(@RequestParam(value = "step", defaultValue = "0") int step,
                                             @RequestParam(value = "tag", defaultValue = "") String tagName,
-                                            @RequestParam(value = "page", defaultValue = "0") int page,
+                                            @RequestParam(value = "cursorId", defaultValue = "0") Long cursorId,
                                             @RequestParam(value = "size", defaultValue = "12") int size){
-        List<ProblemOnlyDto> problemList = problemService.getProblemListByStepOrTag(step, tagName, PageRequest.of(page, size)).stream()
+        // PageRequest.of()의 첫 번째 파라미터는 무조건 0으로, 즉 최초의 페이지로 처리를 해야 한다.
+        List<ProblemOnlyDto> problemList = problemService.getProblemListByStepOrTag(step, tagName, cursorId, PageRequest.of(0, size)).stream()
                                                                                     .map(problemMapper::toReviewExcludeDto)
                                                                                     .collect(Collectors.toList());
         return ResponseEntity.ok().body(ResponseDto.of(

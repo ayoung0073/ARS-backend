@@ -12,12 +12,16 @@ public interface ProblemRepository extends JpaRepository<Problem, Long> {
 
     List<Problem> findAllByOrderByModifiedDateDesc(Pageable pageable);
 
+    List<Problem> findByIdLessThanOrderByModifiedDateDesc(Long id, Pageable pageable); // 커서 기반 페이징
+
     Optional<Problem> findProblemByIdAndWriter(Long id, Member writer);
 
     void deleteProblemById(Long id);
 
     List<Problem> findAllByNotificationDate(LocalDate date);
 
-    List<Problem> findAllByStep(int step, Pageable pageable);
+    List<Problem> findAllByStepOrderByModifiedDateDesc(int step, Pageable pageable);
+
+    List<Problem> findByIdLessThanAndStepOrderByModifiedDateDesc(Long id, int step, Pageable pageable); // 커서 기반 페이징
 
 }

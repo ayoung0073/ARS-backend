@@ -29,18 +29,15 @@ public class ProblemService {
     private final ReviewMapper reviewMapper;
 
     @Transactional(readOnly = true)
-    public List<Problem> getProblemListByStepOrTag(int step, String tagName, Pageable page) {
+    public List<Problem> getProblemListByStepOrTag(int step, String tagName, Long cursorId, Pageable page) {
         if (step == 0 && tagName.isBlank()) {
-            return getProblemList(page);
-        }
-        else if (step == 0) {
-            return getProblemListByTagName(tagName, page);
-        }
-        else if (tagName.isBlank()){
-            return getProblemListByStep(step, page);
-        }
-        else {
-            return getProblemList(page);
+            return getProblemList(cursorId, page);
+        } else if (step == 0) {
+            return getProblemListByTagName(tagName, cursorId, page);
+        } else if (tagName.isBlank()) {
+            return getProblemListByStep(step, cursorId, page);
+        } else {
+            return getProblemList(cursorId, page);
         }
     }
 
@@ -104,17 +101,21 @@ public class ProblemService {
         problemRepository.deleteById(problemId);
     }
 
-    public List<Problem> getProblemList(Pageable page) {
-        return problemRepository.findAllByOrderByModifiedDateDesc(page);
+    public List<Problem> getProblemList(Long cursorId, Pageable page) {
+        return cursorId == 0 ?
+                problemRepository.findAllByOrderByModifiedDateDesc(page) :
+                problemRepository.findByIdLessThanOrderByModifiedDateDesc(cursorId, page); // 커서기반 페이징
     }
 
-    public List<Problem> getProblemListByStep(int step, Pageable page) {
-        return problemRepository.findAllByStep(step, page);
+    public List<Problem> getProblemListByStep(int step, Long cursorId, Pageable page) {
+        return cursorId == 0 ?
+                problemRepository.findAllByStepOrderByModifiedDateDesc(step, page) :
+                problemRepository.findByIdLessThanAndStepOrderByModifiedDateDesc(cursorId, step, page); // 커서기반 페이징
     }
 
-    public List<Problem> getProblemListByTagName(String tagName, Pageable page) {
+    public List<Problem> getProblemListByTagName(String tagName, Long cursorId, Pageable page) {
         if (tagName == null) {
-            return getProblemList(page);
+            return getProblemList(cursorId, page);
         }
         return problemQueryRepository.findAllByTag(tagName, page);
     }
