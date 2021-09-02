@@ -102,13 +102,13 @@ public class ProblemService {
     }
 
     public List<Problem> getProblemList(Long cursorId, Pageable page) {
-        return cursorId == 0L ?
+        return cursorId.equals(0L) ?
                 problemRepository.findAllByOrderByIdDesc(page) :
                 problemRepository.findByIdLessThanOrderByIdDesc(cursorId, page); // 커서기반 페이징
     }
 
     public List<Problem> getProblemListByStep(int step, Long cursorId, Pageable page) {
-        return cursorId == 0L ?
+        return cursorId.equals(0L) ?
                 problemRepository.findAllByStepOrderByModifiedDateDesc(step, page) :
                 problemRepository.findByIdLessThanAndStepOrderByIdDesc(cursorId, step, page); // 커서기반 페이징
     }
