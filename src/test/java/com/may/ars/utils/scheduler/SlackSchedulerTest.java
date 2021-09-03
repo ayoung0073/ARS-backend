@@ -1,4 +1,4 @@
-package com.may.ars.utils.schedular;
+package com.may.ars.utils.scheduler;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.may.ars.utils.schedular;
+package com.may.ars.utils.scheduler;
 
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.problem.ProblemRepository;
