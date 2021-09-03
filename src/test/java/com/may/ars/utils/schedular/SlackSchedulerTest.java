@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SlackRegisterSchedulerTest {
+class SlackSchedulerTest {
 
     @Autowired
-    private SlackRegisterScheduler scheduler;
+    private SlackScheduler scheduler;
 
     @Test
     void 슬랙_알림_테스트()  {
