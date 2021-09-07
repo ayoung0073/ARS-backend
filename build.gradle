@@ -65,6 +65,11 @@ dependencies {
 
     // Validation
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Scheduler Lock
+    implementation 'net.javacrumbs.shedlock:shedlock-spring:4.26.0'
+    implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:4.26.0'
+
 }
 
 test {
