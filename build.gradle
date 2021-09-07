@@ -70,6 +70,8 @@ dependencies {
     implementation 'net.javacrumbs.shedlock:shedlock-spring:4.26.0'
     implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:4.26.0'
 
+    // CloudWatch
+    compile group: 'ca.pjer', name: 'logback-awslogs-appender', version: '1.4.0'
 }
 
 test {
