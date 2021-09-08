@@ -1,6 +1,7 @@
 package com.may.ars.common.advice;
 import com.may.ars.common.advice.exception.BusinessException;
 import com.may.ars.dto.common.ResponseDto;
+import io.jsonwebtoken.security.SignatureException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -13,13 +14,6 @@ import javax.servlet.ServletException;
 @Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
-    @ExceptionHandler(BusinessException.class)
-    protected ResponseEntity<ResponseDto<?>> businessException(final BusinessException e) {
-        log.error("Business Exception : " + e.getMessage());
-        final ExceptionCode exceptionCode = e.getExceptionCode();
-        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getStatus(), e.getMessage()), exceptionCode.getStatus());
-    }
 
     /*
      * javax.validation.Valid or @Validated 으로 binding error 발생할 경우
@@ -48,6 +42,20 @@ public class GlobalExceptionHandler {
         log.error("MethodArgumentNotValidException : " + e.getMessage());
         final ExceptionCode exceptionCode = ExceptionCode.INVALID_INPUT_VALUE;
         return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getStatus(), exceptionCode.getMessage()), exceptionCode.getStatus());
+    }
+
+    @ExceptionHandler(SignatureException.class)
+    protected ResponseEntity<ResponseDto<?>> signatureException(SignatureException e) {
+        log.error("SignatureException : " + e.getMessage());
+        final ExceptionCode exceptionCode = ExceptionCode.JWT_EXCEPTION;
+        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getStatus(), exceptionCode.getMessage()), exceptionCode.getStatus());
+    }
+
+    @ExceptionHandler(BusinessException.class)
+    protected ResponseEntity<ResponseDto<?>> businessException(final BusinessException e) {
+        log.error("Business Exception : " + e.getMessage());
+        final ExceptionCode exceptionCode = e.getExceptionCode();
+        return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getStatus(), e.getMessage()), exceptionCode.getStatus());
     }
 
     /**
