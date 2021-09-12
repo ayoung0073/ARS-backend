@@ -13,7 +13,9 @@ import java.util.List;
 @Builder
 public class ProblemOnlyDto {
 
-    private Long id;
+    private Long reviewId;
+
+    private Long problemId;
 
     private String title;
 

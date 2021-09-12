@@ -3,6 +3,8 @@ package com.may.ars.mapper;
 import com.may.ars.domain.problem.Problem;
 import com.may.ars.domain.review.Review;
 import com.may.ars.dto.problem.request.ProblemRequestDto;
+import com.may.ars.dto.problem.response.ProblemDto;
+import com.may.ars.dto.problem.response.ProblemOnlyDto;
 import com.may.ars.dto.review.SearchDto;
 import com.may.ars.dto.review.ReviewRequestDto;
 import org.mapstruct.Mapper;
@@ -29,4 +31,13 @@ public interface ReviewMapper {
     @Mapping(target = "step", source="problem.step")
     @Mapping(target = "link", source="problem.link")
     SearchDto toSearchDto(Review review);
+
+    @Mapping(target = "problemId", source="problem.id")
+    @Mapping(target = "title", source="problem.title")
+    @Mapping(target = "step", source="problem.step")
+    @Mapping(target = "notificationDate", source="problem.notificationDate")
+    @Mapping(target = "link", source="problem.link")
+    @Mapping(target = "tagList", source="problem.tagList")
+    @Mapping(target = "reviewId", source="id")
+    ProblemOnlyDto toProblemDto(Review review);
 }
