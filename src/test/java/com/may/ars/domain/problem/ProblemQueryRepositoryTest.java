@@ -48,7 +48,7 @@ class ProblemQueryRepositoryTest {
         tagRepository.save(tag);
 
         // then
-        List<Problem> problemList = problemQueryRepository.findAllByTag(tagName, PageRequest.of(0, 5));
+        List<Problem> problemList = problemQueryRepository.findAllByTag(tagName, 1L, PageRequest.of(0, 5));
         assertThat(problemList.size(), is(1));
         assertThat(problemList.get(0).getTitle(), is(title));
     }
