@@ -1,13 +1,11 @@
 package com.may.ars.domain.problem;
 
-import com.may.ars.domain.review.Review;
-import com.may.ars.domain.review.ReviewQueryRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
@@ -22,7 +20,7 @@ class ProblemQueryRepositoryTest {
     private ProblemRepository problemRepository;
 
     @Autowired
-    private ReviewQueryRepository reviewQueryRepository;
+    private ProblemQueryRepository problemQueryRepository;
 
     @Autowired
     private ProblemTagRepository problemTagRepository;
@@ -50,8 +48,8 @@ class ProblemQueryRepositoryTest {
         tagRepository.save(tag);
 
         // then
-        List<Review> reviewList = reviewQueryRepository.findAllByTag(tagName, 1L, PageRequest.of(0, 5));
-        assertThat(reviewList.size(), is(1));
+        List<Problem> problemList = problemQueryRepository.findAllByTag(LocalDateTime.now(), 1L, tagName, 5);
+        assertThat(problemList.size(), is(1));
 //        assertThat(reviewList.get(0).getTitle(), is(title));
     }
 

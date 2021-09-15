@@ -5,6 +5,7 @@ import com.may.ars.domain.problem.ProblemTag;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
@@ -13,9 +14,7 @@ import java.util.List;
 @Builder
 public class ProblemOnlyDto {
 
-    private Long reviewId;
-
-    private Long problemId;
+    private Long id;
 
     private String title;
 
@@ -24,6 +23,8 @@ public class ProblemOnlyDto {
     private int step;
 
     private LocalDate notificationDate;
+
+    private LocalDateTime modifiedDate;
 
     @JsonIgnoreProperties({"problem"})
     private List<ProblemTag> tagList;
