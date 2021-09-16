@@ -8,6 +8,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.ServletException;
 
@@ -33,13 +34,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getStatus(), exceptionCode.getMessage()), exceptionCode.getStatus());
     }
 
-    /**
-     * javax.validation.Valid or @Validated 으로 binding error 발생 시 발생
-     * HttpMessageConverter 에서 등록한 HttpMessageConverter binding 못할 경우 발생
-     */
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<ResponseDto<?>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        log.error("MethodArgumentNotValidException : " + e.getMessage());
+    @ExceptionHandler({MethodArgumentNotValidException.class, MethodArgumentTypeMismatchException.class})
+    protected ResponseEntity<ResponseDto<?>> handleMethodArgumentException() {
+        log.error("MethodArgumentException");
         final ExceptionCode exceptionCode = ExceptionCode.INVALID_INPUT_VALUE;
         return new ResponseEntity<>(ResponseDto.fail(exceptionCode.getStatus(), exceptionCode.getMessage()), exceptionCode.getStatus());
     }
