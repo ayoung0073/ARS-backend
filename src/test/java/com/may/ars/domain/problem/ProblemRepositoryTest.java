@@ -24,7 +24,7 @@ class ProblemRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
 
-     @Test
+    @Test
     void 문제_존재X_테스트() {
          // given
          final Member member = Member.builder()
