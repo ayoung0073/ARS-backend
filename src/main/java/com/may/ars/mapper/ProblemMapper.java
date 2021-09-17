@@ -13,8 +13,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper(componentModel = "spring")
 public interface ProblemMapper {
 
-    ProblemMapper INSTANCE = Mappers.getMapper(ProblemMapper.class);
-
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "writer", source = "member")
     @Mapping(target = "tagList", ignore = true)

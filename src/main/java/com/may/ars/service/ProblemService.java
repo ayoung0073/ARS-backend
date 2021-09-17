@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Slf4j
@@ -21,23 +22,23 @@ import java.util.*;
 public class ProblemService {
 
     private final ProblemRepository problemRepository;
-    private final ProblemQueryRepository problemQueryRepository;
     private final TagRepository tagRepository;
     private final ReviewRepository reviewRepository;
+    private final ProblemQueryRepository problemQueryRepository;
     private final ProblemTagRepository problemTagRepository;
 
     private final ReviewMapper reviewMapper;
 
     @Transactional(readOnly = true)
-    public List<Problem> getProblemListByStepOrTag(int step, String tagName, Long cursorId, Pageable page) {
+    public List<Problem> getProblemListByStepOrTag(LocalDateTime modifiedDate, Long cursorId, int step, String tagName, Pageable page) {
         if (step == 0 && tagName.isBlank()) {
-            return getProblemList(cursorId, page);
-        } else if (step == 0) {
-            return getProblemListByTagName(tagName, cursorId, page);
-        } else if (tagName.isBlank()) {
-            return getProblemListByStep(step, cursorId, page);
-        } else {
-            return getProblemList(cursorId, page);
+            return getProblemList(modifiedDate, cursorId, page);
+        }
+        else if (step == 0) {
+            return getProblemListByTagName(modifiedDate, tagName, cursorId, page);
+        }
+        else {
+            return getProblemList(modifiedDate, cursorId, page);
         }
     }
 
@@ -101,10 +102,11 @@ public class ProblemService {
         problemRepository.deleteById(problemId);
     }
 
-    public List<Problem> getProblemList(Long cursorId, Pageable page) {
-        return cursorId.equals(0L) ?
-                problemRepository.findAllByOrderByIdDesc(page) :
-                problemRepository.findByIdLessThanOrderByIdDesc(cursorId, page); // 커서기반 페이징
+    public List<Problem> getProblemList(LocalDateTime modifiedDate, Long cursorId, Pageable page) {
+        if (modifiedDate == null) {
+            return problemRepository.findByOrderByModifiedDateDesc(page);
+        }
+        return problemRepository.findByModifiedDateBeforeAndIdNotOrderByModifiedDateDesc(modifiedDate, cursorId, page);
     }
 
     public List<Problem> getProblemListByStep(int step, Long cursorId, Pageable page) {
@@ -113,11 +115,11 @@ public class ProblemService {
                 problemRepository.findByIdLessThanAndStepOrderByIdDesc(cursorId, step, page); // 커서기반 페이징
     }
 
-    public List<Problem> getProblemListByTagName(String tagName, Long cursorId, Pageable page) {
+    public List<Problem> getProblemListByTagName(LocalDateTime modifiedDate, String tagName, Long cursorId, Pageable page) {
         if (tagName == null) {
-            return getProblemList(cursorId, page);
+            return getProblemList(modifiedDate, cursorId, page);
         }
-        return problemQueryRepository.findAllByTag(tagName, cursorId, page);
+        return problemQueryRepository.findAllByTag(modifiedDate, cursorId, tagName, page.getPageSize());
     }
 
     private Problem checkValidUser(Long problemId, Member member) {

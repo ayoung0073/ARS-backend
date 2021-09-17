@@ -36,11 +36,11 @@ public class Problem extends BaseEntity {
 
     @Builder.Default
     @OrderBy("createdDate desc")
-    @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Review> reviewList = new ArrayList<>();
 
     @Builder.Default
-    @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProblemTag> tagList = new ArrayList<>();
 
 }

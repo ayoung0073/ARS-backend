@@ -4,13 +4,17 @@ import com.may.ars.domain.member.Member;
 import com.may.ars.domain.member.MemberRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+@ActiveProfiles("test")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
 class ProblemRepositoryTest {
 
@@ -20,8 +24,7 @@ class ProblemRepositoryTest {
     @Autowired
     private MemberRepository memberRepository;
 
-
-     @Test
+    @Test
     void 문제_존재X_테스트() {
          // given
          final Member member = Member.builder()

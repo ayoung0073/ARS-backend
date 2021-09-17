@@ -32,8 +32,9 @@ public class ReviewQueryRepository extends QuerydslRepositorySupport {
     }
 
     private BooleanExpression ltReviewId(Long reviewId) {
+        // id < 파라미터를 첫 페이지에선 사용하지 않기 위한 동적 쿼리
         if (reviewId.equals(0L)) {
-            return null;
+            return null; // BooleanExpression 자리에 null 이 반환되면 조건문에서 자동으로 제거
         }
         return review.id.lt(reviewId);
     }

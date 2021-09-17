@@ -7,12 +7,22 @@ import com.may.ars.dto.problem.request.ProblemRequestDto;
 import com.may.ars.dto.review.SearchDto;
 import com.may.ars.dto.review.ReviewRequestDto;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class ReviewMapperTest {
+
+    @Autowired
+    private ProblemMapper problemMapper;
+
+    @Autowired
+    private ReviewMapper reviewMapper;
+
     @Test
     void 등록_toEntity_테스트() {
         // given
@@ -22,10 +32,10 @@ class ReviewMapperTest {
                 .step(3)
                 .build();
         final Member member = null;
-        final Problem problem = ProblemMapper.INSTANCE.toEntity(registerDto, member);
+        final Problem problem = problemMapper.toEntity(registerDto, member);
 
         // when
-        final Review review = ReviewMapper.INSTANCE.toEntity(problem, registerDto);
+        final Review review = reviewMapper.toEntity(problem, registerDto);
 
         //then
         assertNotNull(review);
@@ -40,7 +50,7 @@ class ReviewMapperTest {
                 .build();
 
         // when
-        final Review review = ReviewMapper.INSTANCE.toEntity(1L, requestDto);
+        final Review review = reviewMapper.toEntity(1L, requestDto);
 
         //then
         assertNotNull(review);
@@ -61,7 +71,7 @@ class ReviewMapperTest {
                 .build();
 
         // when
-        SearchDto searchDto = ReviewMapper.INSTANCE.toSearchDto(review);
+        SearchDto searchDto = reviewMapper.toSearchDto(review);
 
         // then
         assertThat(searchDto.getTitle(), is(problem.getTitle()));

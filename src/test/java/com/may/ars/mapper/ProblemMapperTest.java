@@ -6,6 +6,8 @@ import com.may.ars.dto.problem.request.ProblemRequestDto;
 import com.may.ars.dto.problem.response.ProblemDto;
 import com.may.ars.dto.problem.response.ProblemOnlyDto;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 
@@ -13,7 +15,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SpringBootTest
 class ProblemMapperTest {
+
+    @Autowired
+    private ProblemMapper problemMapper;
+
     @Test
     void toEntity_테스트() {
         // given
@@ -24,7 +31,7 @@ class ProblemMapperTest {
                 .build();
         final Member member = null;
         // when
-        final Problem problem = ProblemMapper.INSTANCE.toEntity(registerDto, member);
+        final Problem problem = problemMapper.toEntity(registerDto, member);
         // then
         assertNotNull(problem);
         assertThat(problem.getTitle(), is(registerDto.getTitle()));
@@ -42,7 +49,7 @@ class ProblemMapperTest {
                 .reviewList(null)
                 .build();
         // when
-        final ProblemDto problemDto = ProblemMapper.INSTANCE.toDto(problem);
+        final ProblemDto problemDto = problemMapper.toDto(problem);
         // given
         assertThat(problemDto.getTitle(), is(problem.getTitle()));
         assertThat(problemDto.getReviewList(), is(problem.getReviewList()));
@@ -60,7 +67,7 @@ class ProblemMapperTest {
                 .reviewList(null)
                 .build();
         // when
-        final ProblemOnlyDto problemDto = ProblemMapper.INSTANCE.toReviewExcludeDto(problem);
+        final ProblemOnlyDto problemDto = problemMapper.toReviewExcludeDto(problem);
         // given
         assertThat(problemDto.getTitle(), is(problem.getTitle()));
     }

@@ -14,15 +14,18 @@ import com.may.ars.utils.auth.MemberContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.may.ars.common.message.SuccessMessage.*;
+import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,18 +33,20 @@ import static com.may.ars.common.message.SuccessMessage.*;
 @RequestMapping("/api/problems")
 public class ProblemApiController {
 
-    private final ProblemMapper problemMapper;
     private final ProblemService problemService;
+
+    private final ProblemMapper problemMapper;
 
     @GetMapping
     public ResponseEntity<?> getProblemList(@RequestParam(value = "step", defaultValue = "0") int step,
                                             @RequestParam(value = "tag", defaultValue = "") String tagName,
                                             @RequestParam(value = "cursorId", defaultValue = "0") Long cursorId,
+                                            @RequestParam(value = "timestamp", required = false)
+                                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime modifiedDate,
                                             @RequestParam(value = "size", defaultValue = "12") int size){
         // PageRequest.of()의 첫 번째 파라미터는 무조건 0으로, 즉 최초의 페이지로 처리를 해야 한다.
-        List<ProblemOnlyDto> problemList = problemService.getProblemListByStepOrTag(step, tagName, cursorId, PageRequest.of(0, size)).stream()
-                                                                                    .map(problemMapper::toReviewExcludeDto)
-                                                                                    .collect(Collectors.toList());
+        List<ProblemOnlyDto> problemList = problemService.getProblemListByStepOrTag(modifiedDate, cursorId, step, tagName, PageRequest.of(0, size))
+                .stream().map(problemMapper::toReviewExcludeDto).collect(toList());
         return ResponseEntity.ok().body(ResponseDto.of(
                 HttpStatus.OK, SUCCESS_GET_PROBLEM_LIST, problemList)
         );

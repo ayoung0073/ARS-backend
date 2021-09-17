@@ -38,8 +38,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0' // builder 패턴 사용
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
 
-    testImplementation group: 'com.h2database', name: 'h2', version: '1.4.200'
-    compile group: 'com.h2database', name: 'h2', version: '1.4.200'
+    testImplementation group: 'com.h2database', name: 'h2', version: '1.4.199'
 
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
     runtimeOnly 'mysql:mysql-connector-java'
@@ -70,6 +69,9 @@ dependencies {
     implementation 'net.javacrumbs.shedlock:shedlock-spring:4.26.0'
     implementation 'net.javacrumbs.shedlock:shedlock-provider-jdbc-template:4.26.0'
 
+    // CloudWatch
+    compile group: 'ca.pjer', name: 'logback-awslogs-appender', version: '1.4.0'
+    implementation 'com.github.maricn:logback-slack-appender:1.4.0' // Slack
 }
 
 test {

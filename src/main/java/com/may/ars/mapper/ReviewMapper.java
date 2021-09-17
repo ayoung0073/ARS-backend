@@ -29,4 +29,5 @@ public interface ReviewMapper {
     @Mapping(target = "step", source="problem.step")
     @Mapping(target = "link", source="problem.link")
     SearchDto toSearchDto(Review review);
+
 }
