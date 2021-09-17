@@ -5,7 +5,7 @@ name: Build & Deploy to AWS EC2
 
 on:
   push:
-    branches: [ master ]
+    branches: [ feature/ci-cd ]
   pull_request:
     branches: [ master ]
 env:
