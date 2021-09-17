@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+ars:
+  secret_key: testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest
+
+slack:
+  token: temptoken
