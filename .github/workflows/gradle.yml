@@ -40,10 +40,6 @@ jobs:
       - name: Copy shell scripts
         run: cp ./scripts/* ./deploy/
 
-      # script file Copy
-      - name: Copy shell scripts again
-        run: cp ./scripts/* ./deploy/scripts/
-
       # appspec.yml Copy
       - name: Copy appspec
         run: cp appspec.yml ./deploy/
