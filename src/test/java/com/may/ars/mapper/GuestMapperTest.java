@@ -4,11 +4,17 @@ import com.may.ars.domain.guest.GuestBook;
 import com.may.ars.dto.guest.GuestRequestDto;
 import com.may.ars.dto.guest.GuestResponseDto;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+@SpringBootTest
 class GuestMapperTest {
+
+    @Autowired
+    private GuestMapper guestMapper;
 
     @Test
     void toEntity_테스트() {
@@ -18,7 +24,7 @@ class GuestMapperTest {
                 .nickname("닉네임")
                 .build();
         // when
-        final GuestBook guestBook = GuestMapper.INSTANCE.toEntity(requestDto);
+        final GuestBook guestBook = guestMapper.toEntity(requestDto);
         // then
         assertThat(guestBook.getContent(), is(requestDto.getContent()));
         assertThat(guestBook.getNickname(), is(requestDto.getNickname()));
@@ -32,7 +38,7 @@ class GuestMapperTest {
                 .nickname("닉네임")
                 .build();
         // when
-        final GuestResponseDto responseDto = GuestMapper.INSTANCE.toDto(guestBook);
+        final GuestResponseDto responseDto = guestMapper.toDto(guestBook);
         // then
         assertThat(responseDto.getContent(), is(guestBook.getContent()));
         assertThat(responseDto.getNickname(), is(guestBook.getNickname()));
