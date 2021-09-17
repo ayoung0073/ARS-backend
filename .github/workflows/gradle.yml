@@ -36,13 +36,17 @@ jobs:
       - name: Copy Jar
         run: cp ./build/libs/*.jar ./deploy/
 
+      # script file Copy
+      - name: Copy shell scripts
+        run: cp ./scripts/* ./deploy/
+
+      # script file Copy
+      - name: Copy shell scripts again
+        run: cp ./scripts/* ./deploy/scripts/
+
       # appspec.yml Copy
       - name: Copy appspec
         run: cp appspec.yml ./deploy/
-
-      # script file Copy
-      - name: Copy shell scripts
-        run: cp ./scripts/* ./deploy/scripts/
 
       # 압축파일 형태로 전달
       - name: Make zip file
