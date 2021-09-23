@@ -7,7 +7,7 @@ on:
   push:
     branches: [ develop ]
   pull_request:
-    branches: [ master ]
+    branches: [ develop ]
 env:
   S3_BUCKET_NAME: ayo-springboot-build
 
