@@ -25,7 +25,7 @@ public class ReviewService {
     @Transactional
     public void registerReview(Long problemId, ReviewRequestDto registerDto, Member member) {
         Problem problem = problemRepository.findById(problemId).orElseThrow(EntityNotFoundException::new);
-        problem.setNotificationDate(registerDto.getNotificationDate());
+        problem.updateNotificationDate(registerDto.getNotificationDate());
         if (!problem.getWriter().getId().equals(member.getId())) {
             throw new UserAuthenticationException();
         }

@@ -43,7 +43,7 @@ public class ProblemServiceTest {
                 .content("테스트")
                 .build();
 
-        problem.setReviewList(singletonList(review));
+        problem.setReviewAndTagList(review, null);
         problemRepository.save(problem);
 
         Problem saveProblem = problemService.getProblemById(problem.getId());
@@ -58,7 +58,7 @@ public class ProblemServiceTest {
         Problem problem = Problem.builder().build();
         List<String> tagStringList = List.of("테스트1", "테스트2");
         List<ProblemTag> tagList = tagStringList.stream().map(tag -> new ProblemTag(problem, new Tag(tag))).collect(toList());
-        problem.setTagList(tagList);
+        problem.setReviewAndTagList(null, tagList);
         problemRepository.save(problem);
 
         Problem saveProblem = problemService.getProblemById(problem.getId());
@@ -79,7 +79,7 @@ public class ProblemServiceTest {
                                 tag -> new ProblemTag(problem, tag)).orElseGet(
                                 () -> new ProblemTag(problem, new Tag(tagName))
                         )).collect(toList());
-        problem.setTagList(tagList);
+        problem.setReviewAndTagList(null, tagList);
         problemRepository.save(problem);
 
         Problem saveProblem = problemService.getProblemById(problem.getId());
