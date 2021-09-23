@@ -2,7 +2,7 @@ package com.may.ars.service;
 
 import com.may.ars.common.advice.exception.EntityNotFoundException;
 import com.may.ars.domain.member.Member;
-import com.may.ars.domain.review.ReviewRepository;
+import com.may.ars.domain.review.Review;
 import com.may.ars.dto.problem.request.ProblemRequestDto;
 import com.may.ars.domain.problem.*;
 import com.may.ars.mapper.ReviewMapper;
@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import static java.util.stream.Collectors.toList;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,9 +24,7 @@ public class ProblemService {
 
     private final ProblemRepository problemRepository;
     private final TagRepository tagRepository;
-    private final ReviewRepository reviewRepository;
     private final ProblemQueryRepository problemQueryRepository;
-    private final ProblemTagRepository problemTagRepository;
 
     private final ReviewMapper reviewMapper;
 
@@ -54,24 +53,18 @@ public class ProblemService {
 
     @Transactional
     public Long registerProblem(Problem problem, ProblemRequestDto registerDto) {
+        Review review = reviewMapper.toEntity(problem, registerDto);
+
+        List<ProblemTag> tagList = registerDto.getTagList().stream()
+                .map(tagName -> tagRepository.findByTagName(tagName)
+                        .map(
+                                tag -> new ProblemTag(problem, tag)).orElseGet(
+                                () -> new ProblemTag(problem, new Tag(tagName))
+                        )).collect(toList());
+
+        problem.setReviewAndTagList(review, tagList);
         problemRepository.save(problem);
-        reviewRepository.save(reviewMapper.toEntity(problem, registerDto));
 
-        List<ProblemTag> problemTagList = new ArrayList<>();
-
-        // TODO 리팩토링 하고 싶다.
-        for (String tagName : registerDto.getTagList()) {
-            Optional<Tag> tagOptional = tagRepository.findByTagName(tagName);
-            Tag tag;
-            if (tagOptional.isEmpty()) { // 태그 새로 등록해야 하는 경우
-                tag = new Tag(tagName);
-                tagRepository.save(tag);
-            } else {
-                tag = tagOptional.get();
-            }
-            problemTagList.add(new ProblemTag(problem, tag));
-        }
-        problemTagRepository.saveAll(problemTagList);
         return problem.getId();
     }
 
