@@ -69,23 +69,16 @@ public class ProblemService {
     }
 
     @Transactional
-    public void updateProblem(Problem problem) {
-        Problem updateProblem = checkValidUser(problem.getId(), problem.getWriter());
-        updateProblem.setNotificationDate(problem.getNotificationDate());
-        problemRepository.save(updateProblem);
-    }
-
-    @Transactional
     public void updateStep(Long problemId, Member member, int step) {
         Problem updateProblem = checkValidUser(problemId, member);
-        updateProblem.setStep(step);
+        updateProblem.updateStep(step);
         problemRepository.save(updateProblem);
     }
 
     @Transactional
     public void updateNotificationDate(Long problemId, Member member, LocalDate notificationDate) {
         Problem updateProblem = checkValidUser(problemId, member);
-        updateProblem.setNotificationDate(notificationDate);
+        updateProblem.updateNotificationDate(notificationDate);
         problemRepository.save(updateProblem);
     }
 

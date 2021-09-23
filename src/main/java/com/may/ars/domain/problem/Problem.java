@@ -50,4 +50,12 @@ public class Problem extends BaseEntity {
         this.setTagList(tagList);
     }
 
+    public void updateStep(int step) {
+        this.step = step;
+    }
+
+    public void updateNotificationDate(LocalDate notificationDate) {
+        this.notificationDate = notificationDate;
+    }
+
 }

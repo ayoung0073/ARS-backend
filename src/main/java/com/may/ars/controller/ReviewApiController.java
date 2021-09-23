@@ -3,7 +3,6 @@ package com.may.ars.controller;
 import com.may.ars.domain.member.Member;
 import com.may.ars.dto.common.ResponseDto;
 import com.may.ars.dto.review.ReviewRequestDto;
-import com.may.ars.mapper.ProblemMapper;
 import com.may.ars.mapper.ReviewMapper;
 import com.may.ars.service.ProblemService;
 import com.may.ars.service.ReviewService;
@@ -26,7 +25,6 @@ public class ReviewApiController {
     private final ProblemService problemService;
     private final ReviewService reviewService;
 
-    private final ProblemMapper problemMapper;
     private final ReviewMapper reviewMapper;
 
     @AuthCheck
@@ -44,7 +42,7 @@ public class ReviewApiController {
                                           @PathVariable("reviewId") Long reviewId,
                                           @RequestBody @Valid ReviewRequestDto requestDto) {
         Member member = MemberContext.currentMember.get();
-        problemService.updateProblem(problemMapper.toEntity(problemId, requestDto, member));
+        problemService.updateNotificationDate(problemId, member, requestDto.getNotificationDate());
         reviewService.updateReview(reviewId, reviewMapper.toEntity(reviewId, requestDto), member);
         return ResponseEntity.ok().body(ResponseDto.of(HttpStatus.OK, SUCCESS_UPDATE_REVIEW));
     }

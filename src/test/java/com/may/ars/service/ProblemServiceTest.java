@@ -104,4 +104,5 @@ public class ProblemServiceTest {
         assertThat(saveProblem.getTagList().size(), is(tagStringList.size()));
         assertThat(saveProblem.getReviewList().get(0).getContent(), is(requestDto.getContent()));
     }
+
 }
