@@ -10,9 +10,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Collections.singletonList;
+
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Getter @Setter
+@Getter
 @Entity
 @Builder
 public class Problem extends BaseEntity {
@@ -42,5 +44,18 @@ public class Problem extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "problem", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ProblemTag> tagList = new ArrayList<>();
+
+    public void setReviewAndTagList(Review review, List<ProblemTag> tagList) {
+        this.reviewList = singletonList(review);
+        this.tagList = tagList;
+    }
+
+    public void updateStep(int step) {
+        this.step = step;
+    }
+
+    public void updateNotificationDate(LocalDate notificationDate) {
+        this.notificationDate = notificationDate;
+    }
 
 }

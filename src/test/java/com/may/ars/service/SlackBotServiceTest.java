@@ -19,7 +19,7 @@ class SlackBotServiceTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    // @Test
+    //    @Test
     void 유저_정보_By_이메일_테스트() {
         // given
         Member member = Member.builder()

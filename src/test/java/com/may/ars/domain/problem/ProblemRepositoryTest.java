@@ -13,7 +13,6 @@ import java.util.Optional;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-@ActiveProfiles("test")
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @DataJpaTest
 class ProblemRepositoryTest {
@@ -60,7 +59,7 @@ class ProblemRepositoryTest {
         problemRepository.save(problem);
 
         // when
-        Optional<Problem> optional = problemRepository.findProblemByIdAndWriter(2L, member);
+        Optional<Problem> optional = problemRepository.findProblemByIdAndWriter(problem.getId(), member);
 
         // then
         assertThat(optional.isPresent(), is(true));
@@ -103,15 +102,13 @@ class ProblemRepositoryTest {
         problemRepository.save(problem);
 
         // when
-        problem.setTitle(title);
-        problem.setLink(link);
+        problem.updateStep(3);
 
         problemRepository.save(problem);
 
         // then
         Problem updatedProblem = problemRepository.findById(problem.getId()).get();
 
-        assertThat(updatedProblem.getTitle(), is(title));
-        assertThat(updatedProblem.getLink(), is(link));
+        assertThat(updatedProblem.getStep(), is(3));
     }
 }
