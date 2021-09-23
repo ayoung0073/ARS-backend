@@ -8,7 +8,7 @@ IDLE_PORT=$(find_idle_port)
 DEPLOY_PATH=/home/ec2-user/deploy/
 REPOSITORY=/home/ec2-user/deploy
 
-BUILD_JAR=$(ls /home/ec2-user/jenkins/build/libs/*.jar)
+BUILD_JAR=$(ls /home/ec2-user/jenkins/*.jar)
 JAR_NAME=$(basename $BUILD_JAR)
 
 echo "> Build 파일 복사 : cp $BUILD_JAR $DEPLOY_PATH"  >> /home/ec2-user/log/deploy.log
