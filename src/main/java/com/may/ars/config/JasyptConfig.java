@@ -17,7 +17,7 @@ public class JasyptConfig {
     public StringEncryptor stringEncryptor() {
         PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
         encryptor.setProvider(new BouncyCastleProvider());
-        encryptor.setPoolSize(2);
+        encryptor.setPoolSize(1);
         encryptor.setPassword(encryptKey);
         encryptor.setAlgorithm("PBEWithSHA256And128BitAES-CBC-BC");
         return encryptor;
