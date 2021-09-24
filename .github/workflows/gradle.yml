@@ -5,9 +5,9 @@ name: Build & Deploy to AWS EC2
 
 on:
   push:
-    branches: [ feature/ci-cd ]
+    branches: [ develop ]
   pull_request:
-    branches: [ feature/ci-cd ]
+    branches: [ develop ]
 env:
   S3_BUCKET_NAME: ayo-springboot-build
 
