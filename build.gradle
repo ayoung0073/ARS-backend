@@ -72,6 +72,10 @@ dependencies {
     // CloudWatch
     compile group: 'ca.pjer', name: 'logback-awslogs-appender', version: '1.4.0'
     implementation 'com.github.maricn:logback-slack-appender:1.4.0' // Slack
+
+    // encryption
+    implementation 'com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.4'
+    implementation 'org.bouncycastle:bcprov-jdk16:1.46'
 }
 
 test {

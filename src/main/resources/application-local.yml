@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(E5Hrpzk1rHV875OKvLlM9YJucW4xQleWsjhY9vyNh/CfPGk9lp0EIjRfDqatYsC58HgCuju8iSqSwyUz1RTjrXF7EurOGel1D02z4JVeHlaIhvu+mq7v8D14g6ADeGbjpeLdTEfo3NvgrUH2i/lV9il722HVhLauya9gCVjr47NdQygN9cTUKSs1tVmvqTJy)
+    username: ENC(qsyMy9CiT70aCPAEWD+/I28oBrl3KE35T6VgRE/7Mu0=)
+    password: ENC(jo3qNQVDUro0jMsUtVEWWu3lST+hyZJu9iM07jyzErY=)
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  redis:
+    host: localhost
+    port: 6379
+
+
+social:
+  google:
+    client_id: ENC(fclV7ETZQu0c0hnldBRUASAE1EDOmh3YhZBwBW8XL99myiHBOD00l5RImeXQW3LunrI/aK8lD/N60XpPDMYFqJfTPe7UibfdKJlnH1xlr4ZtDnOXCRAHe+6sBGYwyPPe)
+    secret_key: ENC(YGBUhpdC0V2o/Nw6j158ro5CytHA7lBJ/gluwuThNLwh6JJ/KBo/xogM0ONxwoM3)
+    redirect_uri: http://127.0.0.1:8080/user/google/callback
+    token_request_url: https://oauth2.googleapis.com/token
+    profile_request_url: https://www.googleapis.com/oauth2/v3/userinfo
+
+ars:
+  secret_key: ENC(8Z2UCA/g7q8tZxffv4INyBJBElnEQidcXWGGpGh5SHrtE8d4RzPvOCF8NGFQ1i4+PvmB0L9uFqx4v1kOC0UuBUB4ZbJnmwaSTmQjk/BRbDbba61pYkB/VXbvza31WgSyh8FCeqgqtCDrZHYplQO45Dg19KI6ROT3jX86upQEvClyYQ3a6MP4NWt8r/l4di/spDWW2WMHTudkQv0lPx3WUA==)
+
+slack:
+  token: ENC(BYZ88wbNdP3e8h0edet3e8HH8TIo4LY83hK2s141TcqW9lNbeTYOBgsxbG15GSphSfgF3iAhm5z9GiVW8uPxVE+XLqZngoOfaGz9TW7s4ic=)
+
+logging:
+  slack:
+    webhook-uri: https://hooks.slack.com/services/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
+  config: classpath:logback-spring.xml
