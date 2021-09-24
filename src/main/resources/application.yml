@@ -1,3 +1,9 @@
+jasypt:
+  encryptor:
+    bean: encryptorBean
+
+---
+
 spring:
   profiles:
     active: dev1

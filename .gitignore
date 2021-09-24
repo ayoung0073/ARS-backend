@@ -25,6 +25,3 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-
-application-dev.yml
-application-local.yml
